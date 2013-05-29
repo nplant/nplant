@@ -6,7 +6,7 @@
 
 	<target name="main">
 
-		<call name="compile" />
+		<call target="compile" />
 
 	</target>
 
