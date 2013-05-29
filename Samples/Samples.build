@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<project name="test" default="main" basedir=".">
+
+	<property name="plantuml" value="..\Tools\PlantUML\plantuml.jar" />
+	<property name="out.dir" value="Generation" />
+	<property name="diagram.assembly" value="C:\Users\brok02\Documents\GitHub\NPlant\bin\Debug\NPlant.Tests.dll" />
+	<property name="oxygen-dir" value="C:\Program Files\Oxygen XML Developer 14" />
+	<property name="java" value="${oxygen-dir}\jre\bin\java.exe" />
+
+	<target name="main">
+		<nplant assembly="${diagram.assembly}" dir="${out.dir}" property="diagramFiles" delim=" " clean="true" />
+
+		<if test="${property::exists('diagramFiles')}">
+			<call target="gen-img" />
+		</if>
+	</target>
+
+	<target name="gen-img">
+		<exec program="${java}" verbose="false">
+			<arg value="-jar" />
+			<arg value="${plantuml}" />
+			<arg value="${diagramFiles}" />
+			<arg value="-o" />
+			<arg value="Images\" />
+		</exec>
+	</target>
+</project>

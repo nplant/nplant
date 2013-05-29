@@ -1,0 +1,12 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.nuget/Packages
+/bin/Debug
+/Src/NPlant.NAntTasks/obj/Debug
+/Src/NPlant.Samples/obj/Debug
+/Src/NPlant.Tests/obj/Debug
+*.suo
+*.user
+/Src/NPlant/obj/Debug
