@@ -11,6 +11,8 @@
 
 		<call target="compile" />
 
+		<call target="tests" />
+
 	</target>
 
 	<target name="nuget" description="Call nuget to pull down all dependencies">
@@ -23,12 +25,19 @@
 	</target>
 
 	<target name="compile" description="Compiles the solution passed in">
-		<echo message="Compiling ${sln.to.compile} in ${config} mode" />
 		<exec program="${environment::get-variable('WinDir')}\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe">
 			<arg value="${sln.to.compile}" />
 			<arg value="/verbosity:detailed" />
 			<arg value="/p:Configuration=${config}" />
 			<arg value="/t:rebuild" />
+		</exec>
+	</target>
+
+	<target name="tests" description="Run on the NUnit tests in the solution">
+		<exec program="${nuget.dir}\Packages\NUnit.Runners.2.6.2\tools\nunit-console.exe">
+			<arg value="Bin\${config}\NPlant.Tests.dll" />
+			<arg value="/xml:TestResults.xml" />
+			<arg value="/nologo" />
 		</exec>
 	</target>
 </project>
