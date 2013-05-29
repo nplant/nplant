@@ -12,7 +12,7 @@ namespace NPlant.Tests
         [TestCase(typeof(DateTime?), "Nullable<DateTime>")]
         [TestCase(typeof(List<int>), "List<Int32>")]
         [TestCase(typeof(List<int?>), "List<Nullable<Int32>>")]
-        [TestCase(typeof(Dictionary<string, List<int?>>), "Dictionary<String, List<Nulable<Int32>>>")]
+        [TestCase(typeof(Dictionary<string, List<int?>>), "Dictionary<String, List<Nullable<Int32>>>")]
         public void Name_Formatting_Suite(Type type, string expectedName)
         {
             var model = new TypeMetaModel(type);
