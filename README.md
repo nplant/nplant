@@ -68,7 +68,7 @@ class "Hand" {
 Which can be fed to the PlantUML commandline tool to produce an image like so:
 
 
-![SimpleHasManyDiagram.PNG]("https://github.com/kbrowns/NPlant/blob/master/SimpleHasManyDiagram.png")
+![SimpleHasManyDiagram.PNG](http://blog.kellybrownsberger.com/nplant/SimpleHasManyDiagram.png)
 
 ![Install-Pacakage ServiceStack.Host.Mvc](http://www.servicestack.net/img/nuget-servicestack.host.mvc.png)
 
