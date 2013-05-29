@@ -67,8 +67,8 @@ class "Hand" {
 
 Which can be fed to the PlantUML commandline tool to produce an image like so:
 
-![SimpleHasManyDiagram.PNG]("https://github.com/kbrowns/NPlant/blob/master/SimpleHasManyDiagram.png")
 
+![SimpleHasManyDiagram.PNG](http://blog.kellybrownsberger.com/nplant/SimpleHasManyDiagram.png)
 
 ## What's the current state?
 I just started this project based on needs I had in my day job.  This is very much in alpha phase and I expect major 
