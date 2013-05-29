@@ -8,7 +8,7 @@ namespace NPlant.Tests.ClassDiagrams
     public class HasManyScenarios
     {
         [Test]
-        public void Foo()
+        public void TestPersonHasHands()
         {
             var simulation = new ClassDiagramSimulation(new SimpleHasManyDiagram());
             simulation.Simulate();
