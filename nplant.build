@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<project name="setupModuleDev" default="main" basedir=".">
+
+	<property name="sln.to.compile" value="NPlant.sln" />
+	<property name="config" value="Debug" />
+
+	<target name="main">
+
+		<call name="compile" />
+
+	</target>
+
+	<target name="compile" description="Compiles the solution passed in">
+		<echo message="Compiling ${sln.to.compile} in ${config} mode" />
+		<exec program="${environment::get-variable('WinDir')}\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe">
+			<arg value="${sln.to.compile}" />
+			<arg value="/verbosity:quiet" />
+			<arg value="/p:Configuration=${config}" />
+			<arg value="/t:rebuild" />
+		</exec>
+	</target>
+</project>
