@@ -14,7 +14,7 @@
 		<echo message="Compiling ${sln.to.compile} in ${config} mode" />
 		<exec program="${environment::get-variable('WinDir')}\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe">
 			<arg value="${sln.to.compile}" />
-			<arg value="/verbosity:quiet" />
+			<arg value="/verbosity:detailed" />
 			<arg value="/p:Configuration=${config}" />
 			<arg value="/t:rebuild" />
 		</exec>
