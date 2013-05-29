@@ -3,11 +3,23 @@
 
 	<property name="sln.to.compile" value="NPlant.sln" />
 	<property name="config" value="Debug" />
+	<property name="nuget.dir" value=".nuget" />
 
 	<target name="main">
 
+		<call target="nuget" />
+
 		<call target="compile" />
 
+	</target>
+
+	<target name="nuget" description="Call nuget to pull down all dependencies">
+		<exec program="${nuget.dir}\NuGet.exe">
+			<arg value="install" />
+			<arg value="${nuget.dir}\packages.config" />
+			<arg value="-OutputDirectory" />
+			<arg value="${nuget.dir}\Packages" />
+		</exec>
 	</target>
 
 	<target name="compile" description="Compiles the solution passed in">
