@@ -16,7 +16,7 @@ namespace NPlant.Tests
         public void Name_Formatting_Suite(Type type, string expectedName)
         {
             var model = new TypeMetaModel(type);
-            d
+
             Assert.That(model.Name, Is.EqualTo(expectedName));
         }
     }
