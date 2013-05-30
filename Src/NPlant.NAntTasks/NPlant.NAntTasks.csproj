@@ -51,7 +51,7 @@
     <Compile Include="DiagramsElement.cs" />
     <Compile Include="NPlantTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TaskRecorder.cs" />
+    <Compile Include="NAntRunnerRecorder.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NPlant\NPlant.csproj">

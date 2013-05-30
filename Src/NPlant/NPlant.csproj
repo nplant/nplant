@@ -47,6 +47,10 @@
     <Compile Include="Generation\ClassDiagraming\IGenerationContext.cs" />
     <Compile Include="Core\HideDiagramAttribute.cs" />
     <Compile Include="Core\IDiagram.cs" />
+    <Compile Include="Generation\IRunnerRecorder.cs" />
+    <Compile Include="Generation\NPlantRunner.cs" />
+    <Compile Include="Generation\NPlantRunnerOptions.cs" />
+    <Compile Include="Generation\NullRecorder.cs" />
     <Compile Include="MetaModel\ClassDiagraming\AbstractAggregationDescriptor.cs" />
     <Compile Include="MetaModel\ClassDiagraming\AbstractClassDescriptor.cs" />
     <Compile Include="MetaModel\ClassDiagraming\ClassDescriptor.cs" />
