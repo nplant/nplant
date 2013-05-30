@@ -10,3 +10,4 @@
 *.suo
 *.user
 /Src/NPlant/obj/Debug
+TestResults.xml
