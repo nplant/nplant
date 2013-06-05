@@ -29,4 +29,11 @@ public static class ExtensionMethods
         return false;
     }
 
+    public static bool IsVSHostExe(this string s)
+    {
+        if (s == null)
+            return false;
+
+        return s.EndsWith("NPlant.UI.vshost.exe", StringComparison.InvariantCultureIgnoreCase);
+    }
 }

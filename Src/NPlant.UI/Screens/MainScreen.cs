@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using NPlant.UI.Screens.FileViews;
 
@@ -12,8 +15,11 @@ namespace NPlant.UI
         {
             InitializeComponent();
 
-            CommandLineArguments args = CommandLineArguments.Load(Environment.GetCommandLineArgs());
-            _controller = new MainScreenController(this, args);
+            var args = Environment.GetCommandLineArgs();
+
+            CommandLineArguments arguments = CommandLineArguments.Load(args, true);
+
+            _controller = new MainScreenController(this, arguments);
         }
 
         protected override void OnLoad(EventArgs e)
@@ -30,6 +36,12 @@ namespace NPlant.UI
 
         public void AddFileView(FileViewType type, string filePath)
         {
+            if (!File.Exists(filePath))
+            {
+                EventDispatcher.Raise(new UserNotificationEvent("File '{0}' not found".FormatWith(filePath), UserNotificationType.Warning));
+                return;
+            }
+
             FileViewTab tab;
             
             if (type == FileViewType.AssemblyFile)
@@ -38,6 +50,23 @@ namespace NPlant.UI
                 tab = new FileViewTab(filePath, new NPlantFileView(filePath));
 
             this.FileViewTabs.TabPages.Add(tab);
+        }
+
+        public void DisplayUserNotification(UserNotificationEvent @event)
+        {
+            this.ConsoleLogText.AppendText(@event.Message);
+            this.ConsoleLogText.SelectionStart = ConsoleLogText.Text.Length;
+            this.ConsoleLogText.ScrollToCaret();
+
+            string caption = null;
+
+            if (@event.NotificationType == UserNotificationType.Warning)
+                caption = "Warning";
+            else if (@event.NotificationType == UserNotificationType.Error)
+                caption = "Error";
+
+            if(caption != null)
+                MessageBox.Show(@event.Message, caption, MessageBoxButtons.OK);
         }
 
         private void OnExitClick(object sender, EventArgs e)
@@ -55,60 +84,16 @@ namespace NPlant.UI
             var result = ScreenManager.Launch<FileOpenScreen, FileOpenResult>(this);
             _controller.OpenFile(result);
         }
-    }
 
-    public enum FileViewType
-    {
-        NPlantFile,
-        AssemblyFile
-    }
-
-    public interface IMainScreen
-    {
-        string Title { get; set; }
-        void AddFileView(FileViewType type, string filePath);
-    }
-
-    public class MainScreenController
-    {
-        private readonly IMainScreen _screen;
-        private readonly CommandLineArguments _args;
-
-        public MainScreenController(IMainScreen screen, CommandLineArguments args)
+        public bool IsConsoleVisible
         {
-            _screen = screen;
-            _args = args;
+            get { return showConsoleToolStripMenuItem.Checked; }
+            set { showConsoleToolStripMenuItem.Checked = value; }
         }
 
-        public void Start()
+        private void OnShowConsoleCheckedChanged(object sender, EventArgs e)
         {
-            if (_args.HasFilePath)
-                OpenFile(_args.FilePath);
-            else
-                _screen.Title = "NPlant UI";
-        }
-
-        public void Stop(Action action)
-        {
-            action();
-        }
-
-        public void OpenFile(FileOpenResult result)
-        {
-            if (result.UserApproved)
-            {
-                this.OpenFile(result.FilePath);
-            }
-        }
-
-        private void OpenFile(string filePath)
-        {
-            _screen.Title = "NPlant UI - {0}".FormatWith(filePath);
-
-            if (filePath.IsNPlantFilePath())
-                _screen.AddFileView(FileViewType.NPlantFile, filePath);
-            else if (filePath.IsAssemblyFilePath())
-                _screen.AddFileView(FileViewType.AssemblyFile, filePath);
+            splitContainer1.Panel2Collapsed = ! IsConsoleVisible;
         }
     }
 }

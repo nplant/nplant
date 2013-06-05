@@ -47,5 +47,9 @@ namespace NPlant.Tests.UI
         {
             
         }
+
+        public void DisplayUserNotification(UserNotificationEvent @event)
+        {
+        }
     }
 }

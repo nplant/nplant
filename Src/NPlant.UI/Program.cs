@@ -13,6 +13,14 @@ namespace NPlant.UI
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            Application.ThreadException += (sender, args) =>
+                {
+                    if (args.Exception != null)
+                    {
+                        var @event = new UserNotificationEvent(args.Exception.Message, UserNotificationType.Error);
+                        EventDispatcher.Raise(@event);
+                    }
+                };
 
             Application.Run(new MainScreen());
         }

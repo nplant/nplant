@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using NPlant.Core;
 
 namespace NPlant.UI
@@ -37,9 +39,20 @@ namespace NPlant.UI
             get { return ! this.FilePath.IsNullOrEmpty(); }
         }
 
-        public static CommandLineArguments Load(string[] args)
+        public static CommandLineArguments Load(string[] args, bool filterVSExecutable = false)
         {
+            if (filterVSExecutable)
+                args = Filter(args);
+
             return new CommandLineArguments(args);
+        }
+
+        private static string[] Filter(string[] args)
+        {
+            if (args == null || args.Length < 1 || !Debugger.IsAttached)
+                return args;
+
+            return args.Where(x => !x.IsVSHostExe()).ToArray();
         }
     }
 }

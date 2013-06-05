@@ -65,6 +65,8 @@
             this.DiagramTextTextBox.Size = new System.Drawing.Size(292, 506);
             this.DiagramTextTextBox.TabIndex = 0;
             this.DiagramTextTextBox.Text = "";
+            this.DiagramTextTextBox.WordWrap = false;
+            this.DiagramTextTextBox.TextChanged += new System.EventHandler(this.OnDiagramTextChanged);
             // 
             // DiagramViewerPictureBox
             // 
