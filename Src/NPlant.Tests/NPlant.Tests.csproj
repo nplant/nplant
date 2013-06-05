@@ -9,10 +9,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NPlant.Tests</RootNamespace>
     <AssemblyName>NPlant.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -23,6 +24,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,6 +33,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="nunit.framework">
@@ -55,11 +58,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reflection\GetEnumeratorTypeFixture.cs" />
     <Compile Include="TypeMetaModelFixture.cs" />
+    <Compile Include="UI\CommandLineArgumentsFixture.cs" />
+    <Compile Include="UI\MainScreenControllerFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NPlant.Samples\NPlant.Samples.csproj">
       <Project>{185C9747-AA64-43DC-B098-7213BF51367B}</Project>
       <Name>NPlant.Samples</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NPlant.UI\NPlant.UI.csproj">
+      <Project>{b75ba5ee-848e-40a3-a428-f553ea3d37a8}</Project>
+      <Name>NPlant.UI</Name>
     </ProjectReference>
     <ProjectReference Include="..\NPlant\NPlant.csproj">
       <Project>{870CE431-3A6A-4B0C-B0AC-9C4A08608B30}</Project>
