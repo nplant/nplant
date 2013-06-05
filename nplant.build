@@ -3,9 +3,12 @@
 
 	<property name="sln.to.compile" value="NPlant.sln" />
 	<property name="config" value="Debug" />
+	<property name="git.dir" value="" />
 	<property name="nuget.dir" value=".nuget" />
 
 	<target name="main">
+
+		<call target="git" />
 
 		<call target="nuget" />
 
@@ -13,6 +16,14 @@
 
 		<call target="tests" />
 
+	</target>
+
+	<target name="git" description="Call git.exe to pull down the latest source">
+		<exec program="${git.dir}git.exe">
+			<arg value="pull" />
+			<arg value="origin" />
+			<arg value="master" />
+		</exec>
 	</target>
 
 	<target name="nuget" description="Call nuget to pull down all dependencies">

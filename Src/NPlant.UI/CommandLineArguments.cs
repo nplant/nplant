@@ -1,4 +1,7 @@
-﻿namespace NPlant.UI
+﻿using System.IO;
+using NPlant.Core;
+
+namespace NPlant.UI
 {
     public class CommandLineArguments
     {
@@ -7,7 +10,24 @@
             if (args == null || args.Length < 1)
                 return;
 
-            this.FilePath = args[0].CheckForNull();
+            var path = args[0].CheckForNull();
+
+            ValidateFilePath(path);
+
+            this.FilePath = path;
+        }
+
+        private void ValidateFilePath(string path)
+        {
+            if (path.IsAssemblyFilePath())
+                return;
+
+            if (path.IsNPlantFilePath())
+                return;
+
+            string extension = Path.GetExtension(path);
+
+            throw new NPlantException("'{0}' is not a recognized/supported file extension.  This version of NPlant.UI.exe supports .nplant text files or .NET assembly files (.dll/.exe)".FormatWith(extension));
         }
 
         public string FilePath { get; protected set; }

@@ -55,7 +55,13 @@ namespace NPlant.Tests.UI
         [Test]
         public void Other_Extension_Types_Should_Throw()
         {
-            Assert.Throws<NPlantException>(() => CommandLineArguments.Load(new[] {"Foo.bar"}));
+            Assert.Throws<NPlantException>(() => CommandLineArguments.Load(new[] { "Foo.bar" }));
+        }
+
+        [Test]
+        public void No_Extension_Types_Should_Throw()
+        {
+            Assert.Throws<NPlantException>(() => CommandLineArguments.Load(new[] { "Foo" }));
         }
     }
 }
