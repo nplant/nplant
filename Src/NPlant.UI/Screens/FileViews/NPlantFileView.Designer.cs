@@ -1,6 +1,6 @@
 ﻿namespace NPlant.UI.Screens.FileViews
 {
-    partial class NPlantFileView : INPlantFileView
+    partial class NPlantFileView
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,13 +29,16 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.GenerateOnTextChangeCheckBox = new System.Windows.Forms.CheckBox();
+            this.GenerateButton = new System.Windows.Forms.Button();
+            this.CopyButton = new System.Windows.Forms.Button();
+            this.SaveButton = new System.Windows.Forms.Button();
             this.DiagramTextTextBox = new System.Windows.Forms.RichTextBox();
-            this.DiagramViewerPictureBox = new System.Windows.Forms.PictureBox();
+            this.ImageGenerationSummaryControl = new NPlant.UI.Screens.Controls.ImageGenerationSummary();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DiagramViewerPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -46,14 +49,64 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.GenerateOnTextChangeCheckBox);
+            this.splitContainer1.Panel1.Controls.Add(this.GenerateButton);
+            this.splitContainer1.Panel1.Controls.Add(this.CopyButton);
+            this.splitContainer1.Panel1.Controls.Add(this.SaveButton);
             this.splitContainer1.Panel1.Controls.Add(this.DiagramTextTextBox);
+            this.splitContainer1.Panel1MinSize = 252;
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.DiagramViewerPictureBox);
-            this.splitContainer1.Size = new System.Drawing.Size(894, 512);
-            this.splitContainer1.SplitterDistance = 298;
+            this.splitContainer1.Panel2.Controls.Add(this.ImageGenerationSummaryControl);
+            this.splitContainer1.Size = new System.Drawing.Size(1002, 688);
+            this.splitContainer1.SplitterDistance = 294;
             this.splitContainer1.TabIndex = 0;
+            // 
+            // GenerateOnTextChangeCheckBox
+            // 
+            this.GenerateOnTextChangeCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.GenerateOnTextChangeCheckBox.AutoSize = true;
+            this.GenerateOnTextChangeCheckBox.Location = new System.Drawing.Point(3, 642);
+            this.GenerateOnTextChangeCheckBox.Name = "GenerateOnTextChangeCheckBox";
+            this.GenerateOnTextChangeCheckBox.Size = new System.Drawing.Size(251, 17);
+            this.GenerateOnTextChangeCheckBox.TabIndex = 4;
+            this.GenerateOnTextChangeCheckBox.Text = "Regenerate image automatically on text change";
+            this.GenerateOnTextChangeCheckBox.UseVisualStyleBackColor = true;
+            this.GenerateOnTextChangeCheckBox.CheckedChanged += new System.EventHandler(this.OnGenerateOnTextChangeCheckChanged);
+            // 
+            // GenerateButton
+            // 
+            this.GenerateButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.GenerateButton.Location = new System.Drawing.Point(216, 660);
+            this.GenerateButton.Name = "GenerateButton";
+            this.GenerateButton.Size = new System.Drawing.Size(75, 23);
+            this.GenerateButton.TabIndex = 3;
+            this.GenerateButton.Text = "Generate";
+            this.GenerateButton.UseVisualStyleBackColor = true;
+            this.GenerateButton.Click += new System.EventHandler(this.OnGenerateButtonClick);
+            // 
+            // CopyButton
+            // 
+            this.CopyButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.CopyButton.Location = new System.Drawing.Point(84, 660);
+            this.CopyButton.Name = "CopyButton";
+            this.CopyButton.Size = new System.Drawing.Size(75, 23);
+            this.CopyButton.TabIndex = 2;
+            this.CopyButton.Text = "Copy";
+            this.CopyButton.UseVisualStyleBackColor = true;
+            this.CopyButton.Click += new System.EventHandler(this.OnCopyButtonClick);
+            // 
+            // SaveButton
+            // 
+            this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.SaveButton.Location = new System.Drawing.Point(3, 660);
+            this.SaveButton.Name = "SaveButton";
+            this.SaveButton.Size = new System.Drawing.Size(75, 23);
+            this.SaveButton.TabIndex = 1;
+            this.SaveButton.Text = "Save";
+            this.SaveButton.UseVisualStyleBackColor = true;
+            this.SaveButton.Click += new System.EventHandler(this.OnSaveButtonClick);
             // 
             // DiagramTextTextBox
             // 
@@ -62,22 +115,22 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DiagramTextTextBox.Location = new System.Drawing.Point(3, 3);
             this.DiagramTextTextBox.Name = "DiagramTextTextBox";
-            this.DiagramTextTextBox.Size = new System.Drawing.Size(292, 506);
+            this.DiagramTextTextBox.Size = new System.Drawing.Size(288, 636);
             this.DiagramTextTextBox.TabIndex = 0;
             this.DiagramTextTextBox.Text = "";
             this.DiagramTextTextBox.WordWrap = false;
-            this.DiagramTextTextBox.TextChanged += new System.EventHandler(this.OnDiagramTextChanged);
             // 
-            // DiagramViewerPictureBox
+            // ImageGenerationSummaryControl
             // 
-            this.DiagramViewerPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.ImageGenerationSummaryControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.DiagramViewerPictureBox.Location = new System.Drawing.Point(-1, 3);
-            this.DiagramViewerPictureBox.Name = "DiagramViewerPictureBox";
-            this.DiagramViewerPictureBox.Size = new System.Drawing.Size(590, 506);
-            this.DiagramViewerPictureBox.TabIndex = 0;
-            this.DiagramViewerPictureBox.TabStop = false;
+            this.ImageGenerationSummaryControl.FilePath = "";
+            this.ImageGenerationSummaryControl.Location = new System.Drawing.Point(3, 0);
+            this.ImageGenerationSummaryControl.Mode = NPlant.UI.Screens.Controls.ImageGenerationSummary.ImageGenerationSummaryDisplayMode.ProgressBar;
+            this.ImageGenerationSummaryControl.Name = "ImageGenerationSummaryControl";
+            this.ImageGenerationSummaryControl.Size = new System.Drawing.Size(698, 688);
+            this.ImageGenerationSummaryControl.TabIndex = 1;
             // 
             // NPlantFileView
             // 
@@ -85,12 +138,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.splitContainer1);
             this.Name = "NPlantFileView";
-            this.Size = new System.Drawing.Size(894, 512);
+            this.Size = new System.Drawing.Size(1002, 688);
             this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.DiagramViewerPictureBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -99,6 +152,10 @@
 
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.RichTextBox DiagramTextTextBox;
-        private System.Windows.Forms.PictureBox DiagramViewerPictureBox;
+        private Controls.ImageGenerationSummary ImageGenerationSummaryControl;
+        private System.Windows.Forms.Button GenerateButton;
+        private System.Windows.Forms.Button CopyButton;
+        private System.Windows.Forms.Button SaveButton;
+        private System.Windows.Forms.CheckBox GenerateOnTextChangeCheckBox;
     }
 }

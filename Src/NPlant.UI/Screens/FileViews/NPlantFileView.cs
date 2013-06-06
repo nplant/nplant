@@ -10,10 +10,12 @@ namespace NPlant.UI.Screens.FileViews
         public NPlantFileView(string filePath)
         {
             InitializeComponent();
+
             _controller = new NPlantFileViewController(this, filePath);
+            this.ImageGenerationSummaryControl.FilePath = filePath.Replace(".nplant", ".png");
         }
 
-        protected override void OnLoad(System.EventArgs e)
+        protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
             _controller.Start();
@@ -25,6 +27,12 @@ namespace NPlant.UI.Screens.FileViews
             set { this.DiagramTextTextBox.Text = value; }
         }
 
+        public int Progress
+        {
+            get { return this.ImageGenerationSummaryControl.GetProgress(); }
+            set { this.ImageGenerationSummaryControl.SetProgress(value); }
+        }
+
         public void DiagramTextChanged(Action<string> action)
         {
             _onDiagramTextChanged = action;
@@ -33,6 +41,35 @@ namespace NPlant.UI.Screens.FileViews
         private void OnDiagramTextChanged(object sender, EventArgs e)
         {
             _onDiagramTextChanged(this.DiagramText);
+        }
+
+        private void OnSaveButtonClick(object sender, EventArgs e)
+        {
+            _controller.Save();
+        }
+
+        private void OnCopyButtonClick(object sender, EventArgs e)
+        {
+            _controller.Copy();
+        }
+
+        private void OnGenerateButtonClick(object sender, EventArgs e)
+        {
+            _controller.Generate();
+        }
+
+        public bool GenerateOnTextChange
+        {
+            get { return this.GenerateOnTextChangeCheckBox.Checked; }
+            set { this.GenerateOnTextChangeCheckBox.Checked = value; }
+        }
+
+        private void OnGenerateOnTextChangeCheckChanged(object sender, EventArgs e)
+        {
+            if(this.GenerateOnTextChange)
+                this.DiagramTextTextBox.TextChanged += this.OnDiagramTextChanged;
+            else
+                this.DiagramTextTextBox.TextChanged -= this.OnDiagramTextChanged;
         }
     }
 }

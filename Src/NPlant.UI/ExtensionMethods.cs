@@ -1,9 +1,21 @@
 ﻿using System;
+using System.ComponentModel;
 using System.IO;
-using NPlant.Core;
 
 public static class ExtensionMethods
 {
+    public static void ReportProgressSafely(this BackgroundWorker worker, int progress, object userState = null)
+    {
+        if (worker != null)
+        {
+            // this probably isn't necessary, but i don't have time to test it... go w/ the fear route for now
+            if (userState == null)
+                worker.ReportProgress(progress);
+            else
+                worker.ReportProgress(progress, userState);
+        }
+    }
+
     public static bool IsNPlantFilePath(this string file)
     {
         var ext = Path.GetExtension(file);
