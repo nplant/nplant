@@ -75,6 +75,7 @@
     <Compile Include="Screens\FileViews\FileView.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Screens\FileViews\FileViewController.cs" />
     <Compile Include="Screens\FileViews\FileViewTab.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -82,7 +83,8 @@
     <Compile Include="Screens\FileViews\INPlantFileView.cs" />
     <Compile Include="Interfaces\IResultScreen.cs" />
     <Compile Include="Interfaces\IScreen.cs" />
-    <Compile Include="Interfaces\IView.cs" />
+    <Compile Include="Screens\FileViews\IFileView.cs" />
+    <Compile Include="Screens\FileViews\LoadedDiagram.cs" />
     <Compile Include="Screens\FileViews\NPlantFileView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -104,6 +106,7 @@
     <Compile Include="Screens\MainScreenController.cs" />
     <Compile Include="Screens\ScreenManager.cs" />
     <Compile Include="SystemEnvironment.cs" />
+    <Compile Include="WaitCursor.cs" />
     <EmbeddedResource Include="Screens\AboutScreen.resx">
       <DependentUpon>AboutScreen.cs</DependentUpon>
     </EmbeddedResource>

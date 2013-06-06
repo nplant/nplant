@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 namespace NPlant.UI.Screens.Controls
 {
@@ -64,6 +65,17 @@ namespace NPlant.UI.Screens.Controls
         {
             ProgressBar,
             FilePath
+        }
+
+        private void SizeModeChanged(object sender, EventArgs e)
+        {
+            RadioButton radio = (RadioButton) sender;
+
+            PictureBoxSizeMode mode;
+
+            if (Enum.TryParse(radio.Text, out mode))
+                DiagramViewerPictureBox.SizeMode = mode;
+
         }
     }
 }

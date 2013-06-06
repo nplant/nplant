@@ -1,12 +1,11 @@
 using System;
 
-namespace NPlant.UI
+namespace NPlant.UI.Screens.FileViews
 {
-    public interface INPlantFileView : IView
+    public interface INPlantFileView : IFileView
     {
         string DiagramText { get; set; }
         bool GenerateOnTextChange { get; set; }
-        int Progress { get; set; }
         void DiagramTextChanged(Action<string> action);
     }
 }

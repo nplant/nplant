@@ -27,9 +27,11 @@ namespace NPlant.Generation
                 recorder.Log("NPlantRunner Started...");
                 recorder.Log(SummarizeConfiguration());
 
-                Assembly assembly = RunAssemblyLoadStage(recorder);
+                var loader = new NPlantAssemblyLoader(recorder);
+                Assembly assembly = loader.Load(_options.AssemblyToScan);
 
-                IEnumerable<IDiagram> diagrams = RunLoadDiagramsStage(assembly, recorder);
+                var diagramLoader = new NPlantDiagramLoader(recorder);
+                IEnumerable<IDiagram> diagrams = diagramLoader.Load(assembly);
 
                 DirectoryInfo outputDirectory = RunInitializeOutputDirectoryStage();
 
@@ -63,20 +65,7 @@ namespace NPlant.Generation
 
             foreach (var diagram in diagrams)
             {
-                var generator = diagram.CreateGenerator();
-
-                var filePath = Path.Combine(outputDirectory.FullName,
-                                            "{0}.nplant".FormatWith(diagram.GetName().ReplaceIllegalPathCharacters('_')));
-
-                if (File.Exists(filePath))
-                    File.Delete(filePath);
-
-                using (var file = File.CreateText(filePath))
-                {
-                    file.Write(generator.Generate());
-                    recorder.Log("Diagram '{0}' written...".FormatWith(diagram.GetType().FullName));
-                    recorder.Record(filePath);
-                }
+                ClassDiagramFile.Save(outputDirectory.FullName, diagram, recorder);
             }
 
             recorder.Log("Finished Stage: Diagram Rendering...");
@@ -99,56 +88,6 @@ namespace NPlant.Generation
             }
 
             return outputDirectory;
-        }
-
-        private IEnumerable<IDiagram> RunLoadDiagramsStage(Assembly assembly, IRunnerRecorder recorder)
-        {
-            recorder.Log("Starting Stage: Diagram Instantiation...");
-
-            IDiagram[] diagrams = DiscoverDiagrams.InAssembly(assembly, recorder.Log);
-
-            recorder.Log("Finished Stage: Diagram Instantiation (diagrams instantiated={0})...".FormatWith(diagrams.Length));
-            return diagrams;
-        }
-
-        private Assembly RunAssemblyLoadStage(IRunnerRecorder recorder)
-        {
-            recorder.Log("Starting Stage: Assembly Load (assembly={0})...".FormatWith(_options.AssemblyToScan));
-
-            _options.AssemblyToScan.CheckForNull(() => new NPlantException("An 'assembly' attribute is required."));
-
-            string loadMessage;
-
-            Assembly assembly = LoadAssembly(out loadMessage);
-
-            assembly.CheckForNull(
-                () =>
-                new NPlantException(
-                    "Failed to load assembly '{0}'.  Exception message detected:  {1}".FormatWith(_options.AssemblyToScan, loadMessage)));
-
-            recorder.Log("Finished Stage: Assembly Load...");
-            return assembly;
-        }
-
-        private Assembly LoadAssembly(out string message)
-        {
-            Assembly assembly;
-
-            try
-            {
-                if (Path.IsPathRooted(_options.AssemblyToScan))
-                    assembly = Assembly.LoadFrom(_options.AssemblyToScan);
-                else
-                    assembly = Assembly.Load(_options.AssemblyToScan);
-            }
-            catch (Exception exception)
-            {
-                message = exception.Message;
-                return null;
-            }
-
-            message = null;
-            return assembly;
         }
 
         private bool ShouldClean()

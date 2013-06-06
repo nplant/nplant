@@ -45,17 +45,20 @@ namespace NPlant.UI.Screens.FileViews
 
         private void OnSaveButtonClick(object sender, EventArgs e)
         {
-            _controller.Save();
+            using (new WaitCursor())
+                _controller.Save();
         }
 
         private void OnCopyButtonClick(object sender, EventArgs e)
         {
-            _controller.Copy();
+            using (new WaitCursor())
+                _controller.Copy();
         }
 
         private void OnGenerateButtonClick(object sender, EventArgs e)
         {
-            _controller.Generate();
+            using (new WaitCursor())
+                _controller.Generate();
         }
 
         public bool GenerateOnTextChange

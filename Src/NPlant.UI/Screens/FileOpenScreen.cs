@@ -15,7 +15,11 @@ namespace NPlant.UI
         {
             var dialog = new OpenFileDialog
             {
-                Filter = "NPlant Files (.nplant)|*.nplant|Assembly Library Files (*.dll)|*.dll|Assembly Executable Files (*.exe)|*.exe"
+                Filter = ".NET Assembly Files (*.dll;*.exe)|" +
+                         "*.dll;*.exe|" +
+                         "NPlant Files (.nplant)|" +
+                         "*.nplant"
+                         
             };
 
             var result = dialog.ShowDialog(owner);

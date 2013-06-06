@@ -139,7 +139,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.ConsoleLogText);
             this.splitContainer1.Size = new System.Drawing.Size(917, 550);
-            this.splitContainer1.SplitterDistance = 275;
+            this.splitContainer1.SplitterDistance = 471;
             this.splitContainer1.TabIndex = 4;
             // 
             // FileViewTabs
@@ -148,7 +148,7 @@
             this.FileViewTabs.Location = new System.Drawing.Point(0, 0);
             this.FileViewTabs.Name = "FileViewTabs";
             this.FileViewTabs.SelectedIndex = 0;
-            this.FileViewTabs.Size = new System.Drawing.Size(917, 275);
+            this.FileViewTabs.Size = new System.Drawing.Size(917, 471);
             this.FileViewTabs.TabIndex = 3;
             // 
             // ConsoleLogText
@@ -156,7 +156,7 @@
             this.ConsoleLogText.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ConsoleLogText.Location = new System.Drawing.Point(0, 0);
             this.ConsoleLogText.Name = "ConsoleLogText";
-            this.ConsoleLogText.Size = new System.Drawing.Size(917, 271);
+            this.ConsoleLogText.Size = new System.Drawing.Size(917, 75);
             this.ConsoleLogText.TabIndex = 4;
             this.ConsoleLogText.Text = "";
             // 

@@ -45,11 +45,29 @@ namespace NPlant.UI
             FileViewTab tab;
             
             if (type == FileViewType.AssemblyFile)
-                tab = new FileViewTab(filePath, new AssemblyFileView());
+                tab = new FileViewTab(filePath, new AssemblyFileView(filePath));
             else
                 tab = new FileViewTab(filePath, new NPlantFileView(filePath));
 
+            tab.ContextMenu = new ContextMenu(new []{new MenuItem("Close", (sender, args) =>
+                {
+                    MenuItem item = (MenuItem) sender;
+                    FileViewTab t = (FileViewTab) item.Tag;
+                    RemoveFileView(t);
+                }){Tag = tab}
+            });
+
             this.FileViewTabs.TabPages.Add(tab);
+            this.FileViewTabs.SelectedTab = tab;
+        }
+
+        private void RemoveFileView(FileViewTab fileView)
+        {
+            bool found = this.FileViewTabs.TabPages.Cast<FileViewTab>().Any(tab => tab == fileView);
+
+            if(found)
+                this.FileViewTabs.TabPages.Remove(fileView);
+
         }
 
         public void DisplayUserNotification(UserNotificationEvent @event)

@@ -1,6 +1,6 @@
 ﻿namespace NPlant.Generation
 {
-    internal class NullRecorder : IRunnerRecorder
+    public class NullRecorder : IRunnerRecorder
     {
         private NullRecorder() { }
 

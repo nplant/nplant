@@ -69,9 +69,9 @@
             this.GenerateOnTextChangeCheckBox.AutoSize = true;
             this.GenerateOnTextChangeCheckBox.Location = new System.Drawing.Point(3, 642);
             this.GenerateOnTextChangeCheckBox.Name = "GenerateOnTextChangeCheckBox";
-            this.GenerateOnTextChangeCheckBox.Size = new System.Drawing.Size(251, 17);
+            this.GenerateOnTextChangeCheckBox.Size = new System.Drawing.Size(114, 17);
             this.GenerateOnTextChangeCheckBox.TabIndex = 4;
-            this.GenerateOnTextChangeCheckBox.Text = "Regenerate image automatically on text change";
+            this.GenerateOnTextChangeCheckBox.Text = "Regenerate Image";
             this.GenerateOnTextChangeCheckBox.UseVisualStyleBackColor = true;
             this.GenerateOnTextChangeCheckBox.CheckedChanged += new System.EventHandler(this.OnGenerateOnTextChangeCheckChanged);
             // 

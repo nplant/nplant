@@ -39,6 +39,7 @@
     <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Generation\ClassDiagramFile.cs" />
     <Compile Include="Generation\ClassDiagraming\ClassDiagramOptions.cs" />
     <Compile Include="Core\ReflectOn.cs" />
     <Compile Include="DiagramFactory.cs" />
@@ -51,6 +52,8 @@
     <Compile Include="Core\HideDiagramAttribute.cs" />
     <Compile Include="Core\IDiagram.cs" />
     <Compile Include="Generation\IRunnerRecorder.cs" />
+    <Compile Include="Generation\NPlantAssemblyLoader.cs" />
+    <Compile Include="Generation\NPlantDiagramLoader.cs" />
     <Compile Include="Generation\NPlantRunner.cs" />
     <Compile Include="Generation\NPlantRunnerOptions.cs" />
     <Compile Include="Generation\NullRecorder.cs" />
@@ -66,7 +69,6 @@
     <Compile Include="Generation\IDiagramGenerator.cs" />
     <Compile Include="Core\KeyedList.cs" />
     <Compile Include="Generation\ClassDiagraming\ClassDiagramGenerationContext.cs" />
-    <Compile Include="Generation\DiscoverDiagrams.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="MetaModel\ClassDiagraming\IClassDiagramClassDescriptor.cs" />
     <Compile Include="Generation\ClassDiagraming\SimpleMemberBuilder.cs" />

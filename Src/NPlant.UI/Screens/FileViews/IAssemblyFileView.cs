@@ -1,7 +1,8 @@
-namespace NPlant.UI
+namespace NPlant.UI.Screens.FileViews
 {
-    public interface IAssemblyFileView
+    public interface IAssemblyFileView : IFileView
     {
-        
+        LoadedDiagram[] Diagrams { get; set; }
+        LoadedDiagram SelectedDiagram { get; }
     }
 }
