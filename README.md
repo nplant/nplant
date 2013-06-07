@@ -1,8 +1,8 @@
 ## Welcome
 Welcome to NPlant.  NPlant is intended to be a FluentAPI in C# for creating UML diagrams.  The "N" is 
 for .NET and the "Plant" is for PlantUML.  PlantUML is a textual DSL for UML.  It is extremely powerful and 
-very useful on it it's own.  NPLant augments PlantUML by bringing the artifact authoring experience 
-to code instead and automates the process of generating the PlantUML notation and subsequently the final 
+very useful on it it's own.  NPlant augments PlantUML by bringing the artifact authoring experience 
+to code and automates the process of generating the PlantUML notation and subsequently the final 
 artifact (PNG, JPEG, etc.).  You can find more information on PlantUML here:  http://plantuml.sourceforge.net/
 
 ## Why NPlant?
@@ -19,7 +19,7 @@ artifacts for existing software systems build in .NET, or you are ready to fully
 process with your CI build tools and processes, NPlant can help you tremendously.
 
 ## How does it work?
-Much like NHibernate or other models where you do declarative models in code, you create C# classes that represent your 
+Much like NHibernate or other models where you do declare meta models in code, you create C# classes that represent your 
 atifacts like so:
 
 ```csharp
@@ -68,7 +68,7 @@ class "Hand" {
 Which can be fed to the PlantUML commandline tool to produce an image like so:
 
 
-![SimpleHasManyDiagram.PNG](http://blog.kellybrownsberger.com/nplant/SimpleHasManyDiagram.png)
+![SimpleHasManyDiagram.PNG](http://www.nplant.org/images/SimpleHasManyDiagram.png)
 
 ## What's the current state?
 I just started this project based on needs I had in my day job.  This is very much in alpha phase and I expect major 

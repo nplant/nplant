@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using NPlant.Core;
-using NPlant.Generation;
 using NUnit.Framework;
 
 namespace NPlant.Tests
