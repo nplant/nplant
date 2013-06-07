@@ -105,6 +105,14 @@ public static class ExtensionMethods
         return obj;
     }
 
+    public static string CheckForNullOrEmptyArg(this string obj, string argumentName)
+    {
+        if(! string.IsNullOrEmpty(obj))
+            return obj;
+
+        throw new ArgumentNullException(argumentName);
+    }
+
     public static T CheckForNullArg<T>(this T obj, string argumentName) where T : class
     {
         return CheckForNull(obj, () => new ArgumentNullException(argumentName));

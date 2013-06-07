@@ -56,6 +56,7 @@
     <Compile Include="Screens\AboutScreen.Designer.cs">
       <DependentUpon>AboutScreen.cs</DependentUpon>
     </Compile>
+    <Compile Include="Screens\Controls\ImageFileWatcher.cs" />
     <Compile Include="Screens\Controls\ImageGenerationSummary.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -80,6 +81,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Screens\FileViews\IAssemblyFileView.cs" />
+    <Compile Include="Screens\FileViews\ImageFileGenerationModel.cs" />
     <Compile Include="Screens\FileViews\INPlantFileView.cs" />
     <Compile Include="Interfaces\IResultScreen.cs" />
     <Compile Include="Interfaces\IScreen.cs" />
@@ -148,10 +150,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\..\Tools\PlantUML\plantuml.jar">
+    <EmbeddedResource Include="..\..\Tools\PlantUML\plantuml.jar">
       <Link>plantuml.jar</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </EmbeddedResource>
     <Content Include="desktop.ico" />
   </ItemGroup>
   <ItemGroup>

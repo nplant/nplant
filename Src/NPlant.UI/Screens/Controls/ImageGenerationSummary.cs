@@ -7,6 +7,8 @@ namespace NPlant.UI.Screens.Controls
     {
         private ImageGenerationSummaryDisplayMode _mode;
 
+        private delegate void LoadImageCallback();
+
         public ImageGenerationSummary()
         {
             InitializeComponent();
@@ -14,10 +16,32 @@ namespace NPlant.UI.Screens.Controls
             this.Mode = ImageGenerationSummaryDisplayMode.ProgressBar;
         }
 
+        private void LoadImage()
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new LoadImageCallback(LoadImage), new object[]{});
+            }
+            else
+            {
+                SetProgress(100);
+                this.DiagramViewerPictureBox.ImageLocation = this.FilePath;
+            }
+        }
+
         public string FilePath
         {
             get { return this.LoadedFilePathTextBox.Text; }
-            set { this.LoadedFilePathTextBox.Text = value; }
+            set
+            {
+                this.LoadedFilePathTextBox.Text = value;
+
+                if (!value.IsNullOrEmpty())
+                {
+                    var watcher = new ImageFileWatcher(value, LoadImage);
+                    watcher.Watch();
+                }
+            }
         }
 
         public ImageGenerationSummaryDisplayMode Mode
@@ -29,9 +53,6 @@ namespace NPlant.UI.Screens.Controls
 
                 this.GenerationProgressBar.Visible = this.IsProgressBarMode;
                 this.LoadedFilePathTextBox.Visible = ! this.GenerationProgressBar.Visible;
-
-                if (this.LoadedFilePathTextBox.Visible)
-                    this.DiagramViewerPictureBox.ImageLocation = this.FilePath;
             }
         }
 
@@ -74,8 +95,9 @@ namespace NPlant.UI.Screens.Controls
             PictureBoxSizeMode mode;
 
             if (Enum.TryParse(radio.Text, out mode))
+            {
                 DiagramViewerPictureBox.SizeMode = mode;
-
+            }
         }
     }
 }

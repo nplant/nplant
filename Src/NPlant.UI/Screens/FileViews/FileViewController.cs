@@ -17,6 +17,7 @@ namespace NPlant.UI.Screens.FileViews
         public void Generate(bool async = true)
         {
             var filePath = GetFilePath();
+            var model = ImageFileGenerationModel.Create(filePath);
 
             if (!File.Exists(filePath))
                 return;
@@ -26,29 +27,28 @@ namespace NPlant.UI.Screens.FileViews
                 var backgroundWorker = new BackgroundWorker {WorkerReportsProgress = true};
                 backgroundWorker.DoWork += DoGeneration;
                 backgroundWorker.ProgressChanged += OnGenerationProgressChanged;
-                backgroundWorker.RunWorkerAsync(filePath);
+                backgroundWorker.RunWorkerAsync(model);
             }
             else
             {
-                DoGeneration(this, new DoWorkEventArgs(filePath));
+                DoGeneration(this, new DoWorkEventArgs(model));
             }
         }
-
 
         protected abstract string GetFilePath();
 
         private void DoGeneration(object sender, DoWorkEventArgs e)
         {
-            string filePath = (string) e.Argument;
+            ImageFileGenerationModel model = (ImageFileGenerationModel)e.Argument;
 
             BackgroundWorker worker = sender as BackgroundWorker;
 
-            worker.ReportProgressSafely(10);
+            worker.ReportProgressSafely(25);
 
             Process process = new Process {
                 StartInfo = {
-                    FileName = "java.exe",
-                    Arguments = "-jar \"{0}\\plantuml.jar\" \"{1}\" -o {2}".FormatWith(SystemEnvironment.ExecutionDirectory, filePath, Path.GetDirectoryName(filePath)),
+                    FileName = model.JavaPath,
+                    Arguments = model.GetJavaArguments(),
                     UseShellExecute = false,
                     CreateNoWindow = true,
                     RedirectStandardError = true,
@@ -56,7 +56,7 @@ namespace NPlant.UI.Screens.FileViews
                 }
             };
 
-            worker.ReportProgressSafely(20);
+            worker.ReportProgressSafely(50);
 
             bool started = process.Start();
 
@@ -66,27 +66,23 @@ namespace NPlant.UI.Screens.FileViews
             }
             else
             {
-                worker.ReportProgressSafely(50);
-                process.WaitForExit(1000);
+                worker.ReportProgressSafely(75);
 
-                worker.ReportProgressSafely(70);
-
-                var output = process.StandardOutput.ReadToEnd();
-                var error = process.StandardError.ReadToEnd();
-
-                worker.ReportProgressSafely(80);
+                process.WaitForExit(2000);
 
                 StringBuilder builder = new StringBuilder();
-                builder.AppendLine("PlantUML.jar Invoked...");
+                builder.AppendLine("PlantUML.jar Invoked:");
+                builder.AppendLine("    {0} {1}".FormatWith(process.StartInfo.FileName, process.StartInfo.Arguments));
 
-                builder.AppendLine("Standard Output: ");
-                builder.AppendLine(output);
-                builder.AppendLine("Standard Error Out: ");
-                builder.AppendLine(error);
+                var exitCode = process.HasExited ? process.ExitCode.ToString() : "?";
+                
+                builder.AppendLine("Exit Code: {0}".FormatWith(exitCode));
 
-                worker.ReportProgressSafely(90);
+                builder.AppendLine("NPlant File (exists: {0}): {1}".FormatWith(File.Exists(model.NPlantFilePath), model.NPlantFilePath));
 
-                worker.ReportProgressSafely(100, new UserNotificationEvent(builder.ToString()));
+                builder.AppendLine("Image File (exists: {0}): {1}".FormatWith(File.Exists(model.FinalFilePath), model.FinalFilePath));
+
+                worker.ReportProgressSafely(90, new UserNotificationEvent(builder.ToString()));
             }
         }
 
