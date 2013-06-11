@@ -20,9 +20,11 @@ namespace NPlant.UI
             }
         }
 
-        public static TResult Launch<TScreen, TResult>(IWin32Window parent, Action<TScreen, TResult> onOK = null, Action<TScreen, TResult> onCancel = null) where TScreen : IResultScreen<TResult>, new()
+        public static TResult Launch<TScreen, TResult>(IWin32Window parent, Func<TScreen> constructor, Action<TScreen, TResult> onOK = null,
+                                                       Action<TScreen, TResult> onCancel = null)
+            where TScreen : IResultScreen<TResult>
         {
-            var t = new TScreen();
+            var t = constructor();
             var dialogResult = t.ShowDialog(parent);
             var result = t.GetResult();
 
@@ -36,6 +38,11 @@ namespace NPlant.UI
             }
 
             return result;
+        }
+
+        public static TResult Launch<TScreen, TResult>(IWin32Window parent, Action<TScreen, TResult> onOK = null, Action<TScreen, TResult> onCancel = null) where TScreen : IResultScreen<TResult>, new()
+        {
+            return Launch(parent, () => new TScreen(), onOK, onCancel);
         }
 
         private static bool IsAffirmative(DialogResult dialogResult)

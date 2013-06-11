@@ -2,15 +2,9 @@
 
 namespace NPlant.UI.Screens
 {
-    public class FileOpenScreen : IResultScreen<FileDialogResult>
+    public class FileSaveScreen : IResultScreen<FileDialogResult>
     {
         private FileDialogResult _result;
-        private string _filter;
-
-        public FileOpenScreen(string filter)
-        {
-            _filter = filter;
-        }
 
         public FileDialogResult GetResult()
         {
@@ -19,10 +13,7 @@ namespace NPlant.UI.Screens
 
         public DialogResult ShowDialog(IWin32Window owner)
         {
-            var dialog = new OpenFileDialog
-            {
-                Filter = _filter                         
-            };
+            var dialog = new SaveFileDialog {AddExtension = true, OverwritePrompt = true};
 
             var result = dialog.ShowDialog(owner);
 

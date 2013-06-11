@@ -17,7 +17,7 @@ namespace NPlant.Tests.Diagrams.ClassDiagrams
             Assert.That(simulation.Classes["Subject"], Is.Not.Null);
             Assert.That(simulation.Classes["Child1"], Is.Not.Null);
             Assert.That(simulation.Classes["Child2"], Is.Not.Null);
-            Assert.That(simulation.Classes["Child3"], Is.Null);
+            Assert.That(simulation.Classes["Child3", false], Is.Null);
 
             Assert.That(simulation.Classes["Subject"].Members["Child"].MetaModel.Hidden, Is.False);
             Assert.That(simulation.Classes["Child1"].Members["Child"].MetaModel.Hidden, Is.False);

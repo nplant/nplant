@@ -125,9 +125,7 @@
             this.ImageGenerationSummaryControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.ImageGenerationSummaryControl.FilePath = "";
             this.ImageGenerationSummaryControl.Location = new System.Drawing.Point(3, 0);
-            this.ImageGenerationSummaryControl.Mode = NPlant.UI.Screens.Controls.ImageGenerationSummary.ImageGenerationSummaryDisplayMode.ProgressBar;
             this.ImageGenerationSummaryControl.Name = "ImageGenerationSummaryControl";
             this.ImageGenerationSummaryControl.Size = new System.Drawing.Size(698, 688);
             this.ImageGenerationSummaryControl.TabIndex = 1;

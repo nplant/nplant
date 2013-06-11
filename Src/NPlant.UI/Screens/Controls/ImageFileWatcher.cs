@@ -25,10 +25,7 @@ namespace NPlant.UI.Screens.Controls
                 Filter = file
             };
 
-            watcher.Changed += (sender, args) => _callback();
             watcher.Created += (sender, args) => _callback();
-            watcher.Deleted += (sender, args) => _callback();
-            watcher.Renamed += (sender, args) => _callback();
 
             watcher.EnableRaisingEvents = true;
         }

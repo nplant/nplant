@@ -1,4 +1,4 @@
-﻿using System.IO;
+﻿using System.Drawing;
 using NPlant.UI.Screens.FileViews;
 
 namespace NPlant.UI
@@ -49,22 +49,30 @@ namespace NPlant.UI
 
         private void OnGenerateButtonClick(object sender, System.EventArgs e)
         {
-            using (new WaitCursor())
-                _controller.Generate();
+            if (GenerateButton.Enabled)
+            {
+                using (new WaitCursor())
+                {
+                    this.ImageGenerationSummaryControl.Image = null;
+                    _controller.Generate();
+                }
+            }
         }
 
         private void OnDiagramSelectionChanged(object sender, System.EventArgs e)
         {
+            GenerateButton.Enabled = DiagramsListBox.SelectedItem != null;
+
+            this.ImageGenerationSummaryControl.Image = null;
+
             if (this.GenerateOnSelectionChanged)
                 OnGenerateButtonClick(sender, e);
-
-            this.ImageGenerationSummaryControl.FilePath = Path.Combine(SystemEnvironment.ExecutionDirectory, "{0}.png".FormatWith(DiagramsListBox.SelectedItem));
         }
 
-        public int Progress
-        {
-            get { return this.ImageGenerationSummaryControl.GetProgress(); } 
-            set { this.ImageGenerationSummaryControl.SetProgress(value); }
+        public Image Image 
+        { 
+            get { return this.ImageGenerationSummaryControl.Image; } 
+            set { this.ImageGenerationSummaryControl.Image = value; } 
         }
     }
 }

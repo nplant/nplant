@@ -54,23 +54,35 @@ namespace NPlant.Core
             return item != null;
         }
 
-        public T this[int index]
+        public T this[int index, bool throwOnNotFound = true]
         {
             get
             {
                 T item;
 
-                return this.TryGetValueByIndex(index, out item) ? item : default(T);
+                if(this.TryGetValueByIndex(index, out item))
+                    return item;
+
+                if(throwOnNotFound)
+                    throw new NPlantException("Failed to find item at index of {0} in the list of {1} instances".FormatWith(index, typeof(T).FullName));
+
+                return default(T);
             }
         }
 
-        public T this[string key]
+        public T this[string key, bool throwOnNotFound = true]
         {
             get
             {
                 T item;
 
-                return this.TryGetValue(key, out item) ? item : default(T);
+                if (this.TryGetValue(key, out item))
+                    return item;
+
+                if(throwOnNotFound)
+                    throw new NPlantException("Failed to find item of key '{0}' in the list of {1} instances".FormatWith(key, typeof(T).FullName));
+
+                return default(T);
             }
             set { this.Add(value); }
         }

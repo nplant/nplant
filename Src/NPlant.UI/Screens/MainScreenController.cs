@@ -1,4 +1,5 @@
 ﻿using System;
+using NPlant.UI.Screens;
 
 namespace NPlant.UI
 {
@@ -34,7 +35,7 @@ namespace NPlant.UI
             action();
         }
 
-        public void OpenFile(FileOpenResult result)
+        public void OpenFile(FileDialogResult result)
         {
             if (result.UserApproved)
             {

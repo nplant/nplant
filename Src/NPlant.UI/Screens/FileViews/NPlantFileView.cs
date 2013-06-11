@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 
 namespace NPlant.UI.Screens.FileViews
 {
@@ -12,7 +13,6 @@ namespace NPlant.UI.Screens.FileViews
             InitializeComponent();
 
             _controller = new NPlantFileViewController(this, filePath);
-            this.ImageGenerationSummaryControl.FilePath = filePath.Replace(".nplant", ".png");
         }
 
         protected override void OnLoad(EventArgs e)
@@ -29,8 +29,8 @@ namespace NPlant.UI.Screens.FileViews
 
         public int Progress
         {
-            get { return this.ImageGenerationSummaryControl.GetProgress(); }
-            set { this.ImageGenerationSummaryControl.SetProgress(value); }
+            get { return 0; }
+            set { }
         }
 
         public void DiagramTextChanged(Action<string> action)
@@ -58,7 +58,10 @@ namespace NPlant.UI.Screens.FileViews
         private void OnGenerateButtonClick(object sender, EventArgs e)
         {
             using (new WaitCursor())
+            {
+                this.ImageGenerationSummaryControl.Image = null;
                 _controller.Generate();
+            }
         }
 
         public bool GenerateOnTextChange
@@ -73,6 +76,12 @@ namespace NPlant.UI.Screens.FileViews
                 this.DiagramTextTextBox.TextChanged += this.OnDiagramTextChanged;
             else
                 this.DiagramTextTextBox.TextChanged -= this.OnDiagramTextChanged;
+        }
+
+        public Image Image
+        {
+            get { return this.ImageGenerationSummaryControl.Image; }
+            set { this.ImageGenerationSummaryControl.Image = value; }
         }
     }
 }
