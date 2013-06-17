@@ -17,6 +17,7 @@
     </metadata>
     <files>
         <file src="..\bin\Debug\NPlant.dll" target="lib\net40\NPlant.dll" />
+        <file src="..\bin\Debug\NPlant.dll" target="tools\net40\NPlant.dll" />
         <file src="..\bin\Debug\NPlant.UI.exe" target="tools\net40\NPlant.UI.exe" />
     </files>
 </package>
