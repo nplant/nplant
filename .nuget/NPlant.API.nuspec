@@ -13,7 +13,6 @@
         <copyright>Copyright 2013</copyright>
         <tags>PlantUML UML Diagram</tags>
         <dependencies>
-            <dependency id="SampleDependency" version="1.0" />
         </dependencies>
     </metadata>
     <files>
