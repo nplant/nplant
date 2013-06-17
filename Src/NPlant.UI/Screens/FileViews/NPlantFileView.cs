@@ -62,7 +62,7 @@ namespace NPlant.UI.Screens.FileViews
                 this.ImageGenerationSummaryControl.Image = null;
                 _controller.Generate();
             }
-        }
+        }n
 
         public bool GenerateOnTextChange
         {
