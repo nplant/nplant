@@ -42,12 +42,12 @@ namespace NPlant.NAntTasks
         {
             if (_recordedCount > 0)
             {
-                if (!_propertyName.IsNullOrEmpty())
-                {
-                    _task.Properties[_propertyName] = _filePath;
-                }
+                var delimited = _builder.ToString();
 
-                _task.Log(Level.Debug, "Recording: {0}".FormatWith(_filePath));
+                if (!_propertyName.IsNullOrEmpty())
+                    _task.Properties[_propertyName] = delimited;
+
+                _task.Log(Level.Debug, "Recording (Count: {0}): {1}".FormatWith(_recordedCount, delimited));
             }
 
             GC.SuppressFinalize(this);
