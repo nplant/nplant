@@ -12,7 +12,7 @@ namespace NPlant.Generation
         private readonly Func<IRunnerRecorder> _recorder;
         private readonly INPlantRunnerOptions _options;
 
-        public NPlantRunner(NPlantRunnerOptions options) : this(options, () => NullRecorder.Instance) { }
+        public NPlantRunner(INPlantRunnerOptions options) : this(options, () => NullRecorder.Instance) { }
 
         public NPlantRunner(INPlantRunnerOptions options, Func<IRunnerRecorder> recorder)
         {
