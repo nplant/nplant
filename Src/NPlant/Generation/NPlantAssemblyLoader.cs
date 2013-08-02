@@ -42,8 +42,13 @@ namespace NPlant.Generation
 
             try
             {
-                if (Path.IsPathRooted(path))
+                if (Path.HasExtension(path))
+                {
+                    if(!File.Exists(path))
+                        throw new FileNotFoundException("Attempting to load diagrams from an assembly via a file path.  The file path provided ('{0}') could not be found.".FormatWith(path));
+                    
                     assembly = Assembly.LoadFrom(path);
+                }
                 else
                     assembly = Assembly.Load(path);
             }
