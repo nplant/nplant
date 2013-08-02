@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Core\KeyedListFixture.cs" />
     <Compile Include="Diagrams\ClassDiagrams\AggregationScenarios.cs" />
+    <Compile Include="Diagrams\ClassDiagrams\EdgetScenarios.cs" />
     <Compile Include="Diagrams\ClassDiagrams\HasManyScenarios.cs" />
     <Compile Include="Diagrams\ClassDiagrams\SimpleScenarios.cs" />
     <Compile Include="Diagrams\ClassDiagrams\SuppressionFixture.cs" />

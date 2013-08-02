@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using NPlant.UI.Screens;
 using NPlant.UI.Screens.FileViews;
 
 namespace NPlant.UI
@@ -99,7 +100,7 @@ namespace NPlant.UI
 
         private void OnOpenClick(object sender, EventArgs e)
         {
-            var result = ScreenManager.Launch<FileOpenScreen, FileOpenResult>(this);
+            var result = ScreenManager.Launch<FileOpenScreen, FileDialogResult>(this, () => new FileOpenScreen(FileFilters.OpenFileFilter));
             _controller.OpenFile(result);
         }
 
@@ -112,6 +113,11 @@ namespace NPlant.UI
         private void OnShowConsoleCheckedChanged(object sender, EventArgs e)
         {
             splitContainer1.Panel2Collapsed = ! IsConsoleVisible;
+        }
+
+        private void OnSettingsMenuItemClick(object sender, EventArgs e)
+        {
+            ScreenManager.Launch<SettingsScreen>(this);
         }
     }
 }

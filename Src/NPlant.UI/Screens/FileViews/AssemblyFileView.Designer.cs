@@ -44,9 +44,7 @@
             this.ImageGenerationSummaryControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.ImageGenerationSummaryControl.FilePath = "";
             this.ImageGenerationSummaryControl.Location = new System.Drawing.Point(3, 0);
-            this.ImageGenerationSummaryControl.Mode = NPlant.UI.Screens.Controls.ImageGenerationSummary.ImageGenerationSummaryDisplayMode.ProgressBar;
             this.ImageGenerationSummaryControl.Name = "ImageGenerationSummaryControl";
             this.ImageGenerationSummaryControl.Size = new System.Drawing.Size(725, 735);
             this.ImageGenerationSummaryControl.TabIndex = 1;
@@ -97,6 +95,7 @@
             // GenerateButton
             // 
             this.GenerateButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.GenerateButton.Enabled = false;
             this.GenerateButton.Location = new System.Drawing.Point(226, 707);
             this.GenerateButton.Name = "GenerateButton";
             this.GenerateButton.Size = new System.Drawing.Size(75, 23);

@@ -1,6 +1,8 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 using NPlant.Core;
 
 namespace NPlant.UI
@@ -49,10 +51,10 @@ namespace NPlant.UI
 
         private static string[] Filter(string[] args)
         {
-            if (args == null || args.Length < 1 || !Debugger.IsAttached)
+            if (args == null || args.Length < 1)
                 return args;
 
-            return args.Where(x => !x.IsVSHostExe()).ToArray();
+            return args.Where(x => !x.IsVSHostExe() && !x.IsSelf()).ToArray();
         }
     }
 }

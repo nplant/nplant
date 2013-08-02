@@ -64,6 +64,9 @@
     <Compile Include="Screens\Controls\ImageGenerationSummary.Designer.cs">
       <DependentUpon>ImageGenerationSummary.cs</DependentUpon>
     </Compile>
+    <Compile Include="Screens\FileDialogResult.cs" />
+    <Compile Include="Screens\FileFilters.cs" />
+    <Compile Include="Screens\FileSaveScreen.cs" />
     <Compile Include="Screens\FileViews\AssemblyFileView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -97,6 +100,7 @@
     <Compile Include="Screens\FileViews\UserNotificationEvent.cs" />
     <Compile Include="Screens\FileViewType.cs" />
     <Compile Include="Screens\IMainScreen.cs" />
+    <Compile Include="Screens\ISettingScreen.cs" />
     <Compile Include="Screens\MainScreen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -108,6 +112,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Screens\MainScreenController.cs" />
     <Compile Include="Screens\ScreenManager.cs" />
+    <Compile Include="Screens\SettingsScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Screens\SettingsScreen.Designer.cs">
+      <DependentUpon>SettingsScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\SettingsScreenController.cs" />
     <Compile Include="SystemEnvironment.cs" />
     <Compile Include="WaitCursor.cs" />
     <EmbeddedResource Include="Screens\AboutScreen.resx">
@@ -138,6 +149,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Screens\SettingsScreen.resx">
+      <DependentUpon>SettingsScreen.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
