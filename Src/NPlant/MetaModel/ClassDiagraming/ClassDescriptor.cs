@@ -17,6 +17,19 @@ namespace NPlant.MetaModel.ClassDiagraming
             return this;
         }
 
+
+        public ClassDescriptor<T> ShowInheritors()
+        {
+            this.RenderInheritance = true;
+            return this;
+        }
+
+        public ClassDescriptor<T> HideInheritors()
+        {
+            this.RenderInheritance = false;
+            return this;
+        }
+
         public ClassDescriptor<T> HideMember<TMember>(Expression<Func<T, TMember>> expression)
         {
             var member = ReflectOn<T>.ForMember(expression);

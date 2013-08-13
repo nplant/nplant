@@ -14,23 +14,40 @@ namespace NPlant.Generation.ClassDiagraming
             _descriptor = descriptor.CheckForNullArg("descriptor");
         }
 
-        void IBuilder.Build(ClassDiagramGenerationContext context)
+        public void Build(ClassDiagramGenerationContext context)
         {
             TypeMetaModel typeMetaModel = _descriptor.MetaModel;
 
-            if (! typeMetaModel.Hidden)
+            bool showInheritance = _descriptor.RenderInheritance && _descriptor.ReflectedType.BaseType != null;
+            TypeMetaModel baseTypeMetaModel = null;
+            
+            if (showInheritance)
             {
-                context.WriteLine(String.Format("class \"{0}\" {1}", _descriptor.Name, "{"));
+                baseTypeMetaModel = context.Diagram.Types[_descriptor.ReflectedType.BaseType];
+
+                showInheritance = !baseTypeMetaModel.HiddenForExtension;
+            }
+
+            if (! typeMetaModel.HiddenForMemberDisplay)
+            {
+                string extension = null;
+
+                if (showInheritance)
+                {
+                    extension = "";// _descriptor.ReflectedType.BaseType.Name;
+                }
+
+                context.WriteLine(String.Format("class \"{0}\" {1}{2}", _descriptor.Name, extension, "{"));
 
                 foreach (ClassMemberDescriptor member in _descriptor.Members.InnerList)
                 {
                     TypeMetaModel metaModel = member.MetaModel;
 
-                    if (! metaModel.Hidden)
+                    if (! metaModel.HiddenForMemberDisplay)
                     {
                         if (metaModel.IsComplexType)
                         {
-                            IAggregationDescriptor descriptor = this.CreateAssociation(context, member);
+                            IRelationDescriptor descriptor = this.CreateAssociation(context, member);
                             IBuilder associationBuilder = new AggregationMemberBuilder(descriptor);
                             associationBuilder.Build(context);
                         }
@@ -52,18 +69,27 @@ namespace NPlant.Generation.ClassDiagraming
                 typeMetaModel.Note.Write(context);
 
             }
-            foreach (var association in _descriptor.Associations.InnerList)
+
+            if (showInheritance)
             {
-                IBuilder builder = new AggregationBuilder(association);
+                context.Diagram.AddReflectedClass(_descriptor.Level - 1, _descriptor.ReflectedType.BaseType);
+                var extensionDescriptor = new ExtensionRelationDescriptor(_descriptor, baseTypeMetaModel);
+
+                _descriptor.AddRelation(extensionDescriptor);
+            }
+
+            foreach (var relation in _descriptor.Relations.InnerList)
+            {
+                IBuilder builder = relation.GetBuilder();
                 builder.Build(context);
             }
         }
 
-        internal IAggregationDescriptor CreateAssociation(ClassDiagramGenerationContext context, ClassMemberDescriptor member)
+        internal IRelationDescriptor CreateAssociation(ClassDiagramGenerationContext context, ClassMemberDescriptor member)
         {
             if (_descriptor.GetMemberVisibility(member.Key))
             {
-                IAggregationDescriptor descriptor;
+                IRelationDescriptor descriptor;
 
                 var nextLevel = _descriptor.Level + 1;
 
@@ -72,34 +98,20 @@ namespace NPlant.Generation.ClassDiagraming
                     var enumeratorType = member.MemberType.GetEnumeratorType();
                     var enumeratorTypeMetaModel = context.Diagram.MetaModel.Types[enumeratorType];
 
-                    descriptor = new HasManyAggregationDescriptor(context.Diagram, _descriptor, new ClassMemberDescriptor(enumeratorTypeMetaModel.Name, enumeratorType, context.Diagram.MetaModel.Types[enumeratorType]));
+                    descriptor = new HasManyRelationDescriptor(member.Name, _descriptor, context.Diagram.MetaModel.Types[enumeratorType]);
 
                     if (enumeratorTypeMetaModel.IsComplexType)
                     {
                         context.Diagram.AddReflectedClass(nextLevel, enumeratorType);
                     }
-
-// what was thsi code doing in the second block?  hoping the above code replaces it
-/*
-                    if (enumeratorTypeMetaModel.IsComplexType)
-                    {
-                        descriptor = new HasManyAggregationDescriptor(context.Diagram, _descriptor, new ClassMemberDescriptor(enumeratorTypeMetaModel.Name, enumeratorType));
-                        context.Diagram.AddReflectedClass(nextLevel, new ReflectedTypeClassDescriptor(context.Diagram, enumeratorType));
-                    }
-                    else
-                    {
-                        descriptor = new HasOneAggregationDescriptor(context.Diagram, _descriptor, member);
-                        context.Diagram.AddReflectedClass(nextLevel, new ReflectedTypeClassDescriptor(context.Diagram, member.MemberType));
-                    }
-*/
                 }
                 else
                 {
-                    descriptor = new HasOneAggregationDescriptor(context.Diagram, _descriptor, member);
+                    descriptor = new HasOneRelationDescriptor(member.Name, _descriptor, context.Diagram.MetaModel.Types[member.MemberType]);
                     context.Diagram.AddReflectedClass(nextLevel, member.MemberType);
                 }
 
-                _descriptor.AddAssociation(descriptor);
+                _descriptor.AddRelation(descriptor);
 
                 return descriptor;
             }

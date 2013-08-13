@@ -2,7 +2,7 @@
 
 namespace NPlant.MetaModel.ClassDiagraming
 {
-    public class NullIAggregationDescriptor : IAggregationDescriptor
+    public class NullIAggregationDescriptor : IRelationDescriptor
     {
         public NullIAggregationDescriptor()
         {
@@ -19,6 +19,12 @@ namespace NPlant.MetaModel.ClassDiagraming
         public string RightName { get; private set; }
         public string Verb { get; private set; }
         public string Noun { get; private set; }
+
+        public IBuilder GetBuilder()
+        {
+            return new NullBuilder();
+        }
+
         public string Label { get; private set; }
         public IBuilder CreateClassBuilder()
         {

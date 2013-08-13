@@ -11,10 +11,10 @@ namespace NPlant.MetaModel.ClassDiagraming
             _diagram = diagram;
         }
 
-        public void Simulate()
+        public string Simulate()
         {
             var generator = _diagram.CreateGenerator();
-            generator.Generate();
+            return generator.Generate();
         }
 
         public KeyedList<IClassDiagramClassDescriptor> Classes

@@ -12,7 +12,6 @@ namespace NPlant.NAntTasks
         private readonly StringBuilder _builder = new StringBuilder();
         private int _recordedCount;
         private readonly string _propertyName;
-        private string _filePath;
 
         public NAntRunnerRecorder(Task task, string propertyName, string delimiter)
         {
@@ -23,8 +22,6 @@ namespace NPlant.NAntTasks
 
         public void Record(string filePath)
         {
-            _filePath = filePath;
-            
             if (_recordedCount > 0)
                 _builder.Append(_delimiter);
 

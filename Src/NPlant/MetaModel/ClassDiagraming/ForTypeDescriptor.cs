@@ -20,6 +20,20 @@ namespace NPlant.MetaModel.ClassDiagraming
             return _diagram.GenerationOptions;
         }
 
+        public ForTypeDescriptor<T> ShowExtenders()
+        {
+            _typeMetaModel.HiddenForExtension = false;
+
+            return this;
+        }
+
+        public ForTypeDescriptor<T> HideExtenders()
+        {
+            _typeMetaModel.HiddenForExtension = true;
+
+            return this;
+        }
+
         public TypeNote Note()
         {
             _typeMetaModel.Note = new TypeNote();
@@ -30,7 +44,7 @@ namespace NPlant.MetaModel.ClassDiagraming
         {
             // breaking the chain here... but what else makes sense to do?  continue to 
             // configure a hidden thing?  does that make sense?
-            _typeMetaModel.Hidden = true;
+            _typeMetaModel.HiddenForMemberDisplay = true;
         }
     }
 }

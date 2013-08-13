@@ -14,7 +14,7 @@ namespace NPlant.Generation.ClassDiagraming
             _classDescriptor = classDescriptor;
         }
 
-        void IBuilder.Build(ClassDiagramGenerationContext context)
+        public void Build(ClassDiagramGenerationContext context)
         {
             bool visible = _classDescriptor.GetMemberVisibility(_member.Key);
 

@@ -10,8 +10,9 @@ namespace NPlant.MetaModel.ClassDiagraming
         int Level { get; }
         KeyedList<ClassMemberDescriptor> Members { get; }
         bool GetMemberVisibility(string name);
-        KeyedList<IAggregationDescriptor> Associations { get; }
-        void AddAssociation(IAggregationDescriptor descriptor);
+        KeyedList<IRelationDescriptor> Relations { get; }
+        void AddRelation(IRelationDescriptor descriptor);
         TypeMetaModel MetaModel { get; }
+        bool RenderInheritance { get; set; }
     }
 }

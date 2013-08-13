@@ -1,7 +1,7 @@
 ﻿using NPlant.MetaModel.ClassDiagraming;
 using NUnit.Framework;
 
-namespace NPlant.Tests.ClassDiagrams
+namespace NPlant.Tests.Diagrams.ClassDiagrams
 {
     [TestFixture]
     public class SimpleScenarios

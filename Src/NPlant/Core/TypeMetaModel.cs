@@ -21,6 +21,7 @@ namespace NPlant.Core
 
             this.Name = GetFriendlyDataType(type);
             this.Note = TypeNote.Null;
+            this.HiddenForExtension = _type == typeof (object);
         }
 
         public bool IsPrimitive { get; internal set; }
@@ -31,7 +32,9 @@ namespace NPlant.Core
 
         public TypeNote Note { get; internal set; }
 
-        public bool Hidden { get; internal set; }
+        public bool HiddenForMemberDisplay { get; internal set; }
+        
+        public bool HiddenForExtension { get; internal set; }
 
         public static bool IsDefactoComplexType(Type type)
         {

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -105,6 +104,11 @@ namespace NPlant.Core
             {
                 this.Add(item);
             }
+        }
+
+        public bool ContainsKey(string key)
+        {
+            return _innerList.Any(innerItem => key == innerItem.Key);
         }
     }
 

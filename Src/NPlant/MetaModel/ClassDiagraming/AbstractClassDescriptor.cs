@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using NPlant.Core;
@@ -8,13 +7,14 @@ namespace NPlant.MetaModel.ClassDiagraming
 {
     public abstract class AbstractClassDescriptor : IClassDiagramClassDescriptor
     {
-        private readonly KeyedList<IAggregationDescriptor> _associations = new KeyedList<IAggregationDescriptor>();
+        private readonly KeyedList<IRelationDescriptor> _relations = new KeyedList<IRelationDescriptor>();
         private readonly ClassDiagram _diagram;
         protected internal readonly IDictionary<string, bool> MemberVisibility = new Dictionary<string, bool>();
         private readonly KeyedList<ClassMemberDescriptor> _members = new KeyedList<ClassMemberDescriptor>();
 
         protected AbstractClassDescriptor(ClassDiagram classDiagram, Type reflectedType)
         {
+            this.RenderInheritance = true;
             _diagram = classDiagram;
             this.ReflectedType = reflectedType;
             this.Name = this.ReflectedType.Name;
@@ -34,6 +34,8 @@ namespace NPlant.MetaModel.ClassDiagraming
         string IKeyedItem.Key { get { return this.Name; } }
 
         public string Name { get; protected set; }
+
+        public bool RenderInheritance { get; set; }
 
         protected internal ClassDiagram DiagramDefinition
         {
@@ -57,43 +59,18 @@ namespace NPlant.MetaModel.ClassDiagraming
             return true;
         }
 
-        public KeyedList<IAggregationDescriptor> Associations { get { return _associations; } }
+        public KeyedList<IRelationDescriptor> Relations { get { return _relations; } }
         
-        public void AddAssociation(IAggregationDescriptor descriptor)
+        public void AddRelation(IRelationDescriptor descriptor)
         {
-            _associations.Add(descriptor);
+            _relations.Add(descriptor);
         }
 
         public TypeMetaModel MetaModel { get; private set; }
 
-        public IAggregationDescriptor IsAssociatedTo(ClassMemberDescriptor member)
+        public IEnumerable<IRelationDescriptor> GetAssociations()
         {
-            if (this.GetMemberVisibility(member.Name))
-            {
-                IAggregationDescriptor descriptor;
-
-                if (typeof(IEnumerable).IsAssignableFrom(member.MemberType))
-                {
-                    descriptor = new HasManyAggregationDescriptor(_diagram, this, member);
-                }
-                else
-                {
-                    descriptor = new HasOneAggregationDescriptor(_diagram, this, member);
-                }
-
-                _associations.Add(descriptor);
-
-                _diagram.AddClass(new ReflectedTypeClassDescriptor(_diagram, member.MemberType));
-
-                return descriptor;
-            }
-
-            return new NullIAggregationDescriptor();
-        }
-
-        public IEnumerable<IAggregationDescriptor> GetAssociations()
-        {
-            return _associations.InnerList;
+            return _relations.InnerList;
         }
     }
 }

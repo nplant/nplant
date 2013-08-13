@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Linq.Expressions;
-using System.Reflection;
 using NPlant.Core;
 using NPlant.Generation;
 using NPlant.Generation.ClassDiagraming;
@@ -63,7 +61,10 @@ namespace NPlant
 
         public void AddClass(IClassDiagramClassDescriptor descriptor)
         {
-            _classDescriptors[descriptor.Name] = descriptor.CheckForNullArg("descriptor");
+            if (! _classDescriptors.ContainsKey(descriptor.Key))
+            {
+                _classDescriptors.Add(descriptor.CheckForNullArg("descriptor"));
+            }
         }
 
         KeyedList<IClassDiagramClassDescriptor> IClassDiagramMetaModel.Classes { get { return _classDescriptors; } }

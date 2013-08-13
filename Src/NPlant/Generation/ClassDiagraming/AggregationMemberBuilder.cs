@@ -4,14 +4,14 @@ namespace NPlant.Generation.ClassDiagraming
 {
     public class AggregationMemberBuilder : IBuilder
     {
-        private IAggregationDescriptor _descriptor;
+        private IRelationDescriptor _descriptor;
 
-        public AggregationMemberBuilder(IAggregationDescriptor descriptor)
+        public AggregationMemberBuilder(IRelationDescriptor descriptor)
         {
             _descriptor = descriptor;
         }
 
-        void IBuilder.Build(ClassDiagramGenerationContext context)
+        public void Build(ClassDiagramGenerationContext context)
         {
 
         }
