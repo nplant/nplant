@@ -25,25 +25,18 @@ namespace NPlant.Generation.ClassDiagraming
             {
                 baseTypeMetaModel = context.Diagram.Types[_descriptor.ReflectedType.BaseType];
 
-                showInheritance = !baseTypeMetaModel.HiddenForExtension;
+                showInheritance = !baseTypeMetaModel.HiddenForExtension && !baseTypeMetaModel.Hidden;
             }
 
-            if (! typeMetaModel.HiddenForMemberDisplay)
+            if (! typeMetaModel.Hidden)
             {
-                string extension = null;
-
-                if (showInheritance)
-                {
-                    extension = "";// _descriptor.ReflectedType.BaseType.Name;
-                }
-
-                context.WriteLine(String.Format("class \"{0}\" {1}{2}", _descriptor.Name, extension, "{"));
+                context.WriteLine(String.Format("class \"{0}\" {1}", _descriptor.Name, "{")); // need to insert the { to not screw up Format processing
 
                 foreach (ClassMemberDescriptor member in _descriptor.Members.InnerList)
                 {
                     TypeMetaModel metaModel = member.MetaModel;
 
-                    if (! metaModel.HiddenForMemberDisplay)
+                    if (! metaModel.Hidden)
                     {
                         if (metaModel.IsComplexType)
                         {

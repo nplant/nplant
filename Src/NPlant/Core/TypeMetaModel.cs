@@ -32,7 +32,7 @@ namespace NPlant.Core
 
         public TypeNote Note { get; internal set; }
 
-        public bool HiddenForMemberDisplay { get; internal set; }
+        public bool Hidden { get; internal set; }
         
         public bool HiddenForExtension { get; internal set; }
 

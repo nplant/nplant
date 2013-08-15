@@ -44,7 +44,7 @@ namespace NPlant.MetaModel.ClassDiagraming
         {
             // breaking the chain here... but what else makes sense to do?  continue to 
             // configure a hidden thing?  does that make sense?
-            _typeMetaModel.HiddenForMemberDisplay = true;
+            _typeMetaModel.Hidden = true;
         }
     }
 }
