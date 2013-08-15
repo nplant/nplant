@@ -10,7 +10,7 @@ namespace NPlant.Generation.ClassDiagraming
 
         protected override string Symbol
         {
-            get { return "--o"; }
+            get { return "o--"; }
         }
     }
 }
