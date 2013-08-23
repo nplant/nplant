@@ -5,10 +5,25 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
-using NPlant.Core;
 
 public static class ExtensionMethods
 {
+    public static bool IsNPlantFile(this FileInfo file)
+    {
+        if (file == null)
+            return false;
+
+        return string.Equals(file.Extension, ".nplant");
+    }
+    
+    public static bool IsAssembly(this FileInfo file)
+    {
+        if (file == null)
+            return false;
+
+        return string.Equals(file.Extension, ".exe") || string.Equals(file.Extension, ".dll");
+    }
+
     public static string ReplaceIllegalPathCharacters(this string path, char replacement)
     {
         if (path.IsNullOrEmpty())

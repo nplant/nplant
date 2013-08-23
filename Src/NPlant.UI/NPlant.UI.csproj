@@ -67,16 +67,9 @@
     <Compile Include="Screens\FileDialogResult.cs" />
     <Compile Include="Screens\FileFilters.cs" />
     <Compile Include="Screens\FileSaveScreen.cs" />
-    <Compile Include="Screens\FileViews\AssemblyFileView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Screens\FileViews\AssemblyFileView.Designer.cs">
-      <DependentUpon>AssemblyFileView.cs</DependentUpon>
-    </Compile>
     <Compile Include="CommandLineArguments.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Screens\FileOpenScreen.cs" />
-    <Compile Include="Screens\FileViews\AssemblyFileViewController.cs" />
     <Compile Include="Screens\FileViews\FileView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -86,16 +79,16 @@
     </Compile>
     <Compile Include="Screens\FileViews\IAssemblyFileView.cs" />
     <Compile Include="Screens\FileViews\ImageFileGenerationModel.cs" />
-    <Compile Include="Screens\FileViews\INPlantFileView.cs" />
+    <Compile Include="Screens\FileViews\IClassDiagramView.cs" />
     <Compile Include="Interfaces\IResultScreen.cs" />
     <Compile Include="Interfaces\IScreen.cs" />
     <Compile Include="Screens\FileViews\IFileView.cs" />
     <Compile Include="Screens\FileViews\LoadedDiagram.cs" />
-    <Compile Include="Screens\FileViews\NPlantFileView.cs">
+    <Compile Include="Screens\FileViews\ClassDiagramView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Screens\FileViews\NPlantFileView.Designer.cs">
-      <DependentUpon>NPlantFileView.cs</DependentUpon>
+    <Compile Include="Screens\FileViews\ClassDiagramView.Designer.cs">
+      <DependentUpon>ClassDiagramView.cs</DependentUpon>
     </Compile>
     <Compile Include="Screens\FileViews\UserNotificationEvent.cs" />
     <Compile Include="Screens\FileViewType.cs" />
@@ -107,10 +100,16 @@
     <Compile Include="Screens\MainScreen.Designer.cs">
       <DependentUpon>MainScreen.cs</DependentUpon>
     </Compile>
-    <Compile Include="Screens\FileViews\NPlantFileViewController.cs" />
+    <Compile Include="Screens\FileViews\ClassDiagramViewController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Screens\MainScreenController.cs" />
+    <Compile Include="Screens\PromptDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Screens\PromptDialog.Designer.cs">
+      <DependentUpon>PromptDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Screens\ScreenManager.cs" />
     <Compile Include="Screens\SettingsScreen.cs">
       <SubType>Form</SubType>
@@ -127,14 +126,11 @@
     <EmbeddedResource Include="Screens\Controls\ImageGenerationSummary.resx">
       <DependentUpon>ImageGenerationSummary.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Screens\FileViews\AssemblyFileView.resx">
-      <DependentUpon>AssemblyFileView.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Screens\FileViews\FileViewTab.resx">
       <DependentUpon>FileViewTab.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Screens\FileViews\NPlantFileView.resx">
-      <DependentUpon>NPlantFileView.cs</DependentUpon>
+    <EmbeddedResource Include="Screens\FileViews\ClassDiagramView.resx">
+      <DependentUpon>ClassDiagramView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Screens\MainScreen.resx">
       <DependentUpon>MainScreen.cs</DependentUpon>
@@ -149,6 +145,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Screens\PromptDialog.resx">
+      <DependentUpon>PromptDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Screens\SettingsScreen.resx">
       <DependentUpon>SettingsScreen.cs</DependentUpon>
     </EmbeddedResource>

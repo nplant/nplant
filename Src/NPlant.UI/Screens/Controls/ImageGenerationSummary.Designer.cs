@@ -32,7 +32,6 @@
             this.PictureBoxPanel = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.AutoSizeSizeMode = new System.Windows.Forms.RadioButton();
             this.StretchImageSizeMode = new System.Windows.Forms.RadioButton();
             this.ZoomSizeMode = new System.Windows.Forms.RadioButton();
             this.NormalSizeModel = new System.Windows.Forms.RadioButton();
@@ -61,7 +60,6 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.radioButton2);
-            this.panel1.Controls.Add(this.AutoSizeSizeMode);
             this.panel1.Controls.Add(this.StretchImageSizeMode);
             this.panel1.Controls.Add(this.ZoomSizeMode);
             this.panel1.Controls.Add(this.NormalSizeModel);
@@ -73,7 +71,7 @@
             // radioButton2
             // 
             this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(253, 2);
+            this.radioButton2.Location = new System.Drawing.Point(174, 2);
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(85, 17);
             this.radioButton2.TabIndex = 10;
@@ -81,18 +79,6 @@
             this.radioButton2.Text = "CenterImage";
             this.radioButton2.UseVisualStyleBackColor = true;
             this.radioButton2.CheckedChanged += new System.EventHandler(this.SizeModeChanged);
-            // 
-            // AutoSizeSizeMode
-            // 
-            this.AutoSizeSizeMode.AutoSize = true;
-            this.AutoSizeSizeMode.Location = new System.Drawing.Point(169, 2);
-            this.AutoSizeSizeMode.Name = "AutoSizeSizeMode";
-            this.AutoSizeSizeMode.Size = new System.Drawing.Size(67, 17);
-            this.AutoSizeSizeMode.TabIndex = 9;
-            this.AutoSizeSizeMode.Tag = "";
-            this.AutoSizeSizeMode.Text = "AutoSize";
-            this.AutoSizeSizeMode.UseVisualStyleBackColor = true;
-            this.AutoSizeSizeMode.CheckedChanged += new System.EventHandler(this.SizeModeChanged);
             // 
             // StretchImageSizeMode
             // 
@@ -110,7 +96,7 @@
             // 
             this.ZoomSizeMode.AutoSize = true;
             this.ZoomSizeMode.Checked = true;
-            this.ZoomSizeMode.Location = new System.Drawing.Point(359, 2);
+            this.ZoomSizeMode.Location = new System.Drawing.Point(280, 2);
             this.ZoomSizeMode.Name = "ZoomSizeMode";
             this.ZoomSizeMode.Size = new System.Drawing.Size(52, 17);
             this.ZoomSizeMode.TabIndex = 7;
@@ -186,7 +172,6 @@
         private System.Windows.Forms.RadioButton ZoomSizeMode;
         private System.Windows.Forms.RadioButton NormalSizeModel;
         private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton AutoSizeSizeMode;
         private System.Windows.Forms.RadioButton StretchImageSizeMode;
         private System.Windows.Forms.ContextMenuStrip PictureBoxContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem saveImageToFileToolStripMenuItem;
