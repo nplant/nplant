@@ -1,6 +1,6 @@
 ﻿namespace NPlant.UI.Screens.FileViews
 {
-    partial class NPlantFileView
+    partial class ClassDiagramView
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,7 +29,8 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.GenerateOnTextChangeCheckBox = new System.Windows.Forms.CheckBox();
+            this.DiagramsComboBox = new System.Windows.Forms.ComboBox();
+            this.DiagramClassesLabel = new System.Windows.Forms.Label();
             this.GenerateButton = new System.Windows.Forms.Button();
             this.CopyButton = new System.Windows.Forms.Button();
             this.SaveButton = new System.Windows.Forms.Button();
@@ -49,7 +50,8 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.GenerateOnTextChangeCheckBox);
+            this.splitContainer1.Panel1.Controls.Add(this.DiagramsComboBox);
+            this.splitContainer1.Panel1.Controls.Add(this.DiagramClassesLabel);
             this.splitContainer1.Panel1.Controls.Add(this.GenerateButton);
             this.splitContainer1.Panel1.Controls.Add(this.CopyButton);
             this.splitContainer1.Panel1.Controls.Add(this.SaveButton);
@@ -59,26 +61,35 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.ImageGenerationSummaryControl);
-            this.splitContainer1.Size = new System.Drawing.Size(1002, 688);
-            this.splitContainer1.SplitterDistance = 294;
+            this.splitContainer1.Size = new System.Drawing.Size(1226, 688);
+            this.splitContainer1.SplitterDistance = 388;
             this.splitContainer1.TabIndex = 0;
             // 
-            // GenerateOnTextChangeCheckBox
+            // DiagramsComboBox
             // 
-            this.GenerateOnTextChangeCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.GenerateOnTextChangeCheckBox.AutoSize = true;
-            this.GenerateOnTextChangeCheckBox.Location = new System.Drawing.Point(3, 642);
-            this.GenerateOnTextChangeCheckBox.Name = "GenerateOnTextChangeCheckBox";
-            this.GenerateOnTextChangeCheckBox.Size = new System.Drawing.Size(114, 17);
-            this.GenerateOnTextChangeCheckBox.TabIndex = 4;
-            this.GenerateOnTextChangeCheckBox.Text = "Regenerate Image";
-            this.GenerateOnTextChangeCheckBox.UseVisualStyleBackColor = true;
-            this.GenerateOnTextChangeCheckBox.CheckedChanged += new System.EventHandler(this.OnGenerateOnTextChangeCheckChanged);
+            this.DiagramsComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.DiagramsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.DiagramsComboBox.FormattingEnabled = true;
+            this.DiagramsComboBox.Location = new System.Drawing.Point(104, 6);
+            this.DiagramsComboBox.Name = "DiagramsComboBox";
+            this.DiagramsComboBox.Size = new System.Drawing.Size(281, 21);
+            this.DiagramsComboBox.TabIndex = 5;
+            this.DiagramsComboBox.SelectedIndexChanged += new System.EventHandler(this.OnSelectedDiagramChanged);
+            // 
+            // DiagramClassesLabel
+            // 
+            this.DiagramClassesLabel.AutoSize = true;
+            this.DiagramClassesLabel.Location = new System.Drawing.Point(4, 9);
+            this.DiagramClassesLabel.Name = "DiagramClassesLabel";
+            this.DiagramClassesLabel.Size = new System.Drawing.Size(88, 13);
+            this.DiagramClassesLabel.TabIndex = 4;
+            this.DiagramClassesLabel.Text = "Diagram Classes:";
             // 
             // GenerateButton
             // 
             this.GenerateButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.GenerateButton.Location = new System.Drawing.Point(216, 660);
+            this.GenerateButton.Location = new System.Drawing.Point(310, 660);
             this.GenerateButton.Name = "GenerateButton";
             this.GenerateButton.Size = new System.Drawing.Size(75, 23);
             this.GenerateButton.TabIndex = 3;
@@ -113,9 +124,9 @@
             this.DiagramTextTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.DiagramTextTextBox.Location = new System.Drawing.Point(3, 3);
+            this.DiagramTextTextBox.Location = new System.Drawing.Point(3, 33);
             this.DiagramTextTextBox.Name = "DiagramTextTextBox";
-            this.DiagramTextTextBox.Size = new System.Drawing.Size(288, 636);
+            this.DiagramTextTextBox.Size = new System.Drawing.Size(382, 621);
             this.DiagramTextTextBox.TabIndex = 0;
             this.DiagramTextTextBox.Text = "";
             this.DiagramTextTextBox.WordWrap = false;
@@ -125,18 +136,19 @@
             this.ImageGenerationSummaryControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.ImageGenerationSummaryControl.Location = new System.Drawing.Point(3, 0);
+            this.ImageGenerationSummaryControl.Image = null;
+            this.ImageGenerationSummaryControl.Location = new System.Drawing.Point(-1, 0);
             this.ImageGenerationSummaryControl.Name = "ImageGenerationSummaryControl";
-            this.ImageGenerationSummaryControl.Size = new System.Drawing.Size(698, 688);
+            this.ImageGenerationSummaryControl.Size = new System.Drawing.Size(832, 685);
             this.ImageGenerationSummaryControl.TabIndex = 1;
             // 
-            // NPlantFileView
+            // ClassDiagramView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.splitContainer1);
-            this.Name = "NPlantFileView";
-            this.Size = new System.Drawing.Size(1002, 688);
+            this.Name = "ClassDiagramView";
+            this.Size = new System.Drawing.Size(1226, 688);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -154,6 +166,7 @@
         private System.Windows.Forms.Button GenerateButton;
         private System.Windows.Forms.Button CopyButton;
         private System.Windows.Forms.Button SaveButton;
-        private System.Windows.Forms.CheckBox GenerateOnTextChangeCheckBox;
+        private System.Windows.Forms.ComboBox DiagramsComboBox;
+        private System.Windows.Forms.Label DiagramClassesLabel;
     }
 }

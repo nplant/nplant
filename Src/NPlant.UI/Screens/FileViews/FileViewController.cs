@@ -1,8 +1,5 @@
-using System;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Text;
 
@@ -19,17 +16,14 @@ namespace NPlant.UI.Screens.FileViews
 
         public void Generate()
         {
-            var filePath = GetFilePath();
+            var filePath = GetDiagramText();
             var model = ImageFileGenerationModel.Create(filePath);
-
-            if (!File.Exists(filePath))
-                return;
 
             var image = DoGeneration(model);
             _view.Image = image;
         }
 
-        protected abstract string GetFilePath();
+        protected abstract string GetDiagramText();
 
         private Image DoGeneration(ImageFileGenerationModel model)
         {
@@ -54,12 +48,11 @@ namespace NPlant.UI.Screens.FileViews
             }
             else
             {
-                //read in the file.
-                using (var fileStream = new StreamReader(model.NPlantFilePath))
-                {
-                    fileStream.BaseStream.CopyTo(process.StandardInput.BaseStream);
-                    process.StandardInput.Close();
-                }
+//                byte[] bytes = Encoding.ASCII.GetBytes(model.DiagramText);
+//
+                //                process.StandardInput.BaseStream.Write(bytes,0, bytes.Length);
+                process.StandardInput.Write(model.DiagramText);
+                process.StandardInput.Close();
 
                 return Image.FromStream(process.StandardOutput.BaseStream);
             }

@@ -43,12 +43,7 @@ namespace NPlant.UI
                 return;
             }
 
-            FileViewTab tab;
-            
-            if (type == FileViewType.AssemblyFile)
-                tab = new FileViewTab(filePath, new AssemblyFileView(filePath));
-            else
-                tab = new FileViewTab(filePath, new NPlantFileView(filePath));
+            var tab = new FileViewTab(filePath, new ClassDiagramView(filePath));
 
             tab.ContextMenu = new ContextMenu(new []{new MenuItem("Close", (sender, args) =>
                 {
