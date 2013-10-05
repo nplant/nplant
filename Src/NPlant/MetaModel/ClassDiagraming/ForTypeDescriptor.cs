@@ -5,10 +5,10 @@ namespace NPlant.MetaModel.ClassDiagraming
 {
     public class ForTypeDescriptor<T>
     {
-        private readonly NPlant.ClassDiagram _diagram;
+        private readonly ClassDiagram _diagram;
         private readonly TypeMetaModel _typeMetaModel;
 
-        public ForTypeDescriptor(NPlant.ClassDiagram diagram)
+        public ForTypeDescriptor(ClassDiagram diagram)
         {
             _diagram = diagram;
             _typeMetaModel = _diagram.MetaModel.Types[typeof(T)];

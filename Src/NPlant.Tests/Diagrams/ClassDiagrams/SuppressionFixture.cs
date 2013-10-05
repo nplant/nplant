@@ -9,7 +9,10 @@ namespace NPlant.Tests.Diagrams.ClassDiagrams
         [Test]
         public void Can_Completely_Hide_A_Type_From_The_Diagram()
         {
-            var simulation = new ClassDiagramSimulation(new Diagram());
+            var diagram = new Diagram();
+            diagram.GenerationOptions.ForType<Child3>().Hide();
+
+            var simulation = new ClassDiagramSimulation(diagram);
             simulation.Simulate();
 
             Assert.That(simulation.Classes.Count, Is.EqualTo(3));
@@ -24,12 +27,33 @@ namespace NPlant.Tests.Diagrams.ClassDiagrams
             Assert.That(simulation.Classes["Child2"].Members["Child"].MetaModel.Hidden, Is.True);
         }
 
+        [Test]
+        public void Can_Treat_Type_As_Primitive()
+        {
+            var diagram = new Diagram();
+            diagram.GenerationOptions.ForType<Child3>().TreatAsPrimitive();
+
+            var simulation = new ClassDiagramSimulation(diagram);
+            simulation.Simulate();
+
+            Assert.That(simulation.Classes.Count, Is.EqualTo(3));
+
+            Assert.That(simulation.Classes["Subject"], Is.Not.Null);
+            Assert.That(simulation.Classes["Child1"], Is.Not.Null);
+            Assert.That(simulation.Classes["Child2"], Is.Not.Null);
+            Assert.That(simulation.Classes["Child3", false], Is.Null);
+
+            Assert.That(simulation.Classes["Subject"].Members["Child"].MetaModel.Hidden, Is.False);
+            Assert.That(simulation.Classes["Child1"].Members["Child"].MetaModel.Hidden, Is.False);
+            Assert.That(simulation.Classes["Child2"].Members["Child"].MetaModel.Hidden, Is.False);
+        }
+
+
         internal class Diagram : ClassDiagram
         {
             public Diagram()
             {
                 AddClass<Subject>();
-                GenerationOptions.ForType<Child3>().Hide();
             }
         }
 

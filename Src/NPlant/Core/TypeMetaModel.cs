@@ -11,6 +11,7 @@ namespace NPlant.Core
         private static readonly Assembly mscorelib = typeof(string).Assembly;
 
         private readonly Type _type;
+        private bool _isPrimitive;
 
         public TypeMetaModel(Type type)
         {
@@ -24,7 +25,16 @@ namespace NPlant.Core
             this.HiddenForExtension = _type == typeof (object);
         }
 
-        public bool IsPrimitive { get; internal set; }
+        public bool IsPrimitive
+        {
+            get { return _isPrimitive; }
+            internal set
+            {
+                _isPrimitive = value;
+
+                this.IsComplexType = !this.IsPrimitive;
+            }
+        }
 
         public bool IsComplexType { get; internal set; }
 
