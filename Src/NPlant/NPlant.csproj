@@ -61,6 +61,7 @@
     <Compile Include="Generation\NullRecorder.cs" />
     <Compile Include="MetaModel\ClassDiagraming\AbstractRelationDescriptor.cs" />
     <Compile Include="MetaModel\ClassDiagraming\AbstractClassDescriptor.cs" />
+    <Compile Include="MetaModel\ClassDiagraming\AssemblyDescriptor.cs" />
     <Compile Include="MetaModel\ClassDiagraming\ClassDescriptor.cs" />
     <Compile Include="MetaModel\ClassDiagraming\ClassDiagramSimulation.cs" />
     <Compile Include="MetaModel\ClassDiagraming\ClassMemberDescriptor.cs" />

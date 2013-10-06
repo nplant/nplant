@@ -165,10 +165,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="..\..\Tools\PlantUML\plantuml.jar">
-      <Link>plantuml.jar</Link>
-    </EmbeddedResource>
     <Content Include="desktop.ico" />
+    <EmbeddedResource Include="plantuml.jar" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NPlant\NPlant.csproj">

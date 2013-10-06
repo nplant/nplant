@@ -1,4 +1,5 @@
-﻿using NPlant.MetaModel.ClassDiagraming;
+﻿using System.Collections.Generic;
+using NPlant.MetaModel.ClassDiagraming;
 using NUnit.Framework;
 
 namespace NPlant.Tests.Diagrams.ClassDiagrams
@@ -48,7 +49,6 @@ namespace NPlant.Tests.Diagrams.ClassDiagrams
             Assert.That(simulation.Classes["Child2"].Members["Child"].MetaModel.Hidden, Is.False);
         }
 
-
         internal class Diagram : ClassDiagram
         {
             public Diagram()
@@ -60,20 +60,29 @@ namespace NPlant.Tests.Diagrams.ClassDiagrams
         public class Subject
         {
             public Child1 Child;
+            public string Code;
+            public StringCollection Codes;
         }
 
+        public class StringCollection : List<string>
+        {
+            
+        }
         public class Child1
         {
             public Child2 Child;
+            public StringCollection Codes;
         }
 
         public class Child2
         {
             public Child3 Child;
+            public StringCollection Codes;
         }
 
         public class Child3
         {
+            public StringCollection Codes;
             
         }
     }

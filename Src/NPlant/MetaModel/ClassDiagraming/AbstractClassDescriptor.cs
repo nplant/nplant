@@ -24,9 +24,9 @@ namespace NPlant.MetaModel.ClassDiagraming
 
         private IEnumerable<ClassMemberDescriptor> GetClassMembers(Type type)
         {
-            var descriptors = type.GetFields().Select(field => new ClassMemberDescriptor(field.Name, field.FieldType, _diagram.MetaModel.Types[field.FieldType])).ToList();
+            var descriptors = type.GetFields().Select(field => new ClassMemberDescriptor(type, field, _diagram.MetaModel.Types[field.FieldType])).ToList();
 
-            descriptors.AddRange(type.GetProperties().Select(property => new ClassMemberDescriptor(property.Name, property.PropertyType, _diagram.MetaModel.Types[property.PropertyType])));
+            descriptors.AddRange(type.GetProperties().Select(property => new ClassMemberDescriptor(type, property, _diagram.MetaModel.Types[property.PropertyType])));
 
             return descriptors;
         }

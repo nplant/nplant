@@ -8,6 +8,20 @@ using System.Runtime.Serialization;
 
 public static class ExtensionMethods
 {
+    public static Type[] GetTypesExtending<T>(this Assembly assembly)
+    {
+        List<Type> result = new List<Type>();
+
+        if (assembly == null)
+            return result.ToArray();
+
+        var types = assembly.GetTypes();
+
+        result.AddRange(types.Where(type => typeof (T).IsAssignableFrom(type)));
+
+        return result.ToArray();
+    }
+
     public static bool IsNPlantFile(this FileInfo file)
     {
         if (file == null)
@@ -80,6 +94,18 @@ public static class ExtensionMethods
     {
         var parameters = property.GetIndexParameters();
         return parameters.Length > 0;
+    }
+
+    private static readonly Assembly mscorelib = typeof(string).Assembly;
+
+    public static bool IsMsCoreLibType(this Type type)
+    {
+        return type.Assembly == mscorelib;
+    }
+
+    public static bool IsEnumerable(this Type type)
+    {
+        return (typeof (IEnumerable).IsAssignableFrom(type));
     }
 
     public static bool IsString(this Type type)

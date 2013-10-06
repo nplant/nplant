@@ -25,7 +25,7 @@ namespace NPlant.Generation.ClassDiagraming
             {
                 baseTypeMetaModel = context.Diagram.Types[_descriptor.ReflectedType.BaseType];
 
-                showInheritance = !baseTypeMetaModel.HiddenForExtension && !baseTypeMetaModel.Hidden;
+                showInheritance = !baseTypeMetaModel.HideAsBaseClass && !baseTypeMetaModel.Hidden;
             }
 
             if (! typeMetaModel.Hidden)
@@ -38,21 +38,26 @@ namespace NPlant.Generation.ClassDiagraming
 
                     if (! metaModel.Hidden)
                     {
-                        if (metaModel.IsComplexType)
-                        {
-                            IRelationDescriptor descriptor = this.CreateAssociation(context, member);
-                            IBuilder associationBuilder = new AggregationMemberBuilder(descriptor);
-                            associationBuilder.Build(context);
-                        }
-                        else if (metaModel.IsPrimitive)
-                        {
-                            IBuilder memberBuilder = new SimpleMemberBuilder(member, _descriptor);
-                            memberBuilder.Build(context);
-                        }
-                        else
-                        {
-                            IBuilder memberBuilder = new SimpleMemberBuilder(member, _descriptor);
-                            memberBuilder.Build(context);
+                        // if not showing inheritance then show all members
+                        // otherwise, only show member that aren't inherited
+                        if (!showInheritance || !member.IsInherited)
+                        {                            
+                            if (metaModel.IsComplexType)
+                            {
+                                IRelationDescriptor descriptor = this.CreateAssociation(context, member);
+                                IBuilder associationBuilder = new AggregationMemberBuilder(descriptor);
+                                associationBuilder.Build(context);
+                            }
+                            else if (metaModel.IsPrimitive)
+                            {
+                                IBuilder memberBuilder = new SimpleMemberBuilder(member, _descriptor);
+                                memberBuilder.Build(context);
+                            }
+                            else
+                            {
+                                IBuilder memberBuilder = new SimpleMemberBuilder(member, _descriptor);
+                                memberBuilder.Build(context);
+                            }
                         }
                     }
                 }
@@ -82,19 +87,18 @@ namespace NPlant.Generation.ClassDiagraming
         {
             if (_descriptor.GetMemberVisibility(member.Key))
             {
-                IRelationDescriptor descriptor;
+                IRelationDescriptor descriptor = null;
 
                 var nextLevel = _descriptor.Level + 1;
 
-                if (typeof(IEnumerable).IsAssignableFrom(member.MemberType))
+                if (member.MemberType.IsEnumerable())
                 {
                     var enumeratorType = member.MemberType.GetEnumeratorType();
                     var enumeratorTypeMetaModel = context.Diagram.MetaModel.Types[enumeratorType];
 
-                    descriptor = new HasManyRelationDescriptor(member.Name, _descriptor, context.Diagram.MetaModel.Types[enumeratorType]);
-
                     if (enumeratorTypeMetaModel.IsComplexType)
                     {
+                        descriptor = new HasManyRelationDescriptor(member.Name, _descriptor, context.Diagram.MetaModel.Types[enumeratorType]);
                         context.Diagram.AddReflectedClass(nextLevel, enumeratorType);
                     }
                 }
@@ -104,9 +108,11 @@ namespace NPlant.Generation.ClassDiagraming
                     context.Diagram.AddReflectedClass(nextLevel, member.MemberType);
                 }
 
-                _descriptor.AddRelation(descriptor);
-
-                return descriptor;
+                if (descriptor != null)
+                {
+                    _descriptor.AddRelation(descriptor);
+                    return descriptor;
+                }
             }
 
             return new NullIAggregationDescriptor();

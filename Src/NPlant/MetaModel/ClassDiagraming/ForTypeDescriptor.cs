@@ -20,16 +20,16 @@ namespace NPlant.MetaModel.ClassDiagraming
             return _diagram.GenerationOptions;
         }
 
-        public ForTypeDescriptor<T> ShowExtenders()
+        public ForTypeDescriptor<T> ShowAsBase()
         {
-            _typeMetaModel.HiddenForExtension = false;
+            _typeMetaModel.HideAsBaseClass = false;
 
             return this;
         }
 
-        public ForTypeDescriptor<T> HideExtenders()
+        public ForTypeDescriptor<T> HideAsBase()
         {
-            _typeMetaModel.HiddenForExtension = true;
+            _typeMetaModel.HideAsBaseClass = true;
 
             return this;
         }

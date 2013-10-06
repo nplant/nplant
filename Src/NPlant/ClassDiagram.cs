@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using NPlant.Core;
 using NPlant.Generation;
 using NPlant.Generation.ClassDiagraming;
@@ -10,6 +11,7 @@ namespace NPlant
     {
         private readonly TypeMetaModelSet _types = new TypeMetaModelSet();
         private string _name;
+        private readonly KeyedList<AssemblyDescriptor> _assemblyDescriptors = new KeyedList<AssemblyDescriptor>(); 
         private readonly KeyedList<IClassDiagramClassDescriptor> _classDescriptors = new KeyedList<IClassDiagramClassDescriptor>();
         private readonly ClassDiagramOptions _generationOptions;
 
@@ -51,6 +53,30 @@ namespace NPlant
             return classDescriptor;
         }
 
+        protected ClassDiagram AddAssemblyOf<T>()
+        {
+            return AddAssembly(typeof(T).Assembly);
+        }
+
+        protected ClassDiagram AddAssembly(Assembly assembly)
+        {
+            _assemblyDescriptors.Add(new AssemblyDescriptor(assembly));
+            return this;
+        }
+
+        protected ClassDiagram AddAllSubClassesOff<T>()
+        {
+            foreach (var assembly in _assemblyDescriptors.InnerList)
+            {
+                var types = assembly.Assembly.GetTypesExtending<T>();
+
+                foreach (var type in types)
+                    this.AddClass(new ReflectedTypeClassDescriptor(this, type), false);
+            }
+
+            return this;
+        }
+
         internal void AddReflectedClass(int level, Type type)
         {
             var descriptor = new ReflectedTypeClassDescriptor(this, type);
@@ -59,12 +85,12 @@ namespace NPlant
             this.AddClass(descriptor);
         }
 
-        public void AddClass(IClassDiagramClassDescriptor descriptor)
+        public void AddClass(IClassDiagramClassDescriptor descriptor, bool addAssembly = true)
         {
-            if (! _classDescriptors.ContainsKey(descriptor.Key))
-            {
-                _classDescriptors.Add(descriptor.CheckForNullArg("descriptor"));
-            }
+            _classDescriptors.Add(descriptor.CheckForNullArg("descriptor"));
+
+            if(addAssembly)
+                AddAssembly(descriptor.ReflectedType.Assembly);
         }
 
         KeyedList<IClassDiagramClassDescriptor> IClassDiagramMetaModel.Classes { get { return _classDescriptors; } }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Text;
 using NPlant.Generation.ClassDiagraming;
 
@@ -8,7 +7,6 @@ namespace NPlant.Core
 {
     public class TypeMetaModel
     {
-        private static readonly Assembly mscorelib = typeof(string).Assembly;
 
         private readonly Type _type;
         private bool _isPrimitive;
@@ -17,12 +15,24 @@ namespace NPlant.Core
         {
             _type = type;
 
-            this.IsComplexType = IsDefactoComplexType(_type);
-            this.IsPrimitive = !this.IsComplexType && _type.Assembly != mscorelib;
+            if (IsDefaultPrimitive())
+            {
+                this.IsPrimitive = true;
+            }
+            else
+            {
+                this.IsComplexType = IsDefactoComplexType(_type);
+                this.IsPrimitive = !this.IsComplexType;
+            }
 
             this.Name = GetFriendlyDataType(type);
             this.Note = TypeNote.Null;
-            this.HiddenForExtension = _type == typeof (object);
+            this.HideAsBaseClass = _type == typeof (object);
+        }
+
+        private bool IsDefaultPrimitive()
+        {
+            return !_type.IsEnumerable() && _type.IsMsCoreLibType() && IsDefactoComplexType(_type);
         }
 
         public bool IsPrimitive
@@ -44,11 +54,17 @@ namespace NPlant.Core
 
         public bool Hidden { get; internal set; }
         
-        public bool HiddenForExtension { get; internal set; }
+        public bool HideAsBaseClass { get; internal set; }
 
         public static bool IsDefactoComplexType(Type type)
         {
-            return (type.IsClass || type.IsInterface) && !type.IsString();
+            if (type.IsString())
+                return false;
+
+            if (type.IsEnumerable())
+                return true;
+
+            return (type.IsClass || type.IsInterface);
         }
 
         private static string GetFriendlyDataType(Type type)
@@ -60,13 +76,13 @@ namespace NPlant.Core
 
 
                 string outerName;
-                string innterName;
+                string innerName;
 
                 if (typeof(Nullable<>) == def)
                 {
                     outerName = "Nullable";
                     var nullableType = genericArguments[0];
-                    innterName = nullableType.Name;
+                    innerName = nullableType.Name;
                 }
                 else
                 {
@@ -84,10 +100,10 @@ namespace NPlant.Core
                         builder.Append(GetFriendlyDataType(genericArgument));
                     }
 
-                    innterName = builder.ToString();
+                    innerName = builder.ToString();
                 }
 
-                return "{0}<{1}>".FormatWith(outerName, innterName);
+                return "{0}<{1}>".FormatWith(outerName, innerName);
             }
 
             return type.Name;
