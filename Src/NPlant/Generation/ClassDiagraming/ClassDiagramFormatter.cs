@@ -58,8 +58,8 @@ namespace NPlant.Generation.ClassDiagraming
             switch (relationship.RelationshipType)
             {
                 case ClassDiagramRelationshipTypes.Base:
-                    arrow = "<|--";
-                    suffix = " : Extends {0}".FormatWith(relationship.Party2.Name);
+                    arrow = "-up-|>";
+                    suffix = " : Extends";
                     break;
                 case ClassDiagramRelationshipTypes.HasA:
                     arrow = "*--";
