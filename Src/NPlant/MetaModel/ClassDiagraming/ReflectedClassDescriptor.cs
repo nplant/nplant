@@ -3,7 +3,7 @@ using NPlant.Core;
 
 namespace NPlant.MetaModel.ClassDiagraming
 {
-    public class ReflectedClassDescriptor : AbstractClassDescriptor
+    public class ReflectedClassDescriptor : ClassDescriptor
     {
         public ReflectedClassDescriptor(Type type) : base(type)
         {

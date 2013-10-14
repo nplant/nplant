@@ -11,7 +11,7 @@ namespace NPlant
         private readonly TypeMetaModelSet _types = new TypeMetaModelSet();
         private string _name;
         private readonly KeyedList<AssemblyDescriptor> _assemblyDescriptors = new KeyedList<AssemblyDescriptor>();
-        private readonly KeyedList<AbstractClassDescriptor> _classDescriptors = new KeyedList<AbstractClassDescriptor>();
+        private readonly KeyedList<ClassDescriptor> _classDescriptors = new KeyedList<ClassDescriptor>();
         private readonly ClassDiagramOptions _generationOptions;
 
         public ClassDiagram(Type type, params Type[] types): this()
@@ -77,7 +77,7 @@ namespace NPlant
             this.AddClass(descriptor);
         }
 
-        public void AddClass(AbstractClassDescriptor descriptor, bool addAssembly = true)
+        public void AddClass(ClassDescriptor descriptor, bool addAssembly = true)
         {
             _classDescriptors.Add(descriptor.CheckForNullArg("descriptor"));
 
@@ -85,7 +85,7 @@ namespace NPlant
                 AddAssembly(descriptor.ReflectedType.Assembly);
         }
 
-        public KeyedList<AbstractClassDescriptor> RootClasses { get { return _classDescriptors; } }
+        public KeyedList<ClassDescriptor> RootClasses { get { return _classDescriptors; } }
 
         public string Name { get { return _name; } }
 
@@ -118,7 +118,7 @@ namespace NPlant
             return new ClassDiagramVisitorContext(this, _types);
         }
 
-        public string GetClassColor(AbstractClassDescriptor @class)
+        public string GetClassColor(ClassDescriptor @class)
         {
             return null;
         }

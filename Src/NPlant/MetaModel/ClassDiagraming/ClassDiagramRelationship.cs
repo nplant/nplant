@@ -2,7 +2,7 @@
 {
     public class ClassDiagramRelationship
     {
-        public ClassDiagramRelationship(string name, AbstractClassDescriptor party1, AbstractClassDescriptor party2, ClassDiagramRelationshipTypes relationshipType)
+        public ClassDiagramRelationship(string name, ClassDescriptor party1, ClassDescriptor party2, ClassDiagramRelationshipTypes relationshipType)
         {
             Name = name;
             Party1 = party1;
@@ -12,9 +12,9 @@
 
         public string Name { get; private set; }
 
-        public AbstractClassDescriptor Party1 { get; private set; }
+        public ClassDescriptor Party1 { get; private set; }
 
-        public AbstractClassDescriptor Party2 { get; private set; }
+        public ClassDescriptor Party2 { get; private set; }
 
         public ClassDiagramRelationshipTypes RelationshipType { get; private set; }
 

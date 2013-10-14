@@ -5,7 +5,7 @@ using NPlant.Core;
 
 namespace NPlant.MetaModel.ClassDiagraming
 {
-    public class RootClassDescriptor<T> : AbstractClassDescriptor
+    public class RootClassDescriptor<T> : ClassDescriptor
     {
         public RootClassDescriptor() : base(typeof(T))
         {
@@ -45,10 +45,10 @@ namespace NPlant.MetaModel.ClassDiagraming
 
         public class ForMemberDescriptor<TMember>
         {
-            private readonly AbstractClassDescriptor _descriptor;
+            private readonly ClassDescriptor _descriptor;
             private readonly MemberInfo _member;
 
-            public ForMemberDescriptor(AbstractClassDescriptor descriptor, MemberInfo member)
+            public ForMemberDescriptor(ClassDescriptor descriptor, MemberInfo member)
             {
                 _descriptor = descriptor;
                 _member = member;

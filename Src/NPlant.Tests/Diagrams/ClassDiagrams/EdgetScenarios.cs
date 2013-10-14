@@ -1,6 +1,6 @@
 ﻿using System;
 using NPlant.MetaModel.ClassDiagraming;
-using NPlant.Samples.CIrcularReferfences;
+using NPlant.Samples.CircularReferences;
 using NUnit.Framework;
 
 namespace NPlant.Tests.Diagrams.ClassDiagrams

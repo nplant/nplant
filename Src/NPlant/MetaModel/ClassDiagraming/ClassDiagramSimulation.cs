@@ -7,7 +7,7 @@ namespace NPlant.MetaModel.ClassDiagraming
     {
         private readonly ClassDiagram _definition;
         private readonly ClassDiagramVisitorContext _context;
-        private readonly KeyedList<AbstractClassDescriptor> _classes = new KeyedList<AbstractClassDescriptor>();
+        private readonly KeyedList<ClassDescriptor> _classes = new KeyedList<ClassDescriptor>();
 
         public ClassDiagramSimulation(ClassDiagram diagram)
         {
@@ -30,7 +30,7 @@ namespace NPlant.MetaModel.ClassDiagraming
             _classes.AddRange(_context.VisitedRelatedClasses);
         }
 
-        public KeyedList<AbstractClassDescriptor> Classes
+        public KeyedList<ClassDescriptor> Classes
         {
             get { return _classes; }
         }

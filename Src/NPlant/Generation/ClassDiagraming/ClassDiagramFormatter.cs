@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using NPlant.Core;
 using NPlant.MetaModel.ClassDiagraming;
@@ -76,13 +77,26 @@ namespace NPlant.Generation.ClassDiagraming
             _buffer.AppendLine("{0} {1} {2}{3}".FormatWith(relationship.Party1.Name, arrow, relationship.Party2.Name, suffix));
         }
 
-        private void WriteClassDefinition(AbstractClassDescriptor @class)
+        private void WriteClassDefinition(ClassDescriptor @class)
         {
             string color = @class.Color ?? _diagram.GetClassColor(@class) ?? null;
 
             _buffer.AppendLine(string.Format("    class {0}{1} {2}", @class.Name, color, "{"));
 
-            WriteClassMembers(@class.Members.InnerList);
+            var definedMembers = @class.Members.InnerList.Where(x => !x.IsInherited).OrderBy(x => x.Name).ToArray();
+
+            if (!IsBaseClassVisible(@class))
+            {
+                var inheritedMembers = @class.Members.InnerList.Where(x => x.IsInherited).OrderBy(x => x.Name);
+                WriteClassMembers(inheritedMembers);
+
+                if (definedMembers.Length > 0)
+                {
+                    _buffer.AppendLine("    --");
+                }
+            }
+
+            WriteClassMembers(definedMembers);
 
             _buffer.AppendLine("    }");
 
@@ -92,6 +106,17 @@ namespace NPlant.Generation.ClassDiagraming
             {
                 _buffer.AppendLine(note);
             }
+        }
+
+        private bool IsBaseClassVisible(ClassDescriptor @class)
+        {
+            if (_diagram.RootClasses.InnerList.Any(x => x.ReflectedType == @class.ReflectedType.BaseType))
+                return true;
+
+            if (_context.VisitedRelatedClasses.Any(x => x.ReflectedType == @class.ReflectedType.BaseType))
+                return true;
+
+            return false;
         }
 
         private void WriteClassMembers(IEnumerable<ClassMemberDescriptor> members)
