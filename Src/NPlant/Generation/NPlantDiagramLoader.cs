@@ -69,7 +69,7 @@ namespace NPlant.Generation
 
                         var factory = InstantiateDiagramFactory(exportedType);
 
-                        diagrams.AddRange(factory.InternalGetDiagrams().Cast<IDiagram>());
+                        diagrams.AddRange(factory.GetDiagrams());
                     }
                 }
             }
@@ -82,7 +82,7 @@ namespace NPlant.Generation
             ConstructorInfo ctor;
 
             if (!exportedType.TryGetPublicParameterlessConstructor(out ctor))
-                throw new NPlantException("DiagramFactory's are expected to have a public parameterless constructor.  '{0}' does not meet this expectation.".FormatWith(exportedType.FullName));
+                throw new NPlantException("ClassDiagramFactory's are expected to have a public parameterless constructor.  '{0}' does not meet this expectation.".FormatWith(exportedType.FullName));
 
             return (IDiagramFactory)ctor.Invoke(new object[0]);
         }

@@ -148,12 +148,14 @@ namespace NPlant.Core
             return this;
         }
 
-        public void Write(IGenerationContext context)
+        public override string ToString()
         {
             if (_lines.Count > 0)
             {
-                context.WriteLine("note {0}: {1}".FormatWith(_direction, string.Join("\\n", _lines)));
+                return "note {0}: {1}".FormatWith(_direction, string.Join("\\n", _lines));
             }
+
+            return string.Empty;
         }
     }
 

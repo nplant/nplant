@@ -1,30 +1,43 @@
 ﻿using NPlant.Core;
+using NPlant.Generation.ClassDiagraming;
 
 namespace NPlant.MetaModel.ClassDiagraming
 {
-    public class ClassDiagramSimulation : IClassDiagramMetaModel
+    public class ClassDiagramSimulation
     {
-        private readonly ClassDiagram _diagram;
+        private readonly ClassDiagram _definition;
+        private readonly ClassDiagramVisitorContext _context;
+        private readonly KeyedList<AbstractClassDescriptor> _classes = new KeyedList<AbstractClassDescriptor>();
 
         public ClassDiagramSimulation(ClassDiagram diagram)
         {
-            _diagram = diagram;
+            _definition = diagram;
+            _context = _definition.CreateGenerationContext();
         }
 
-        public string Simulate()
+        public void Simulate()
         {
-            var generator = _diagram.CreateGenerator();
-            return generator.Generate();
+            // initialize all of the classes there were explicitly added via that diagram API
+            foreach (var rootClass in _definition.RootClasses.InnerList)
+            {
+                rootClass.Visit(_context);
+                _classes.Add(rootClass);
+            }
+
+            // the above initialization might have added more classes, so now visit all of those
+            _context.VisitAllRelatedClasses();
+
+            _classes.AddRange(_context.VisitedRelatedClasses);
         }
 
-        public KeyedList<IClassDiagramClassDescriptor> Classes
+        public KeyedList<AbstractClassDescriptor> Classes
         {
-            get { return _diagram.MetaModel.Classes; }
+            get { return _classes; }
         }
 
         public TypeMetaModelSet Types
         {
-            get { return _diagram.MetaModel.Types; }
+            get { return _definition.Types; }
         }
     }
 }

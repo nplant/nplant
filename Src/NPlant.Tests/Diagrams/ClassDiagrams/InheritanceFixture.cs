@@ -12,7 +12,7 @@ namespace NPlant.Tests.Diagrams.ClassDiagrams
         {
             var simulation = new ClassDiagramSimulation(new SimpleDiagram());
 
-            Console.WriteLine(simulation.Simulate());
+            simulation.Simulate();
 
             Assert.That(simulation.Classes.Count, Is.EqualTo(4));
         }

@@ -10,7 +10,7 @@ namespace NPlant.UI
         public LoadedDiagram(IDiagram diagram)
         {
             _diagram = diagram;
-            _name = _diagram.GetName();
+            _name = _diagram.Name;
         }
 
         public IDiagram Diagram

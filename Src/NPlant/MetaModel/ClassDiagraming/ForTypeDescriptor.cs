@@ -11,7 +11,7 @@ namespace NPlant.MetaModel.ClassDiagraming
         public ForTypeDescriptor(ClassDiagram diagram)
         {
             _diagram = diagram;
-            _typeMetaModel = _diagram.MetaModel.Types[typeof(T)];
+            _typeMetaModel = _diagram.Types[typeof(T)];
         }
 
         public ClassDiagramOptions TreatAsPrimitive()

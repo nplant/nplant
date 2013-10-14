@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using NPlant.Core;
 
 namespace NPlant.Generation
 {
@@ -9,7 +8,7 @@ namespace NPlant.Generation
         {
             var generator = diagram.CreateGenerator();
 
-            var filePath = Path.Combine(outputDirectory, "{0}.nplant".FormatWith(diagram.GetName().ReplaceIllegalPathCharacters('_')));
+            var filePath = Path.Combine(outputDirectory, "{0}.nplant".FormatWith(diagram.Name.ReplaceIllegalPathCharacters('_')));
 
             if (File.Exists(filePath))
                 File.Delete(filePath);

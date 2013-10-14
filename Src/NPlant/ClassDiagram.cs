@@ -1,32 +1,29 @@
 ﻿using System;
 using System.Reflection;
 using NPlant.Core;
-using NPlant.Generation;
 using NPlant.Generation.ClassDiagraming;
 using NPlant.MetaModel.ClassDiagraming;
 
 namespace NPlant
 {
-    public class ClassDiagram : IDiagram, IClassDiagramMetaModel
+    public class ClassDiagram : IDiagram
     {
         private readonly TypeMetaModelSet _types = new TypeMetaModelSet();
         private string _name;
-        private readonly KeyedList<AssemblyDescriptor> _assemblyDescriptors = new KeyedList<AssemblyDescriptor>(); 
-        private readonly KeyedList<IClassDiagramClassDescriptor> _classDescriptors = new KeyedList<IClassDiagramClassDescriptor>();
+        private readonly KeyedList<AssemblyDescriptor> _assemblyDescriptors = new KeyedList<AssemblyDescriptor>();
+        private readonly KeyedList<AbstractClassDescriptor> _classDescriptors = new KeyedList<AbstractClassDescriptor>();
         private readonly ClassDiagramOptions _generationOptions;
 
         public ClassDiagram(Type type, params Type[] types): this()
         {
             type.CheckForNullArg("type");
 
-            this.AddClass(new ReflectedTypeClassDescriptor(this, type));
+            this.AddClass(new ReflectedClassDescriptor(type));
 
             if (types != null)
             {
                 foreach (var t in types)
-                {
-                    this.AddClass(new ReflectedTypeClassDescriptor(this, t));
-                }
+                    this.AddClass(new ReflectedClassDescriptor(t));
             }
         }
 
@@ -38,14 +35,9 @@ namespace NPlant
 
         public TypeMetaModelSet Types { get { return _types; } }
 
-        internal IClassDiagramMetaModel MetaModel
+        protected RootClassDescriptor<T> AddClass<T>()
         {
-            get { return this; }
-        }
-
-        protected ClassDescriptor<T> AddClass<T>()
-        {
-            var classDescriptor = new ClassDescriptor<T>(this);
+            var classDescriptor = new RootClassDescriptor<T>();
 
             this.AddClass(classDescriptor);
             _classDescriptors.Add(classDescriptor);
@@ -71,7 +63,7 @@ namespace NPlant
                 var types = assembly.Assembly.GetTypesExtending<T>();
 
                 foreach (var type in types)
-                    this.AddClass(new ReflectedTypeClassDescriptor(this, type), false);
+                    this.AddClass(new ReflectedClassDescriptor(type), false);
             }
 
             return this;
@@ -79,13 +71,13 @@ namespace NPlant
 
         internal void AddReflectedClass(int level, Type type)
         {
-            var descriptor = new ReflectedTypeClassDescriptor(this, type);
+            var descriptor = new ReflectedClassDescriptor(type);
 
             descriptor.SetLevel(level);
             this.AddClass(descriptor);
         }
 
-        public void AddClass(IClassDiagramClassDescriptor descriptor, bool addAssembly = true)
+        public void AddClass(AbstractClassDescriptor descriptor, bool addAssembly = true)
         {
             _classDescriptors.Add(descriptor.CheckForNullArg("descriptor"));
 
@@ -93,14 +85,19 @@ namespace NPlant
                 AddAssembly(descriptor.ReflectedType.Assembly);
         }
 
-        KeyedList<IClassDiagramClassDescriptor> IClassDiagramMetaModel.Classes { get { return _classDescriptors; } }
+        public KeyedList<AbstractClassDescriptor> RootClasses { get { return _classDescriptors; } }
 
-        public IDiagramGenerator CreateGenerator()
+        public string Name { get { return _name; } }
+
+        IDiagramGenerator IDiagram.CreateGenerator()
         {
             return new ClassDiagramGenerator(this);
         }
 
-        string IDiagram.GetName() { return _name; }
+        internal IDiagramFormatter CreateFormatter(ClassDiagramVisitorContext context)
+        {
+            return new ClassDiagramFormatter(this, context);
+        }
 
         public ClassDiagram Named(string name)
         {
@@ -115,5 +112,15 @@ namespace NPlant
         }
 
         public int? DepthLimit { get; internal set; }
+
+        public ClassDiagramVisitorContext CreateGenerationContext()
+        {
+            return new ClassDiagramVisitorContext(this, _types);
+        }
+
+        public string GetClassColor(AbstractClassDescriptor @class)
+        {
+            return null;
+        }
     }
 }

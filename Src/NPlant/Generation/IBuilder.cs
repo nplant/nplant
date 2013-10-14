@@ -4,6 +4,6 @@ namespace NPlant.Generation
 {
     public interface IBuilder
     {
-        void Build(ClassDiagramGenerationContext context);
+        void Build(ClassDiagramVisitorContext context);
     }
 }
