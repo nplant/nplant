@@ -87,8 +87,6 @@ namespace NPlant
 
         public KeyedList<ClassDescriptor> RootClasses { get { return _classDescriptors; } }
 
-        public string Name { get { return _name; } }
-
         IDiagramGenerator IDiagram.CreateGenerator()
         {
             return new ClassDiagramGenerator(this);
@@ -98,6 +96,8 @@ namespace NPlant
         {
             return new ClassDiagramFormatter(this, context);
         }
+
+        public string Name { get { return _name; } }
 
         public ClassDiagram Named(string name)
         {

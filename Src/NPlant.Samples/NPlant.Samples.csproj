@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Factories\SimpleDiagramFactory.cs" />
     <Compile Include="Inheritance\SimpleInheritanceDiagram.cs" />
     <Compile Include="CircularReferences\SimpleRecursiveDiagram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
