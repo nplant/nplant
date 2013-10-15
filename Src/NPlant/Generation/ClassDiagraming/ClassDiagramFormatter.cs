@@ -22,6 +22,8 @@ namespace NPlant.Generation.ClassDiagraming
         {
             _buffer.AppendLine("@startuml");
 
+            WriteTitle(_diagram.Title);
+
             // write all the root classes
             foreach (var rootClass in _diagram.RootClasses.InnerList)
             {
@@ -46,9 +48,58 @@ namespace NPlant.Generation.ClassDiagraming
                 WriteClassRelationship(relationship);
             }
 
+            // note:  this legend stuff isn't working at the PlantUML level for me... might need to back this out
+            WriteLegend(_diagram.Legend);
+
+            WriteNotes(_diagram.Notes);
+
             _buffer.AppendLine("@enduml");
 
             return _buffer.ToString();
+        }
+
+        private void WriteNotes(IEnumerable<ClassDiagramNote> notes)
+        {
+            if (notes != null)
+            {
+                var notesArray = notes.ToArray();
+
+                for (int i = 0; i < notesArray.Length; i++)
+                {
+                    ClassDiagramNote note = notesArray[i];
+
+                    string lines = string.Join("\\n", note.Lines);
+
+                    string key = "N" + i;
+                    _buffer.AppendLine("note \"{0}\" as {1}".FormatWith(lines, key));
+
+                    foreach (var connection in note.ConnectedClasses)
+                    {
+                        ClassDescriptor descriptor = new ReflectedClassDescriptor(connection);
+
+                        _buffer.AppendLine("{0} .. {1}".FormatWith(descriptor.Name, key));
+                    }
+                }
+            }
+        }
+
+        private void WriteLegend(ClassDiagramLegend legend)
+        {
+            if (legend != null)
+            {
+                _buffer.AppendLine("legend {0}".FormatWith(legend.Position));
+                _buffer.AppendLine("    {0}".FormatWith(legend.Text));
+                _buffer.AppendLine("endlegend");
+            }
+        }
+
+        private void WriteTitle(string title)
+        {
+            if (!title.IsNullOrEmpty())
+            {
+                _buffer.AppendLine("title {0}".FormatWith(title));
+                _buffer.AppendLine("end title");
+            }
         }
 
         private void WriteClassRelationship(ClassDiagramRelationship relationship)

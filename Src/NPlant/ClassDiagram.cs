@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using NPlant.Core;
 using NPlant.Generation.ClassDiagraming;
@@ -10,10 +11,13 @@ namespace NPlant
     {
         private readonly TypeMetaModelSet _types = new TypeMetaModelSet();
         private string _name;
+        private string _title;
         private readonly KeyedList<AssemblyDescriptor> _assemblyDescriptors = new KeyedList<AssemblyDescriptor>();
         private readonly KeyedList<ClassDescriptor> _classDescriptors = new KeyedList<ClassDescriptor>();
         private readonly ClassDiagramOptions _generationOptions;
-
+        private ClassDiagramLegend _legend;
+        private readonly List<ClassDiagramNote> _notes = new List<ClassDiagramNote>();
+ 
         public ClassDiagram(Type type, params Type[] types): this()
         {
             type.CheckForNullArg("type");
@@ -106,6 +110,15 @@ namespace NPlant
             return this;
         }
 
+        public string Title { get { return _title; } }
+
+        public ClassDiagram Titled(string title)
+        {
+            _title = title;
+
+            return this;
+        }
+
         public ClassDiagramOptions GenerationOptions
         {
             get { return _generationOptions; }
@@ -113,12 +126,34 @@ namespace NPlant
 
         public int? DepthLimit { get; internal set; }
 
+        public ClassDiagramLegend LegendOf(string legend)
+        {
+            _legend = new ClassDiagramLegend(this, legend);
+            return _legend;
+        }
+
+        internal ClassDiagramLegend Legend { get { return _legend; } }
+
+        internal IEnumerable<ClassDiagramNote> Notes
+        {
+            get { return _notes; }
+        }
+
+        public ClassDiagramNote AddNote(string line)
+        {
+            var note = new ClassDiagramNote(line, this);
+
+            _notes.Add(note);
+
+            return note;
+        }
+
         public ClassDiagramVisitorContext CreateGenerationContext()
         {
             return new ClassDiagramVisitorContext(this, _types);
         }
 
-        public string GetClassColor(ClassDescriptor @class)
+        internal string GetClassColor(ClassDescriptor @class)
         {
             return null;
         }
