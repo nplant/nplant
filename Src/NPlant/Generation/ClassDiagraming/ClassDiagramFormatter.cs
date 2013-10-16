@@ -98,7 +98,6 @@ namespace NPlant.Generation.ClassDiagraming
             if (!title.IsNullOrEmpty())
             {
                 _buffer.AppendLine("title {0}".FormatWith(title));
-                _buffer.AppendLine("end title");
             }
         }
 
