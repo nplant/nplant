@@ -41,13 +41,6 @@ namespace NPlant.Generation.ClassDiagraming
                 AssignToPackage(relatedClass, packageMap, classDefinition, unpackaged);
             }
 
-            foreach (var relatedClass in _context.VisitedRelatedClasses)
-            {
-                string classDefinition = WriteClassDefinition(relatedClass);
-
-                AssignToPackage(relatedClass, packageMap, classDefinition, unpackaged);
-            }
-
             WritePackages(packageMap, unpackaged);
 
             _buffer.AppendLine();
