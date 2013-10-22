@@ -17,7 +17,8 @@ namespace NPlant
         private readonly ClassDiagramOptions _generationOptions;
         private ClassDiagramLegend _legend;
         private readonly List<ClassDiagramNote> _notes = new List<ClassDiagramNote>();
- 
+        private readonly List<ClassDiagramPackage> _packages = new List<ClassDiagramPackage>();
+
         public ClassDiagram(Type type, params Type[] types): this()
         {
             type.CheckForNullArg("type");
@@ -156,6 +157,21 @@ namespace NPlant
         internal string GetClassColor(ClassDescriptor @class)
         {
             return null;
+        }
+
+        internal IEnumerable<ClassDiagramPackage> Packages
+        {
+            get { return _packages; }
+        }
+
+        protected ClassDiagramPackage AddPackage(string packageName)
+        {
+            packageName.CheckForNullOrEmptyArg("packageName");
+
+            var package = new ClassDiagramPackage(packageName, this);
+            _packages.Add(package);
+            
+            return package;
         }
     }
 }

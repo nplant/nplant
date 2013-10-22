@@ -24,20 +24,31 @@ namespace NPlant.Generation.ClassDiagraming
 
             WriteTitle(_diagram.Title);
 
-            // write all the root classes
+            List<string> unpackaged = new List<string>();
+            Dictionary<string, List<string>> packageMap = new Dictionary<string, List<string>>();
+
             foreach (var rootClass in _diagram.RootClasses.InnerList)
             {
-                WriteClassDefinition(rootClass);
+                string classDefinition = WriteClassDefinition(rootClass);
+
+                AssignToPackage(rootClass, packageMap, classDefinition, unpackaged);
             }
 
-            _buffer.AppendLine();
-            _buffer.AppendLine();
-
-            // write all the related classes
             foreach (var relatedClass in _context.VisitedRelatedClasses)
             {
-                WriteClassDefinition(relatedClass);
+                string classDefinition = WriteClassDefinition(relatedClass);
+
+                AssignToPackage(relatedClass, packageMap, classDefinition, unpackaged);
             }
+
+            foreach (var relatedClass in _context.VisitedRelatedClasses)
+            {
+                string classDefinition = WriteClassDefinition(relatedClass);
+
+                AssignToPackage(relatedClass, packageMap, classDefinition, unpackaged);
+            }
+
+            WritePackages(packageMap, unpackaged);
 
             _buffer.AppendLine();
             _buffer.AppendLine();
@@ -56,6 +67,55 @@ namespace NPlant.Generation.ClassDiagraming
             _buffer.AppendLine("@enduml");
 
             return _buffer.ToString();
+        }
+
+        private void AssignToPackage(ClassDescriptor rootClass, Dictionary<string, List<string>> packageMap, string classDefinition, List<string> unpackaged)
+        {
+            foreach (var package in _diagram.Packages)
+            {
+                if (package.IsMatch(rootClass))
+                {
+                    AppendClassToPackageMap(packageMap, package.Name, classDefinition);
+                    return;
+                }
+            }
+
+            unpackaged.Add(classDefinition);
+        }
+
+        private void WritePackages(Dictionary<string, List<string>> packageMap, IEnumerable<string> unpackaged)
+        {
+            foreach (var key in packageMap.Keys)
+            {
+                var package = packageMap[key];
+
+                _buffer.AppendLine(string.Format("package \"{0}\"{1}", key, "{"));
+
+                foreach (var classDefinition in package)
+                {
+                    _buffer.AppendLine(classDefinition);
+                }
+
+                _buffer.AppendLine(string.Format("{0}", "}"));
+            }
+
+            foreach (var item in unpackaged)
+            {
+                _buffer.AppendLine(item);
+            }
+        }
+
+        private void AppendClassToPackageMap(Dictionary<string, List<string>> packageMap, string package, string classDefinition)
+        {
+            List<string> classDefinitions;
+            
+            if (!packageMap.TryGetValue(package, out classDefinitions))
+            {
+                classDefinitions = new List<string>();
+                packageMap.Add(package, classDefinitions);
+            }
+
+            classDefinitions.Add(classDefinition);
         }
 
         private void WriteNotes(IEnumerable<ClassDiagramNote> notes)
@@ -128,35 +188,39 @@ namespace NPlant.Generation.ClassDiagraming
             _buffer.AppendLine("{0} {1} {2}{3}".FormatWith(relationship.Party1.Name, arrow, relationship.Party2.Name, suffix));
         }
 
-        private void WriteClassDefinition(ClassDescriptor @class)
+        private string WriteClassDefinition(ClassDescriptor @class)
         {
             string color = @class.Color ?? _diagram.GetClassColor(@class) ?? null;
 
-            _buffer.AppendLine(string.Format("    class {0}{1} {2}", @class.Name, color, "{"));
+            StringBuilder buffer = new StringBuilder();
+
+            buffer.AppendLine(string.Format("    class {0}{1} {2}", @class.Name, color, "{"));
 
             var definedMembers = @class.Members.InnerList.Where(x => !x.IsInherited).OrderBy(x => x.Name).ToArray();
 
             if (!IsBaseClassVisible(@class))
             {
                 var inheritedMembers = @class.Members.InnerList.Where(x => x.IsInherited).OrderBy(x => x.Name);
-                WriteClassMembers(inheritedMembers);
+                WriteClassMembers(inheritedMembers, buffer);
 
                 if (definedMembers.Length > 0)
                 {
-                    _buffer.AppendLine("    --");
+                    buffer.AppendLine("    --");
                 }
             }
 
-            WriteClassMembers(definedMembers);
+            WriteClassMembers(definedMembers, buffer);
 
-            _buffer.AppendLine("    }");
+            buffer.AppendLine("    }");
 
             var note = @class.MetaModel.Note != null ? @class.MetaModel.Note.ToString() : null;
 
             if (note != null)
             {
-                _buffer.AppendLine(note);
+                buffer.AppendLine(note);
             }
+
+            return buffer.ToString();
         }
 
         private bool IsBaseClassVisible(ClassDescriptor @class)
@@ -170,12 +234,12 @@ namespace NPlant.Generation.ClassDiagraming
             return false;
         }
 
-        private void WriteClassMembers(IEnumerable<ClassMemberDescriptor> members)
+        private static void WriteClassMembers(IEnumerable<ClassMemberDescriptor> members, StringBuilder buffer)
         {
             foreach (var member in members)
             {
                 if(!member.MetaModel.Hidden && member.MetaModel.IsPrimitive)
-                    _buffer.AppendLine("    {0} {1}".FormatWith(member.MetaModel.Name, member.Name));
+                    buffer.AppendLine("    {0} {1}".FormatWith(member.MetaModel.Name, member.Name));
             }
         }
     }
