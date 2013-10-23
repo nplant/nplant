@@ -13,7 +13,7 @@ namespace NPlant.UI.Screens
 
         public DialogResult ShowDialog(IWin32Window owner)
         {
-            var dialog = new SaveFileDialog {AddExtension = true, OverwritePrompt = true};
+            var dialog = new SaveFileDialog {AddExtension = true, OverwritePrompt = true, RestoreDirectory = true};
 
             var result = dialog.ShowDialog(owner);
 

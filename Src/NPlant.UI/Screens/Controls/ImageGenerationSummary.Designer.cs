@@ -77,6 +77,7 @@
             this.DiagramViewerPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.DiagramViewerPictureBox.TabIndex = 7;
             this.DiagramViewerPictureBox.TabStop = false;
+            this.DiagramViewerPictureBox.Click += new System.EventHandler(this.OnPictureBoxClick);
             // 
             // ImageGenerationSummary
             // 

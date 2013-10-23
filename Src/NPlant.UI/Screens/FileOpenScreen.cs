@@ -5,7 +5,7 @@ namespace NPlant.UI.Screens
     public class FileOpenScreen : IResultScreen<FileDialogResult>
     {
         private FileDialogResult _result;
-        private string _filter;
+        private readonly string _filter;
 
         public FileOpenScreen(string filter)
         {
@@ -21,6 +21,7 @@ namespace NPlant.UI.Screens
         {
             var dialog = new OpenFileDialog
             {
+                RestoreDirectory = true,
                 Filter = _filter                         
             };
 
