@@ -23,7 +23,11 @@ namespace NPlant.UI.Screens.FileViews
         public string DiagramText
         {
             get { return this.DiagramTextTextBox.Text; } 
-            set { this.DiagramTextTextBox.Text = value; }
+            set
+            {
+                this.DiagramTextTextBox.Text = value;
+                this.Image = null;
+            }
         }
 
         public bool ShowDiagramClassesPanel

@@ -65,6 +65,7 @@ namespace NPlant.Generation
 
             foreach (var diagram in diagrams)
             {
+                diagram.CreateGenerator().Generate();
                 ClassDiagramFile.Save(outputDirectory.FullName, diagram, recorder);
             }
 

@@ -16,19 +16,16 @@ namespace NPlant.UI.Screens.Controls
         public Image Image
         {
             get { return this.DiagramViewerPictureBox.Image; }
-            set { this.DiagramViewerPictureBox.Image = value; }
+            set
+            {
+                MutatePictureBox(pic => pic.SetImage(value));
+            }
         }
 
-        private void SizeModeChanged(object sender, EventArgs e)
+        private void MutatePictureBox(Action<SmartPictureBox> action)
         {
-            RadioButton radio = (RadioButton) sender;
-
-            PictureBoxSizeMode mode;
-
-            if (Enum.TryParse(radio.Text, out mode))
-            {
-                DiagramViewerPictureBox.SizeMode = mode;
-            }
+            action(this.DiagramViewerPictureBox);
+            this.ActiveControl = this.DiagramViewerPictureBox;
         }
 
         private void OnPictureBoxContextMenuStripOpening(object sender, System.ComponentModel.CancelEventArgs e)
@@ -42,9 +39,14 @@ namespace NPlant.UI.Screens.Controls
 
             if (result.UserApproved)
             {
-                this.Image.Save(result.FilePath);
-                Process.Start(result.FilePath);
+                var path = this.Image.SaveNPlantImage(result.FilePath);
+                Process.Start(path);
             }
+        }
+
+        private void OnPictureBoxClick(object sender, EventArgs e)
+        {
+            this.ActiveControl = this.DiagramViewerPictureBox;
         }
     }
 }

@@ -29,109 +29,14 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.PictureBoxPanel = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.StretchImageSizeMode = new System.Windows.Forms.RadioButton();
-            this.ZoomSizeMode = new System.Windows.Forms.RadioButton();
-            this.NormalSizeModel = new System.Windows.Forms.RadioButton();
-            this.DiagramViewerPictureBox = new System.Windows.Forms.PictureBox();
             this.PictureBoxContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.saveImageToFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.PictureBoxPanel.SuspendLayout();
-            this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DiagramViewerPictureBox)).BeginInit();
+            this.PictureBoxContainer = new System.Windows.Forms.Panel();
+            this.DiagramViewerPictureBox = new NPlant.UI.Screens.Controls.SmartPictureBox();
             this.PictureBoxContextMenuStrip.SuspendLayout();
+            this.PictureBoxContainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DiagramViewerPictureBox)).BeginInit();
             this.SuspendLayout();
-            // 
-            // PictureBoxPanel
-            // 
-            this.PictureBoxPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.PictureBoxPanel.AutoScroll = true;
-            this.PictureBoxPanel.Controls.Add(this.panel1);
-            this.PictureBoxPanel.Controls.Add(this.DiagramViewerPictureBox);
-            this.PictureBoxPanel.Location = new System.Drawing.Point(6, 3);
-            this.PictureBoxPanel.Name = "PictureBoxPanel";
-            this.PictureBoxPanel.Size = new System.Drawing.Size(498, 409);
-            this.PictureBoxPanel.TabIndex = 2;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.radioButton2);
-            this.panel1.Controls.Add(this.StretchImageSizeMode);
-            this.panel1.Controls.Add(this.ZoomSizeMode);
-            this.panel1.Controls.Add(this.NormalSizeModel);
-            this.panel1.Location = new System.Drawing.Point(3, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(492, 26);
-            this.panel1.TabIndex = 7;
-            // 
-            // radioButton2
-            // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(174, 2);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(85, 17);
-            this.radioButton2.TabIndex = 10;
-            this.radioButton2.Tag = "";
-            this.radioButton2.Text = "CenterImage";
-            this.radioButton2.UseVisualStyleBackColor = true;
-            this.radioButton2.CheckedChanged += new System.EventHandler(this.SizeModeChanged);
-            // 
-            // StretchImageSizeMode
-            // 
-            this.StretchImageSizeMode.AutoSize = true;
-            this.StretchImageSizeMode.Location = new System.Drawing.Point(71, 3);
-            this.StretchImageSizeMode.Name = "StretchImageSizeMode";
-            this.StretchImageSizeMode.Size = new System.Drawing.Size(88, 17);
-            this.StretchImageSizeMode.TabIndex = 8;
-            this.StretchImageSizeMode.Tag = "";
-            this.StretchImageSizeMode.Text = "StretchImage";
-            this.StretchImageSizeMode.UseVisualStyleBackColor = true;
-            this.StretchImageSizeMode.CheckedChanged += new System.EventHandler(this.SizeModeChanged);
-            // 
-            // ZoomSizeMode
-            // 
-            this.ZoomSizeMode.AutoSize = true;
-            this.ZoomSizeMode.Checked = true;
-            this.ZoomSizeMode.Location = new System.Drawing.Point(280, 2);
-            this.ZoomSizeMode.Name = "ZoomSizeMode";
-            this.ZoomSizeMode.Size = new System.Drawing.Size(52, 17);
-            this.ZoomSizeMode.TabIndex = 7;
-            this.ZoomSizeMode.TabStop = true;
-            this.ZoomSizeMode.Tag = "";
-            this.ZoomSizeMode.Text = "Zoom";
-            this.ZoomSizeMode.UseVisualStyleBackColor = true;
-            this.ZoomSizeMode.CheckedChanged += new System.EventHandler(this.SizeModeChanged);
-            // 
-            // NormalSizeModel
-            // 
-            this.NormalSizeModel.AutoSize = true;
-            this.NormalSizeModel.Location = new System.Drawing.Point(3, 3);
-            this.NormalSizeModel.Name = "NormalSizeModel";
-            this.NormalSizeModel.Size = new System.Drawing.Size(58, 17);
-            this.NormalSizeModel.TabIndex = 6;
-            this.NormalSizeModel.Tag = "";
-            this.NormalSizeModel.Text = "Normal";
-            this.NormalSizeModel.UseVisualStyleBackColor = true;
-            this.NormalSizeModel.CheckedChanged += new System.EventHandler(this.SizeModeChanged);
-            // 
-            // DiagramViewerPictureBox
-            // 
-            this.DiagramViewerPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.DiagramViewerPictureBox.BackColor = System.Drawing.Color.White;
-            this.DiagramViewerPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.DiagramViewerPictureBox.ContextMenuStrip = this.PictureBoxContextMenuStrip;
-            this.DiagramViewerPictureBox.Location = new System.Drawing.Point(3, 32);
-            this.DiagramViewerPictureBox.Name = "DiagramViewerPictureBox";
-            this.DiagramViewerPictureBox.Size = new System.Drawing.Size(492, 374);
-            this.DiagramViewerPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.DiagramViewerPictureBox.TabIndex = 4;
-            this.DiagramViewerPictureBox.TabStop = false;
             // 
             // PictureBoxContextMenuStrip
             // 
@@ -148,32 +53,51 @@
             this.saveImageToFileToolStripMenuItem.Text = "Save Image to File...";
             this.saveImageToFileToolStripMenuItem.Click += new System.EventHandler(this.OnSaveImageToFileClick);
             // 
+            // PictureBoxContainer
+            // 
+            this.PictureBoxContainer.AutoScroll = true;
+            this.PictureBoxContainer.AutoSize = true;
+            this.PictureBoxContainer.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.PictureBoxContainer.Controls.Add(this.DiagramViewerPictureBox);
+            this.PictureBoxContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PictureBoxContainer.Location = new System.Drawing.Point(0, 0);
+            this.PictureBoxContainer.Name = "PictureBoxContainer";
+            this.PictureBoxContainer.Size = new System.Drawing.Size(609, 519);
+            this.PictureBoxContainer.TabIndex = 7;
+            // 
+            // DiagramViewerPictureBox
+            // 
+            this.DiagramViewerPictureBox.BackColor = System.Drawing.Color.White;
+            this.DiagramViewerPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.DiagramViewerPictureBox.ContextMenuStrip = this.PictureBoxContextMenuStrip;
+            this.DiagramViewerPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DiagramViewerPictureBox.Location = new System.Drawing.Point(0, 0);
+            this.DiagramViewerPictureBox.Name = "DiagramViewerPictureBox";
+            this.DiagramViewerPictureBox.Size = new System.Drawing.Size(609, 519);
+            this.DiagramViewerPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.DiagramViewerPictureBox.TabIndex = 7;
+            this.DiagramViewerPictureBox.TabStop = false;
+            // 
             // ImageGenerationSummary
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.PictureBoxPanel);
+            this.Controls.Add(this.PictureBoxContainer);
             this.Name = "ImageGenerationSummary";
-            this.Size = new System.Drawing.Size(507, 415);
-            this.PictureBoxPanel.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DiagramViewerPictureBox)).EndInit();
+            this.Size = new System.Drawing.Size(609, 519);
             this.PictureBoxContextMenuStrip.ResumeLayout(false);
+            this.PictureBoxContainer.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.DiagramViewerPictureBox)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Panel PictureBoxPanel;
-        private System.Windows.Forms.PictureBox DiagramViewerPictureBox;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.RadioButton ZoomSizeMode;
-        private System.Windows.Forms.RadioButton NormalSizeModel;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton StretchImageSizeMode;
         private System.Windows.Forms.ContextMenuStrip PictureBoxContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem saveImageToFileToolStripMenuItem;
+        private System.Windows.Forms.Panel PictureBoxContainer;
+        private SmartPictureBox DiagramViewerPictureBox;
     }
 }

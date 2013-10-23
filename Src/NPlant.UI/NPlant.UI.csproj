@@ -64,6 +64,9 @@
     <Compile Include="Screens\Controls\ImageGenerationSummary.Designer.cs">
       <DependentUpon>ImageGenerationSummary.cs</DependentUpon>
     </Compile>
+    <Compile Include="Screens\Controls\SmartPictureBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Screens\FileDialogResult.cs" />
     <Compile Include="Screens\FileFilters.cs" />
     <Compile Include="Screens\FileSaveScreen.cs" />

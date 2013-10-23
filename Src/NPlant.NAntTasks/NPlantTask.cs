@@ -30,6 +30,9 @@ namespace NPlant.NAntTasks
         [TaskAttribute("dir", Required = false)]
         public string OutputDirectory { get; set; }
 
+        [TaskAttribute("categoryBy", Required = false)]
+        public string CategoryBy { get; set; }
+
         [BuildElement("diagrams", Required = false)]
         public DiagramsElement DiagramsElement
         {
