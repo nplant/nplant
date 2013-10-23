@@ -78,13 +78,32 @@ namespace NPlant.Generation
 
                 if (image != null)
                 {
-                    var filePath = Path.Combine(outputDirectory.FullName, diagram.Name.ReplaceIllegalPathCharacters('_'));
+                    string dir = outputDirectory.FullName;
 
-                    image.SaveNPlantImage(filePath);
+                    dir = Categorize(diagram, dir);
+
+                    var fileName = diagram.Name.ReplaceIllegalPathCharacters('_');
+
+                    image.SaveNPlantImage(dir, fileName);
                 }
             }
 
             recorder.Log("Finished Stage: Diagram Rendering...");
+        }
+
+        private string Categorize(IDiagram diagram, string dir)
+        {
+            if (_options.ParsedCategorized == NPlantCategorizations.ByNamespace)
+            {
+                var ns = diagram.GetType().Namespace;
+
+                if (! string.IsNullOrEmpty(ns))
+                {
+                    dir = Path.Combine(dir, ns);
+                }
+            }
+
+            return dir;
         }
 
         private DirectoryInfo RunInitializeOutputDirectoryStage()

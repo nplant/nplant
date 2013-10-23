@@ -233,10 +233,17 @@ public static class ExtensionMethods
 
 public static class ImageExtensionMethods
 {
-    public static string SaveNPlantImage(this Image image, string path)
+    public static string SaveNPlantImage(this Image image, string dir, string file)
     {
-        if (!Path.HasExtension(path) || Path.GetExtension(path) != ".png")
-            path = Path.ChangeExtension(path, ".png");
+        if (!Path.HasExtension(file) || Path.GetExtension(file) != ".png")
+            file = Path.ChangeExtension(file, ".png");
+
+        DirectoryInfo directory = new DirectoryInfo(dir);
+        
+        if (!directory.Exists)
+            directory.Create();
+
+        string path = Path.Combine(dir, file);
 
         if (File.Exists(path))
             File.Delete(path);

@@ -16,7 +16,7 @@ namespace NPlant.UI.Screens
             var dialog = new SaveFileDialog {AddExtension = true, OverwritePrompt = true, RestoreDirectory = true};
 
             var result = dialog.ShowDialog(owner);
-
+            
             _result = new FileDialogResult(result, dialog.FileName);
 
             return result;

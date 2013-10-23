@@ -1,5 +1,6 @@
 ﻿using NAnt.Core;
 using NAnt.Core.Attributes;
+using NPlant.Core;
 using NPlant.Generation;
 
 namespace NPlant.NAntTasks
@@ -8,6 +9,7 @@ namespace NPlant.NAntTasks
     public class NPlantTask : Task, INPlantRunnerOptions
     {
         private DiagramsElement _diagramsElement = new DiagramsElement();
+        private string _categorize;
 
         protected override void ExecuteTask()
         {
@@ -47,7 +49,25 @@ namespace NPlant.NAntTasks
         public string OutputDirectory { get; set; }
 
         [TaskAttribute("categorize", Required = false)]
-        public string Categorize { get; set; }
+        public string Categorize
+        {
+            get { return _categorize; }
+            set
+            {
+                switch (value)
+                {
+                    case "namespace":
+                        this.ParsedCategorized = NPlantCategorizations.ByNamespace;
+                        break;
+                    default:
+                        throw new NPlantException("{0} is not a recognized categorization type.  Must be one of the following: {1}".FormatWith(value, EnumJoiner.Join<NPlantCategorizations>()));
+                }
+
+                _categorize = value;
+            }
+        }
+
+        public NPlantCategorizations ParsedCategorized { get; set; }
 
         [TaskAttribute("java", Required = false)]
         public string JavaPath { get; set; }

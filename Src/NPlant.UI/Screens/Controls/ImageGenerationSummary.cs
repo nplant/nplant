@@ -39,7 +39,7 @@ namespace NPlant.UI.Screens.Controls
 
             if (result.UserApproved)
             {
-                var path = this.Image.SaveNPlantImage(result.FilePath);
+                var path = this.Image.SaveNPlantImage(result.DirectoryName, result.FileName);
                 Process.Start(path);
             }
         }

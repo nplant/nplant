@@ -8,5 +8,11 @@
         string Categorize { get; set; }
         string JavaPath { get; set; }
         string PlantUml { get; set; }
+        NPlantCategorizations ParsedCategorized { get; set; }
+    }
+
+    public enum NPlantCategorizations
+    {
+        ByNamespace
     }
 }

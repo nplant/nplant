@@ -43,6 +43,7 @@
     <Compile Include="ClassDiagramLegend.cs" />
     <Compile Include="ClassDiagramNote.cs" />
     <Compile Include="ClassDiagramPackage.cs" />
+    <Compile Include="Core\EnumJoiner.cs" />
     <Compile Include="Generation\ClassDiagramFile.cs" />
     <Compile Include="Generation\ClassDiagraming\ClassDiagramFormatter.cs" />
     <Compile Include="Generation\ClassDiagraming\ClassDiagramOptions.cs" />
