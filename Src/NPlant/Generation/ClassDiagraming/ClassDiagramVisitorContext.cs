@@ -21,6 +21,8 @@ namespace NPlant.Generation.ClassDiagraming
 
         protected ClassDiagram Diagram { get; set; }
 
+        public ClassDiagramScanModes ScanMode { get { return this.Diagram.ScanMode; } }
+
         public void AddRelatedClass(ClassDescriptor parent, ClassDescriptor child, ClassDiagramRelationshipTypes relationshipType, int level, string name = null)
         {
             //todo:  wrap w/ a depth check?

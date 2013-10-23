@@ -78,10 +78,23 @@ public static class ExtensionMethods
         var customAttributes = property.GetCustomAttributes(typeof(T), inherit);
         return customAttributes.Cast<T>().ToArray();
     }
+    
+    public static T[] GetAttributesOf<T>(this FieldInfo field, bool inherit = false) where T : Attribute
+    {
+        var customAttributes = field.GetCustomAttributes(typeof(T), inherit);
+        return customAttributes.Cast<T>().ToArray();
+    }
 
     public static bool HasAttribute<T>(this PropertyInfo property, bool inherit = false) where T : Attribute
     {
         var attributes = property.GetAttributesOf<T>(inherit);
+
+        return attributes != null && attributes.Length > 0;
+    }
+    
+    public static bool HasAttribute<T>(this FieldInfo field, bool inherit = false) where T : Attribute
+    {
+        var attributes = field.GetAttributesOf<T>(inherit);
 
         return attributes != null && attributes.Length > 0;
     }

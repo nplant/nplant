@@ -16,11 +16,24 @@ namespace NPlant.Generation.ClassDiagraming
             return new ForTypeDescriptor<T>(_diagram);
         }
 
+        public ClassDiagramOptions ScanModeOf(ClassDiagramScanModes scanMode)
+        {
+            _diagram.ScanMode = scanMode;
+            
+            return this;
+        }
+
         public ClassDiagramOptions FanningDepthLimit(int depth)
         {
             _diagram.DepthLimit = depth;
 
             return this;
         }
+    }
+
+    public enum ClassDiagramScanModes
+    {
+        PublicMembersOnly,
+        SystemServiceModelMember
     }
 }

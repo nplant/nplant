@@ -74,7 +74,6 @@
             this.DiagramViewerPictureBox.Location = new System.Drawing.Point(0, 0);
             this.DiagramViewerPictureBox.Name = "DiagramViewerPictureBox";
             this.DiagramViewerPictureBox.Size = new System.Drawing.Size(609, 519);
-            this.DiagramViewerPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.DiagramViewerPictureBox.TabIndex = 7;
             this.DiagramViewerPictureBox.TabStop = false;
             this.DiagramViewerPictureBox.Click += new System.EventHandler(this.OnPictureBoxClick);

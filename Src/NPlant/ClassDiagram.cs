@@ -164,6 +164,8 @@ namespace NPlant
             get { return _packages; }
         }
 
+        internal ClassDiagramScanModes ScanMode { get; set; }
+
         protected ClassDiagramPackage AddPackage(string packageName)
         {
             packageName.CheckForNullOrEmptyArg("packageName");

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.ServiceModel;
 using NPlant.Core;
 using NPlant.Generation.ClassDiagraming;
 
@@ -22,17 +24,13 @@ namespace NPlant.MetaModel.ClassDiagraming
         {
             this.MetaModel = context.GetTypeMetaModel(this.ReflectedType);
 
-            var descriptors = this.ReflectedType.GetFields().Select(field => new ClassMemberDescriptor(this.ReflectedType, field, context.GetTypeMetaModel(field.FieldType))).ToList();
-            descriptors.AddRange(this.ReflectedType.GetProperties().Select(property => new ClassMemberDescriptor(this.ReflectedType, property, context.GetTypeMetaModel(property.PropertyType))));
-
-            _members.AddRange(descriptors);
+            LoadMembers(context);
 
             bool showInheritance = this.RenderInheritance && this.ReflectedType.BaseType != null;
-            TypeMetaModel baseTypeMetaModel = null;
 
             if (showInheritance)
             {
-                baseTypeMetaModel = context.GetTypeMetaModel(this.ReflectedType.BaseType);
+                var baseTypeMetaModel = context.GetTypeMetaModel(this.ReflectedType.BaseType);
 
                 showInheritance = !baseTypeMetaModel.HideAsBaseClass && !baseTypeMetaModel.Hidden;
             }
@@ -76,6 +74,31 @@ namespace NPlant.MetaModel.ClassDiagraming
             if (showInheritance)
             {
                 context.AddRelatedClass(this, new ReflectedClassDescriptor(this.ReflectedType.BaseType), ClassDiagramRelationshipTypes.Base, this.Level - 1);
+            }
+        }
+
+        private void LoadMembers(ClassDiagramVisitorContext context)
+        {
+            switch (context.ScanMode)
+            {
+                case ClassDiagramScanModes.SystemServiceModelMember:
+                    _members.AddRange(this.ReflectedType.GetFields()
+                                                        .Where(x => x.HasAttribute<DataMemberAttribute>() || x.HasAttribute<MessageBodyMemberAttribute>())
+                                                        .Select(field => new ClassMemberDescriptor(this.ReflectedType, field, context.GetTypeMetaModel(field.FieldType)))
+                                     );
+                    _members.AddRange(this.ReflectedType.GetProperties()
+                                                        .Where(x => x.HasAttribute<DataMemberAttribute>() || x.HasAttribute<MessageBodyMemberAttribute>())
+                                                        .Select(property => new ClassMemberDescriptor(this.ReflectedType, property, context.GetTypeMetaModel(property.PropertyType)))
+                                     );
+                    break;
+                default:
+                    _members.AddRange(this.ReflectedType.GetFields()
+                                                        .Select(field => new ClassMemberDescriptor(this.ReflectedType, field, context.GetTypeMetaModel(field.FieldType)))
+                                     );
+                    _members.AddRange(this.ReflectedType.GetProperties()
+                                                        .Select(property => new ClassMemberDescriptor(this.ReflectedType, property, context.GetTypeMetaModel(property.PropertyType)))
+                                     );
+                    break;
             }
         }
 

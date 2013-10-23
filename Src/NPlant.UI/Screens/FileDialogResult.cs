@@ -10,8 +10,11 @@ namespace NPlant.UI.Screens
             this.UserApproved = result == DialogResult.OK;
             this.FilePath = fileName;
 
-            this.FileName = Path.GetFileName(this.FilePath);
-            this.DirectoryName = Path.GetDirectoryName(this.FilePath);
+            if (this.UserApproved && !this.FilePath.IsNullOrEmpty())
+            {
+                this.FileName = Path.GetFileName(this.FilePath);
+                this.DirectoryName = Path.GetDirectoryName(this.FilePath);
+            }
         }
 
         public string FileName { get; private set; }
