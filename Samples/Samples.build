@@ -9,7 +9,7 @@
 	<property name="java" value="C:\Program Files (x86)\Java\jre7\bin\java.exe" />
 
 	<target name="main">
-		<nplant assembly="${diagram.assembly}" dir="${out.dir}" java="${java}" plantuml="${plantuml}" clean="true" categorize="foo" verbose="true" />
+		<nplant assembly="${diagram.assembly}" dir="${out.dir}" java="${java}" plantuml="${plantuml}" clean="true" categorize="namespace" verbose="true" />
 	</target>
 
 </project>

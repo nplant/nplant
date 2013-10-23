@@ -31,7 +31,7 @@ namespace NPlant.Generation
                 Assembly assembly = loader.Load(_options.AssemblyToScan);
 
                 var diagramLoader = new NPlantDiagramLoader(recorder);
-                IEnumerable<IDiagram> diagrams = diagramLoader.Load(assembly);
+                var diagrams = diagramLoader.Load(assembly);
 
                 DirectoryInfo outputDirectory = RunInitializeOutputDirectoryStage();
 
@@ -59,13 +59,13 @@ namespace NPlant.Generation
             return summary.ToString();
         }
 
-        private void RunGenerateDiagramImagesStage(FileSystemInfo outputDirectory, IEnumerable<IDiagram> diagrams, IRunnerRecorder recorder)
+        private void RunGenerateDiagramImagesStage(FileSystemInfo outputDirectory, IEnumerable<DiscoveredDiagram> diagrams, IRunnerRecorder recorder)
         {
             recorder.Log("Starting Stage: Diagram Rendering (output={0})...".FormatWith(outputDirectory.FullName));
 
             foreach (var diagram in diagrams)
             {
-                var text = diagram.CreateGenerator().Generate();
+                var text = diagram.Diagram.CreateGenerator().Generate();
                 var javaPath = _options.JavaPath ?? "java.exe";
                 var plantUml = _options.PlantUml ?? Assembly.GetExecutingAssembly().Location;
 
@@ -82,7 +82,7 @@ namespace NPlant.Generation
 
                     dir = Categorize(diagram, dir);
 
-                    var fileName = diagram.Name.ReplaceIllegalPathCharacters('_');
+                    var fileName = diagram.Diagram.Name.ReplaceIllegalPathCharacters('_');
 
                     image.SaveNPlantImage(dir, fileName);
                 }
@@ -91,11 +91,11 @@ namespace NPlant.Generation
             recorder.Log("Finished Stage: Diagram Rendering...");
         }
 
-        private string Categorize(IDiagram diagram, string dir)
+        private string Categorize(DiscoveredDiagram diagram, string dir)
         {
             if (_options.ParsedCategorized == NPlantCategorizations.ByNamespace)
             {
-                var ns = diagram.GetType().Namespace;
+                var ns = diagram.Namespace;
 
                 if (! string.IsNullOrEmpty(ns))
                 {

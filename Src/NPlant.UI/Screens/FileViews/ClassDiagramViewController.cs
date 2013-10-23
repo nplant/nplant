@@ -40,8 +40,8 @@ namespace NPlant.UI.Screens.FileViews
 
             var diagramLoader = new NPlantDiagramLoader();
 
-            IEnumerable<IDiagram> diagrams = diagramLoader.Load(assembly);
-            _view.Diagrams = diagrams.Select(diagram => new LoadedDiagram(diagram)).ToArray();
+            var diagrams = diagramLoader.Load(assembly);
+            _view.Diagrams = diagrams.Select(diagram => new LoadedDiagram(diagram.Diagram)).ToArray();
 
             _view.ShowDiagramClassesPanel = true;
             _fileToSave = Path.ChangeExtension(_filePath, ".nplant");

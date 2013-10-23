@@ -54,6 +54,7 @@
     <Compile Include="ClassDiagram.cs" />
     <Compile Include="Core\HideDiagramAttribute.cs" />
     <Compile Include="Generation\IRunnerRecorder.cs" />
+    <Compile Include="Generation\DiscoveredDiagram.cs" />
     <Compile Include="Generation\NPlantAssemblyLoader.cs" />
     <Compile Include="Generation\NPlantDiagramLoader.cs" />
     <Compile Include="Generation\NPlantImage.cs" />

@@ -20,22 +20,23 @@ namespace NPlant.Generation
             _recorder = recorder;
         }
 
-        public IEnumerable<IDiagram> Load(Assembly assembly)
+        public IEnumerable<DiscoveredDiagram> Load(Assembly assembly)
         {
             return Load(assembly, type => true);
         }
 
-        public IEnumerable<IDiagram> Load(Assembly assembly, Func<Type, bool> matcher)
+        public IEnumerable<DiscoveredDiagram> Load(Assembly assembly, Func<Type, bool> matcher)
         {
             _recorder.Log("Starting Stage: Diagram Instantiation...");
 
-            IDiagram[] diagrams = LoadFromAssembly(assembly, _recorder.Log);
+            DiscoveredDiagram[] diagrams = LoadFromAssembly(assembly, _recorder.Log);
 
             _recorder.Log("Finished Stage: Diagram Instantiation (diagrams instantiated={0})...".FormatWith(diagrams.Length));
+
             return diagrams;
         }
 
-        private static IDiagram[] LoadFromAssembly(Assembly assembly, Action<string> logger = null)
+        private static DiscoveredDiagram[] LoadFromAssembly(Assembly assembly, Action<string> logger = null)
         {
             if (logger == null)
                 logger = (msg) => { };
@@ -44,10 +45,10 @@ namespace NPlant.Generation
             {
                 logger("Assembly was null");
 
-                return new IDiagram[0];
+                return new DiscoveredDiagram[0];
             }
 
-            var diagrams = new List<IDiagram>();
+            var diagrams = new List<DiscoveredDiagram>();
 
             var exportedTypes = assembly.GetExportedTypes().Where(x => !x.HasAttribute<HideDiagramAttribute>()).ToArray();
 
@@ -69,7 +70,7 @@ namespace NPlant.Generation
 
                         var factory = InstantiateDiagramFactory(exportedType);
 
-                        diagrams.AddRange(factory.GetDiagrams());
+                        diagrams.AddRange(factory.GetDiagrams().Select(diagram => new DiscoveredDiagram(exportedType.Namespace, diagram)));
                     }
                 }
             }
@@ -87,14 +88,14 @@ namespace NPlant.Generation
             return (IDiagramFactory)ctor.Invoke(new object[0]);
         }
 
-        private static IDiagram InstantiateDiagram(Type exportedType)
+        private static DiscoveredDiagram InstantiateDiagram(Type exportedType)
         {
             ConstructorInfo ctor;
 
             if (!exportedType.TryGetPublicParameterlessConstructor(out ctor))
                 throw new NPlantException("Diagrams are expected to have a public parameterless constructor.  '{0}' does not meet this expectation.".FormatWith(exportedType.FullName));
 
-            return (IDiagram)ctor.Invoke(new object[0]);
+            return new DiscoveredDiagram(exportedType.Namespace, (IDiagram)ctor.Invoke(new object[0]));
         }
 
     }
