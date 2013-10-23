@@ -114,5 +114,20 @@ namespace NPlant.UI
         {
             ScreenManager.Launch<SettingsScreen>(this);
         }
+
+        private void OnGetGraphvizMenuItemClick(object sender, EventArgs e)
+        {
+            Process.Start("http://www.graphviz.org");
+        }
+
+        private void OnGetJavaMenuItemClick(object sender, EventArgs e)
+        {
+            Process.Start("http://www.java.com/getjava");
+        }
+
+        private void OnGoToPlantUMLMenuItemClick(object sender, EventArgs e)
+        {
+            Process.Start("http://plantuml.sourceforge.net/");
+        }
     }
 }

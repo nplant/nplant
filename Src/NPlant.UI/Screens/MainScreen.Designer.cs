@@ -36,10 +36,14 @@
             this.OptionsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showConsoleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.getJavaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.getGraphvizToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.FileViewTabs = new System.Windows.Forms.TabControl();
             this.ConsoleLogText = new System.Windows.Forms.RichTextBox();
+            this.goToPlantUMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TopMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -51,7 +55,8 @@
             // 
             this.TopMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.OptionsMenuItem});
+            this.OptionsMenuItem,
+            this.helpToolStripMenuItem});
             this.TopMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.TopMenuStrip.Name = "TopMenuStrip";
             this.TopMenuStrip.Size = new System.Drawing.Size(917, 24);
@@ -70,14 +75,14 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.openToolStripMenuItem.Text = "&Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.OnOpenClick);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.OnExitClick);
             // 
@@ -106,6 +111,30 @@
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.OnSettingsMenuItemClick);
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.getJavaToolStripMenuItem,
+            this.getGraphvizToolStripMenuItem,
+            this.goToPlantUMLToolStripMenuItem});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // getJavaToolStripMenuItem
+            // 
+            this.getJavaToolStripMenuItem.Name = "getJavaToolStripMenuItem";
+            this.getJavaToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.getJavaToolStripMenuItem.Text = "Get Java";
+            this.getJavaToolStripMenuItem.Click += new System.EventHandler(this.OnGetJavaMenuItemClick);
+            // 
+            // getGraphvizToolStripMenuItem
+            // 
+            this.getGraphvizToolStripMenuItem.Name = "getGraphvizToolStripMenuItem";
+            this.getGraphvizToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.getGraphvizToolStripMenuItem.Text = "Get Graphviz";
+            this.getGraphvizToolStripMenuItem.Click += new System.EventHandler(this.OnGetGraphvizMenuItemClick);
             // 
             // statusStrip1
             // 
@@ -151,6 +180,13 @@
             this.ConsoleLogText.TabIndex = 4;
             this.ConsoleLogText.Text = "";
             // 
+            // goToPlantUMLToolStripMenuItem
+            // 
+            this.goToPlantUMLToolStripMenuItem.Name = "goToPlantUMLToolStripMenuItem";
+            this.goToPlantUMLToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.goToPlantUMLToolStripMenuItem.Text = "Go to PlantUML";
+            this.goToPlantUMLToolStripMenuItem.Click += new System.EventHandler(this.OnGoToPlantUMLMenuItemClick);
+            // 
             // MainScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -188,6 +224,10 @@
         private System.Windows.Forms.TabControl FileViewTabs;
         private System.Windows.Forms.RichTextBox ConsoleLogText;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem getJavaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem getGraphvizToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem goToPlantUMLToolStripMenuItem;
     }
 }
 

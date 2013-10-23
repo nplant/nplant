@@ -1,6 +1,8 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using NPlant.Core;
 
 namespace NPlant.Generation
@@ -13,7 +15,7 @@ namespace NPlant.Generation
 
         public NPlantImage(string javaPath, PlantUmlInvocation invocation)
         {
-            _javaPath = javaPath;
+            _javaPath = javaPath ?? "java.exe";
             _invocation = invocation;
         }
 
@@ -69,8 +71,30 @@ namespace NPlant.Generation
                 if (ex.IsDontMessWithMeException())
                     throw;
 
-                throw new NPlantException("Image generation failed - {0}.  Check the inner exception for details.".FormatWith(ex.Message), ex);
+                string message = CreateException(ex);
+
+                throw new NPlantException(message, ex);
             }
+        }
+
+        private string CreateException(Exception exception)
+        {
+            Win32Exception win32 = exception as Win32Exception;
+
+            if (win32 != null)
+            {
+                if (! File.Exists(_javaPath))
+                {
+                    if (Path.IsPathRooted(_javaPath))
+                    {
+                        return "It appears the path to your local JRE installation is specified incorrectly in Options -> Settings.  '{0}' could not be found.".FormatWith(_javaPath);
+                    }
+
+                    return "It appears the exact location of your JRE installation is not specified in your Options -> Settings.  This tool assumes java.exe is in your system PATH if not otherwise specified in your settings.  Either add java.exe to your path, or explicitly specify where we can find java.exe.  If you don't have the Java JRE installed, use the Help menu to go get it.";
+                }
+            }
+
+            return "Failed to invoke plant uml - {0}.  See the inner exception for more details.".FormatWith(exception.Message);
         }
     }
 }
