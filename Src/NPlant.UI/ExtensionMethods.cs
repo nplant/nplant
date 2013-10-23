@@ -4,16 +4,6 @@ using System.IO;
 
 public static class ExtensionMethods
 {
-    public static string SaveNPlantImage(this Image image, string path)
-    {
-        if (!Path.HasExtension(path) || Path.GetExtension(path) != ".png")
-            path = Path.ChangeExtension(path, ".png");
-
-        image.Save(path);
-
-        return path;
-    }
-
     public static bool IsNPlantFilePath(this string file)
     {
         var ext = Path.GetExtension(file);

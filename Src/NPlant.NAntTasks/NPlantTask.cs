@@ -11,8 +11,24 @@ namespace NPlant.NAntTasks
 
         protected override void ExecuteTask()
         {
+            Level old = Project.Threshold;
+            AssignLogLevel(Level.Debug);
+
             var runner = new NPlantRunner(this, () => new NAntRunnerRecorder(this, this.Property, this.Delimiter));
             runner.Run();
+
+            AssignLogLevel(old);
+        }
+
+        private void AssignLogLevel(Level newLevel)
+        {
+            foreach (IBuildListener listener in Project.BuildListeners)
+            {
+                IBuildLogger logger = listener as IBuildLogger;
+
+                if (logger != null)
+                    logger.Threshold = newLevel;
+            }
         }
 
         [TaskAttribute("property", Required = false)]
@@ -30,8 +46,14 @@ namespace NPlant.NAntTasks
         [TaskAttribute("dir", Required = false)]
         public string OutputDirectory { get; set; }
 
-        [TaskAttribute("categoryBy", Required = false)]
-        public string CategoryBy { get; set; }
+        [TaskAttribute("categorize", Required = false)]
+        public string Categorize { get; set; }
+
+        [TaskAttribute("java", Required = false)]
+        public string JavaPath { get; set; }
+
+        [TaskAttribute("plantuml", Required = false)]
+        public string PlantUml { get; set; }
 
         [BuildElement("diagrams", Required = false)]
         public DiagramsElement DiagramsElement

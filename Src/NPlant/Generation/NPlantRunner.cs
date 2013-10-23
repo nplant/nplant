@@ -35,7 +35,7 @@ namespace NPlant.Generation
 
                 DirectoryInfo outputDirectory = RunInitializeOutputDirectoryStage();
 
-                RunGenerateDiagramFilesStage(outputDirectory, diagrams, recorder);
+                RunGenerateDiagramImagesStage(outputDirectory, diagrams, recorder);
 
                 recorder.Log("NPlantRunner Finished...");
             }
@@ -59,14 +59,29 @@ namespace NPlant.Generation
             return summary.ToString();
         }
 
-        private void RunGenerateDiagramFilesStage(FileSystemInfo outputDirectory, IEnumerable<IDiagram> diagrams, IRunnerRecorder recorder)
+        private void RunGenerateDiagramImagesStage(FileSystemInfo outputDirectory, IEnumerable<IDiagram> diagrams, IRunnerRecorder recorder)
         {
             recorder.Log("Starting Stage: Diagram Rendering (output={0})...".FormatWith(outputDirectory.FullName));
 
             foreach (var diagram in diagrams)
             {
-                diagram.CreateGenerator().Generate();
-                ClassDiagramFile.Save(outputDirectory.FullName, diagram, recorder);
+                var text = diagram.CreateGenerator().Generate();
+                var javaPath = _options.JavaPath ?? "java.exe";
+                var plantUml = _options.PlantUml ?? Assembly.GetExecutingAssembly().Location;
+
+                var npImage = new NPlantImage(javaPath, new PlantUmlInvocation(plantUml))
+                    {
+                        Logger = recorder.Log
+                    };
+
+                var image = npImage.Create(text);
+
+                if (image != null)
+                {
+                    var filePath = Path.Combine(outputDirectory.FullName, diagram.Name.ReplaceIllegalPathCharacters('_'));
+
+                    image.SaveNPlantImage(filePath);
+                }
             }
 
             recorder.Log("Finished Stage: Diagram Rendering...");

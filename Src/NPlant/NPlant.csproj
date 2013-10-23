@@ -58,6 +58,7 @@
     <Compile Include="Generation\NPlantRunner.cs" />
     <Compile Include="Generation\NPlantRunnerOptions.cs" />
     <Compile Include="Generation\NullRecorder.cs" />
+    <Compile Include="Generation\PlantUmlInvocation.cs" />
     <Compile Include="IDiagram.cs" />
     <Compile Include="IDiagramFactory.cs" />
     <Compile Include="IDiagramFormatter.cs" />

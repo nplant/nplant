@@ -5,20 +5,38 @@ using NPlant.Core;
 
 namespace NPlant.Generation
 {
-    public static class NPlantImage
+    public class NPlantImage
     {
+        private readonly string _javaPath;
+        private readonly PlantUmlInvocation _invocation;
+        private Action<string> _logger = text => Console.WriteLine(text);
 
-        public static Image Create(string diagramText, string javaPath, string javaArgs)
+        public NPlantImage(string javaPath, PlantUmlInvocation invocation)
         {
+            _javaPath = javaPath;
+            _invocation = invocation;
+        }
 
+        public Action<string> Logger
+        {
+            get { return _logger; }
+            set
+            {
+                if(value != null)
+                    _logger = value;
+            }
+        }
+
+        public Image Create(string diagramText)
+        {
             try
             {
                 Process process = new Process
                     {
                         StartInfo = 
                             {
-                                FileName = javaPath,
-                                Arguments = javaArgs,
+                                FileName = _javaPath,
+                                Arguments = _invocation.ToString(),
                                 UseShellExecute = false,
                                 CreateNoWindow = true,
                                 RedirectStandardError = true,
@@ -28,19 +46,28 @@ namespace NPlant.Generation
                         EnableRaisingEvents = true
                     };
 
-                process.Start();
+                Logger("Invoking plantuml - FileName: {0}, Arguments: {1}".FormatWith(process.StartInfo.FileName, process.StartInfo.Arguments));
 
-                process.StandardInput.Write(diagramText);
-                process.StandardInput.Close();
+                bool started = process.Start();
 
-                return Image.FromStream(process.StandardOutput.BaseStream);
+                if (started)
+                {
+                    process.StandardInput.Write(diagramText);
+                    process.StandardInput.Close();
+
+                    return Image.FromStream(process.StandardOutput.BaseStream);
+                }
+                
+                Logger("Failed to start plantuml");
+
+                return null;
             }
             catch (Exception ex)
             {
+                Logger("Unhandled exception occurred while invoking plantuml: " + ex);
+
                 if (ex.IsDontMessWithMeException())
                     throw;
-
-                Console.Write(ex);
 
                 throw new NPlantException("Image generation failed - {0}.  Check the inner exception for details.".FormatWith(ex.Message), ex);
             }

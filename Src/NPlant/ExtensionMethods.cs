@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -227,6 +228,22 @@ public static class ExtensionMethods
         bool result;
 
         return bool.TryParse(value, out result) ? result : @default;
+    }
+}
+
+public static class ImageExtensionMethods
+{
+    public static string SaveNPlantImage(this Image image, string path)
+    {
+        if (!Path.HasExtension(path) || Path.GetExtension(path) != ".png")
+            path = Path.ChangeExtension(path, ".png");
+
+        if (File.Exists(path))
+            File.Delete(path);
+
+        image.Save(path);
+
+        return path;
     }
 }
 

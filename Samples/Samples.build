@@ -1,27 +1,15 @@
 <?xml version="1.0"?>
 <project name="test" default="main" basedir=".">
 
-	<property name="plantuml" value="..\Tools\PlantUML\plantuml.jar" />
+	<loadtasks assembly="..\bin\Debug\NPlant.NAntTasks.dll" />
+	
+	<property name="plantuml" value="..\bin\Debug\plantuml.jar" />
+	<property name="diagram.assembly" value="..\bin\Debug\NPlant.Samples.dll" />
 	<property name="out.dir" value="Generation" />
-	<property name="diagram.assembly" value="C:\Users\brok02\Documents\GitHub\NPlant\bin\Debug\NPlant.Tests.dll" />
-	<property name="oxygen-dir" value="C:\Program Files\Oxygen XML Developer 14" />
-	<property name="java" value="${oxygen-dir}\jre\bin\java.exe" />
+	<property name="java" value="C:\Program Files (x86)\Java\jre7\bin\java.exe" />
 
 	<target name="main">
-		<nplant assembly="${diagram.assembly}" dir="${out.dir}" property="diagramFiles" delim=" " clean="true" />
-
-		<if test="${property::exists('diagramFiles')}">
-			<call target="gen-img" />
-		</if>
+		<nplant assembly="${diagram.assembly}" dir="${out.dir}" java="${java}" plantuml="${plantuml}" clean="true" categorize="namespace" verbose="true" />
 	</target>
 
-	<target name="gen-img">
-		<exec program="${java}" verbose="false">
-			<arg value="-jar" />
-			<arg value="${plantuml}" />
-			<arg value="${diagramFiles}" />
-			<arg value="-o" />
-			<arg value="Images\" />
-		</exec>
-	</target>
 </project>

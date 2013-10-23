@@ -1,7 +1,11 @@
+using NPlant.Generation;
+
 namespace NPlant.UI.Screens.FileViews
 {
     public class ImageFileGenerationModel
     {
+        private readonly PlantUmlInvocation _invocation = new PlantUmlInvocation(SystemEnvironment.ExecutionDirectory);
+
         public ImageFileGenerationModel(string diagramText)
         {
             SystemSettings settings = SystemEnvironment.GetSettings();
@@ -19,9 +23,6 @@ namespace NPlant.UI.Screens.FileViews
         public string JavaPath { get; private set; }
         public string DiagramText { get; private set; }
 
-        public string GetJavaArguments()
-        {
-            return "-jar \"{0}\\plantuml.jar\" -pipe".FormatWith(SystemEnvironment.ExecutionDirectory);
-        }
+        public PlantUmlInvocation Invocation { get { return _invocation; } }
     }
 }

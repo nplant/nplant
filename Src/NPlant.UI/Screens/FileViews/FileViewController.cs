@@ -1,7 +1,3 @@
-using System.Diagnostics;
-using System.Drawing;
-using System.IO;
-using System.Text;
 using NPlant.Generation;
 
 namespace NPlant.UI.Screens.FileViews
@@ -20,7 +16,12 @@ namespace NPlant.UI.Screens.FileViews
             var filePath = GetDiagramText();
             var model = ImageFileGenerationModel.Create(filePath);
 
-            _view.Image = NPlantImage.Create(model.DiagramText, model.JavaPath, model.GetJavaArguments());
+            var npImage = new NPlantImage(model.JavaPath, model.Invocation)
+            {
+                Logger = msg => EventDispatcher.Raise(new UserNotificationEvent(msg))
+            };
+
+            _view.Image = npImage.Create(model.DiagramText);
         }
 
         protected abstract string GetDiagramText();
