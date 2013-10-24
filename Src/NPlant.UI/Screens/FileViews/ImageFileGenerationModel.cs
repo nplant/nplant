@@ -6,22 +6,24 @@ namespace NPlant.UI.Screens.FileViews
     {
         private readonly PlantUmlInvocation _invocation = new PlantUmlInvocation(SystemEnvironment.ExecutionDirectory);
 
-        public ImageFileGenerationModel(string diagramText)
+        public ImageFileGenerationModel(string diagramText, string diagramName)
         {
             SystemSettings settings = SystemEnvironment.GetSettings();
 
             this.JavaPath = settings.JavaPath;
 
             DiagramText = diagramText;
+            DiagramName = diagramName;
         }
 
-        public static ImageFileGenerationModel Create(string diagramText)
+        public static ImageFileGenerationModel Create(string diagramText, string diagramName)
         {
-            return new ImageFileGenerationModel(diagramText);
+            return new ImageFileGenerationModel(diagramText, diagramName);
         }
 
         public string JavaPath { get; private set; }
         public string DiagramText { get; private set; }
+        public string DiagramName { get; private set; }
 
         public PlantUmlInvocation Invocation { get { return _invocation; } }
     }

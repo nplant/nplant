@@ -27,6 +27,12 @@ namespace NPlant.MetaModel.ClassDiagraming
             return this;
         }
 
+        public ForTypeDescriptor<T> NeverShowRelationshipsFromHere()
+        {
+            _typeMetaModel.TreatAllMembersAsPrimitives = true;
+            return this;
+        }
+
         public ForTypeDescriptor<T> HideAsBase()
         {
             _typeMetaModel.HideAsBaseClass = true;

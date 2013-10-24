@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Text;
 using NPlant.Core;
 
 namespace NPlant.Generation
@@ -29,7 +30,7 @@ namespace NPlant.Generation
             }
         }
 
-        public Image Create(string diagramText)
+        public Image Create(string diagramText, string diagramName)
         {
             try
             {
@@ -48,7 +49,7 @@ namespace NPlant.Generation
                         EnableRaisingEvents = true
                     };
 
-                Logger("Invoking plantuml - FileName: {0}, Arguments: {1}".FormatWith(process.StartInfo.FileName, process.StartInfo.Arguments));
+                Logger("Invoking plantuml - Diagram: {0}, FileName: {1}, Arguments: {2}".FormatWith(diagramName, process.StartInfo.FileName, process.StartInfo.Arguments));
 
                 bool started = process.Start();
 
@@ -56,6 +57,9 @@ namespace NPlant.Generation
                 {
                     process.StandardInput.Write(diagramText);
                     process.StandardInput.Close();
+
+                    if (process.StandardOutput == null)
+                        throw new NPlantException("While invoking plant uml, the standard output was empty. Error out: {0}".FormatWith(process.StandardError.ReadToEnd()));
 
                     return Image.FromStream(process.StandardOutput.BaseStream);
                 }
@@ -94,7 +98,18 @@ namespace NPlant.Generation
                 }
             }
 
-            return "Failed to invoke plant uml - {0}.  See the inner exception for more details.".FormatWith(exception.Message);
+            StringBuilder buffer = new StringBuilder();
+            buffer.AppendLine("Failed to invoke plant uml.  See the inner exception for more details.  Messages:");
+                
+            Exception ex = exception;
+
+            while (ex != null)
+            {
+                buffer.AppendLine(ex.Message);
+                ex = ex.InnerException;
+            }
+
+            return buffer.ToString();
         }
     }
 }

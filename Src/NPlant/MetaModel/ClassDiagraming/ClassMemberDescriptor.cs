@@ -32,5 +32,7 @@ namespace NPlant.MetaModel.ClassDiagraming
         public string Key { get; private set; }
 
         public TypeMetaModel MetaModel { get { return _metaModel; } }
+
+        internal bool TreatAsPrimitive { get; set; }
     }
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
-using NPlant.Core;
 
 namespace NPlant.Generation
 {
@@ -74,7 +73,7 @@ namespace NPlant.Generation
                         Logger = recorder.Log
                     };
 
-                var image = npImage.Create(text);
+                var image = npImage.Create(text, diagram.Diagram.Name);
 
                 if (image != null)
                 {

@@ -56,6 +56,8 @@ namespace NPlant.Core
         
         public bool HideAsBaseClass { get; internal set; }
 
+        public bool TreatAllMembersAsPrimitives { get; internal set; }
+
         public static bool IsDefactoComplexType(Type type)
         {
             if (type.IsString())

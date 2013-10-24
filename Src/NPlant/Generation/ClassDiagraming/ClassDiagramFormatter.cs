@@ -230,7 +230,7 @@ namespace NPlant.Generation.ClassDiagraming
         {
             foreach (var member in members)
             {
-                if(!member.MetaModel.Hidden && member.MetaModel.IsPrimitive)
+                if(!member.MetaModel.Hidden && (member.MetaModel.IsPrimitive || member.TreatAsPrimitive))
                     buffer.AppendLine("    {0} {1}".FormatWith(member.MetaModel.Name, member.Name));
             }
         }

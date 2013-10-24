@@ -83,6 +83,14 @@ namespace NPlant.UI.Screens.FileViews
             return _view.DiagramText;
         }
 
+        protected override string GetDiagramName()
+        {
+            if (_view.SelectedDiagram == null)
+                return null;
+
+            return _view.SelectedDiagram.Diagram.Name;
+        }
+
         public void LoadDiagram(LoadedDiagram diagram)
         {
             _view.DiagramText = diagram.Diagram.CreateGenerator().Generate();

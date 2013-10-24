@@ -39,9 +39,12 @@ namespace NPlant.MetaModel.ClassDiagraming
             {
                 foreach (ClassMemberDescriptor member in this.Members.InnerList)
                 {
+                    if (this.MetaModel.TreatAllMembersAsPrimitives)
+                        member.TreatAsPrimitive = true;
+
                     TypeMetaModel metaModel = member.MetaModel;
 
-                    if (!metaModel.Hidden)
+                    if (!metaModel.Hidden && !member.TreatAsPrimitive)
                     {
                         // if not showing inheritance then show all members
                         // otherwise, only show member that aren't inherited
