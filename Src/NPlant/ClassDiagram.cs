@@ -23,12 +23,12 @@ namespace NPlant
         {
             type.CheckForNullArg("type");
 
-            this.AddClass(new ReflectedClassDescriptor(type));
+            this.AddClass(type.GetReflected());
 
             if (types != null)
             {
                 foreach (var t in types)
-                    this.AddClass(new ReflectedClassDescriptor(t));
+                    this.AddClass(t.GetReflected());
             }
         }
 
@@ -43,6 +43,16 @@ namespace NPlant
         protected RootClassDescriptor<T> AddClass<T>()
         {
             var classDescriptor = new RootClassDescriptor<T>();
+
+            this.AddClass(classDescriptor);
+            _classDescriptors.Add(classDescriptor);
+
+            return classDescriptor;
+        }
+
+        protected RootEnumDescriptor AddEnum<T>()
+        {
+            var classDescriptor = new RootEnumDescriptor(typeof(T));
 
             this.AddClass(classDescriptor);
             _classDescriptors.Add(classDescriptor);
@@ -68,7 +78,7 @@ namespace NPlant
                 var types = assembly.Assembly.GetTypesExtending<T>();
 
                 foreach (var type in types)
-                    this.AddClass(new ReflectedClassDescriptor(type), false);
+                    this.AddClass(type.GetReflected(), false);
             }
 
             return this;
@@ -76,7 +86,7 @@ namespace NPlant
 
         internal void AddReflectedClass(int level, Type type)
         {
-            var descriptor = new ReflectedClassDescriptor(type);
+            var descriptor = type.GetReflected();
 
             descriptor.SetLevel(level);
             this.AddClass(descriptor);

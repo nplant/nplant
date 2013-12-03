@@ -69,6 +69,10 @@
     <Compile Include="MetaModel\ClassDiagraming\ClassDescriptor.cs" />
     <Compile Include="MetaModel\ClassDiagraming\AssemblyDescriptor.cs" />
     <Compile Include="MetaModel\ClassDiagraming\ClassDiagramRelationship.cs" />
+    <Compile Include="MetaModel\ClassDiagraming\ClassWriter.cs" />
+    <Compile Include="MetaModel\ClassDiagraming\EnumWriter.cs" />
+    <Compile Include="MetaModel\ClassDiagraming\IDescriptorWriter.cs" />
+    <Compile Include="MetaModel\ClassDiagraming\ReflectedEnumDescriptor.cs" />
     <Compile Include="MetaModel\ClassDiagraming\RootClassDescriptor.cs" />
     <Compile Include="MetaModel\ClassDiagraming\ClassDiagramSimulation.cs" />
     <Compile Include="MetaModel\ClassDiagraming\ClassMemberDescriptor.cs" />
@@ -79,6 +83,7 @@
     <Compile Include="Core\NPlantException.cs" />
     <Compile Include="MetaModel\ClassDiagraming\ReflectedClassDescriptor.cs" />
     <Compile Include="MetaModel\ClassDiagraming\ForTypeDescriptor.cs" />
+    <Compile Include="MetaModel\ClassDiagraming\RootEnumDescriptor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Core\TypeMetaModel.cs" />
     <Compile Include="Core\TypeMetaModelSet.cs" />

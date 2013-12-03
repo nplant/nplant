@@ -8,9 +8,18 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Threading;
+using NPlant.MetaModel.ClassDiagraming;
 
 public static class ExtensionMethods
 {
+    public static ReflectedClassDescriptor GetReflected(this Type type)
+    {
+        if (type.IsEnum)
+            return new ReflectedEnumDescriptor(type);
+
+        return new ReflectedClassDescriptor(type);
+    }
+
     public static Type[] GetTypesExtending<T>(this Assembly assembly)
     {
         List<Type> result = new List<Type>();

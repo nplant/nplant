@@ -23,10 +23,8 @@ namespace NPlant.Generation.ClassDiagraming
 
         public ClassDiagramScanModes ScanMode { get { return this.Diagram.ScanMode; } }
 
-        public void AddRelatedClass(ClassDescriptor parent, ClassDescriptor child, ClassDiagramRelationshipTypes relationshipType, int level, string name = null)
+        public void AddRelated(ClassDescriptor parent, ClassDescriptor child, ClassDiagramRelationshipTypes relationshipType, int level, string name = null)
         {
-            //todo:  wrap w/ a depth check?
-
             if (! AlreadyRegistered(child))
                 _unvisitedRelatedClasses.Enqueue(child);
 

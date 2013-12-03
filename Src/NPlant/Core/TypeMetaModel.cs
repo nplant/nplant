@@ -66,7 +66,7 @@ namespace NPlant.Core
             if (type.IsEnumerable())
                 return true;
 
-            return (type.IsClass || type.IsInterface);
+            return (type.IsClass || type.IsInterface || type.IsEnum);
         }
 
         private static string GetFriendlyDataType(Type type)

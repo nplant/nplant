@@ -61,12 +61,12 @@ namespace NPlant.MetaModel.ClassDiagraming
 
                                     if (enumeratorTypeMetaModel.IsComplexType)
                                     {
-                                        context.AddRelatedClass(this, new ReflectedClassDescriptor(enumeratorType), ClassDiagramRelationshipTypes.HasMany, nextLevel, member.Name);
+                                        context.AddRelated(this, enumeratorType.GetReflected(), ClassDiagramRelationshipTypes.HasMany, nextLevel, member.Name);
                                     }
                                 }
                                 else
                                 {
-                                    context.AddRelatedClass(this, new ReflectedClassDescriptor(member.MemberType), ClassDiagramRelationshipTypes.HasA, nextLevel, member.Name);
+                                    context.AddRelated(this, member.MemberType.GetReflected(), ClassDiagramRelationshipTypes.HasA, nextLevel, member.Name);
                                 }
                             }
                         }
@@ -76,11 +76,11 @@ namespace NPlant.MetaModel.ClassDiagraming
 
             if (showInheritance)
             {
-                context.AddRelatedClass(this, new ReflectedClassDescriptor(this.ReflectedType.BaseType), ClassDiagramRelationshipTypes.Base, this.Level - 1);
+                context.AddRelated(this, this.ReflectedType.BaseType.GetReflected(), ClassDiagramRelationshipTypes.Base, this.Level - 1);
             }
         }
 
-        private void LoadMembers(ClassDiagramVisitorContext context)
+        protected virtual void LoadMembers(ClassDiagramVisitorContext context)
         {
             switch (context.ScanMode)
             {
@@ -146,5 +146,7 @@ namespace NPlant.MetaModel.ClassDiagraming
 
             return descriptor.ReflectedType == this.ReflectedType;
         }
+
+        public abstract IDescriptorWriter GetWriter(ClassDiagram diagram);
     }
 }

@@ -65,5 +65,10 @@ namespace NPlant.MetaModel.ClassDiagraming
                 return new ForMemberDescriptor<TMember>(_descriptor, ReflectOn<TMember>.ForMember(expression));
             }
         }
+
+        public override IDescriptorWriter GetWriter(ClassDiagram diagram)
+        {
+            return new ClassWriter(diagram, this);
+        }
     }
 }

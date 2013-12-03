@@ -62,7 +62,8 @@ namespace NPlant.Generation.ClassDiagraming
             return _buffer.ToString();
         }
 
-        private void AssignToPackage(ClassDescriptor rootClass, Dictionary<string, List<string>> packageMap, string classDefinition, List<string> unpackaged)
+        private void AssignToPackage(ClassDescriptor rootClass, Dictionary<string, List<string>> packageMap,
+                                     string classDefinition, List<string> unpackaged)
         {
             foreach (var package in _diagram.Packages)
             {
@@ -98,10 +99,11 @@ namespace NPlant.Generation.ClassDiagraming
             }
         }
 
-        private void AppendClassToPackageMap(Dictionary<string, List<string>> packageMap, string package, string classDefinition)
+        private void AppendClassToPackageMap(Dictionary<string, List<string>> packageMap, string package,
+                                             string classDefinition)
         {
             List<string> classDefinitions;
-            
+
             if (!packageMap.TryGetValue(package, out classDefinitions))
             {
                 classDefinitions = new List<string>();
@@ -128,7 +130,7 @@ namespace NPlant.Generation.ClassDiagraming
 
                     foreach (var connection in note.ConnectedClasses)
                     {
-                        ClassDescriptor descriptor = new ReflectedClassDescriptor(connection);
+                        ClassDescriptor descriptor = connection.GetReflected();
 
                         _buffer.AppendLine("{0} .. {1}".FormatWith(descriptor.Name, key));
                     }
@@ -177,62 +179,14 @@ namespace NPlant.Generation.ClassDiagraming
                     throw new NPlantException("Unrecognized relationship type:  {0}".FormatWith(relationship));
             }
 
-            _buffer.AppendLine("{0} {1} {2}{3}".FormatWith(relationship.Party1.Name, arrow, relationship.Party2.Name, suffix));
+            _buffer.AppendLine("{0} {1} {2}{3}".FormatWith(relationship.Party1.Name, arrow, relationship.Party2.Name,
+                                                           suffix));
         }
 
         private string WriteClassDefinition(ClassDescriptor @class)
         {
-            string color = @class.Color ?? _diagram.GetClassColor(@class) ?? null;
-
-            StringBuilder buffer = new StringBuilder();
-
-            buffer.AppendLine(string.Format("    class {0}{1} {2}", @class.Name, color, "{"));
-
-            var definedMembers = @class.Members.InnerList.Where(x => !x.IsInherited).OrderBy(x => x.Name).ToArray();
-
-            if (!IsBaseClassVisible(@class))
-            {
-                var inheritedMembers = @class.Members.InnerList.Where(x => x.IsInherited).OrderBy(x => x.Name);
-                WriteClassMembers(inheritedMembers, buffer);
-
-                if (definedMembers.Length > 0)
-                {
-                    buffer.AppendLine("    --");
-                }
-            }
-
-            WriteClassMembers(definedMembers, buffer);
-
-            buffer.AppendLine("    }");
-
-            var note = @class.MetaModel.Note != null ? @class.MetaModel.Note.ToString() : null;
-
-            if (note != null)
-            {
-                buffer.AppendLine(note);
-            }
-
-            return buffer.ToString();
-        }
-
-        private bool IsBaseClassVisible(ClassDescriptor @class)
-        {
-            if (_diagram.RootClasses.InnerList.Any(x => x.ReflectedType == @class.ReflectedType.BaseType))
-                return true;
-
-            if (_context.VisitedRelatedClasses.Any(x => x.ReflectedType == @class.ReflectedType.BaseType))
-                return true;
-
-            return false;
-        }
-
-        private static void WriteClassMembers(IEnumerable<ClassMemberDescriptor> members, StringBuilder buffer)
-        {
-            foreach (var member in members)
-            {
-                if(!member.MetaModel.Hidden && (member.MetaModel.IsPrimitive || member.TreatAsPrimitive))
-                    buffer.AppendLine("    {0} {1}".FormatWith(member.MetaModel.Name, member.Name));
-            }
+            var writer = @class.GetWriter(_diagram);
+            return writer.Write(_context);
         }
     }
 }
