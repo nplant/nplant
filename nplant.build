@@ -50,7 +50,7 @@
 	</target>
 
 	<target name="delpackages" description="Delete the local nuget folder">
-		<delete dir="${${nuget.dir}\Packages}" />
+		<delete dir="${nuget.dir}\Packages}" />
 	</target>
 
 	<target name="compile" description="Compiles the solution passed in">
