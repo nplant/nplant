@@ -37,8 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="NAnt.Core">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Packages\NAnt.Portable.0.92\NAnt.Core.dll</HintPath>
+      <HintPath>..\..\.nuget\Packages\NAnt.Portable.0.92\NAnt.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

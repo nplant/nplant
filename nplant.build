@@ -1,29 +1,21 @@
 <?xml version="1.0"?>
 <project name="setupModuleDev" default="main" basedir=".">
 
-	<property name="do.git" value="true" readonly="false" /> <!-- teamcity pass false for this as the git pull is done by team city-->
+	<property name="do.git" value="false" readonly="false" /> <!-- teamcity pass false for this as the git pull is done by team city-->
 	<property name="sln.to.compile" value="NPlant.sln" readonly="false" />
 	<property name="config" value="Debug" readonly="false" />
 	<property name="git.dir" value="" readonly="false" />
 	<property name="nuget.dir" value=".nuget" readonly="false" />
-	<property name="do.delpackages" value="true" readonly="false" />
+	<property name="do.delpackages" value="false" readonly="false" />
 
 	<target name="main">
-
-		<call target="is-this-working" />
 
 		<if test="${do.git == 'true'}">
 			<call target="git" />
 		</if>
-		<if test="${do.git != 'true'}">
-			<echo message="not updating from git" />
-		</if>
 
 		<if test="${do.delpackages == 'true'}">
 			<call target="delpackages" />
-		</if>
-		<if test="${do.delpackages != 'true'}">
-			<echo message="not deleting packages" />
 		</if>
 
 		<call target="nuget" />
@@ -32,10 +24,6 @@
 
 		<call target="tests" />
 
-	</target>
-
-	<target name="is-this-working">
-			<echo message="is it working???" />
 	</target>
 
 	<target name="git" description="Call git.exe to pull down the latest source">
