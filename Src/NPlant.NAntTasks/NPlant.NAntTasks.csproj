@@ -36,7 +36,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NAnt.Core, Version=0.91.4312.0, Culture=neutral">
+    <Reference Include="NAnt.Core">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Packages\NAnt.Portable.0.92\NAnt.Core.dll</HintPath>
     </Reference>
