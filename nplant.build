@@ -6,7 +6,7 @@
 	<property name="config" value="Debug" readonly="false" />
 	<property name="git.dir" value="" readonly="false" />
 	<property name="nuget.dir" value=".nuget" readonly="false" />
-	<property name="do.delpackages" value="false" readonly="false" />
+	<property name="do.delpackages" value="true" readonly="false" />
 
 	<target name="main">
 
