@@ -10,18 +10,20 @@
 
 	<target name="main">
 
+		<call target="is-this-working" />
+
 		<if test="${do.git == 'true'}">
 			<call target="git" />
 		</if>
 		<if test="${do.git != 'true'}">
-			<echo>not updating from git</echo>
+			<echo message="not updating from git" />
 		</if>
 
 		<if test="${do.delpackages == 'true'}">
 			<call target="delpackages" />
 		</if>
 		<if test="${do.delpackages != 'true'}">
-			<echo>not deleting packages</echo>
+			<echo message="not deleting packages" />
 		</if>
 
 		<call target="nuget" />
@@ -30,6 +32,10 @@
 
 		<call target="tests" />
 
+	</target>
+
+	<target name="is-this-working">
+			<echo message="is it working???" />
 	</target>
 
 	<target name="git" description="Call git.exe to pull down the latest source">
