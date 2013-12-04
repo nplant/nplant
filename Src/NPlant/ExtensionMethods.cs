@@ -44,12 +44,15 @@ public static class ExtensionMethods
 
     public static string SubstringTo(this string source, string to)
     {
-        if (source == null || to == null)
+        if (source.IsNullOrEmpty() || to.IsNullOrEmpty())
             return source;
 
         int indexOf = source.IndexOf(to);
 
-        if (indexOf < 1)
+        if (indexOf == 0)
+            return string.Empty;
+
+        if (indexOf < 0)
             return source;
 
         return source.Substring(0, indexOf);
