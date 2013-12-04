@@ -19,7 +19,7 @@ namespace NPlant.MetaModel.ClassDiagraming
 
             var names = Enum.GetNames(_enumType);
 
-            buffer.AppendLine("enum {0} {1}".FormatWith(_enumType.Name, "{"));
+            buffer.AppendLine("enum \"{0}\" {1}".FormatWith(_enumType.Name, "{"));
 
             foreach (var name in names)
             {

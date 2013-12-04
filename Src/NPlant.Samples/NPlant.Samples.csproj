@@ -51,6 +51,7 @@
     <Compile Include="Packages\SimplePackageDiagram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScanMode\SimpleScanModeDiagram.cs" />
+    <Compile Include="FullMonty\FullMontyClassDiagram.cs" />
     <Compile Include="Titles\SimpleTitledClassDiagram.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -179,7 +179,7 @@ namespace NPlant.Generation.ClassDiagraming
                     throw new NPlantException("Unrecognized relationship type:  {0}".FormatWith(relationship));
             }
 
-            _buffer.AppendLine("{0} {1} {2}{3}".FormatWith(relationship.Party1.Name, arrow, relationship.Party2.Name,
+            _buffer.AppendLine("\"{0}\" {1} \"{2}\"{3}".FormatWith(relationship.Party1.Name, arrow, relationship.Party2.Name,
                                                            suffix));
         }
 

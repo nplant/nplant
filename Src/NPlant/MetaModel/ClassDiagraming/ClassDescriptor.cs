@@ -17,7 +17,7 @@ namespace NPlant.MetaModel.ClassDiagraming
         {
             this.RenderInheritance = true;
             this.ReflectedType = reflectedType;
-            this.Name = this.ReflectedType.Name;
+            this.Name = this.ReflectedType.GetFriendlyGenericName();
         }
 
         public void Visit(ClassDiagramVisitorContext context)

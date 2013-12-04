@@ -7,11 +7,54 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
+using System.Text;
 using System.Threading;
 using NPlant.MetaModel.ClassDiagraming;
 
 public static class ExtensionMethods
 {
+    public static string GetFriendlyGenericName(this Type type)
+    {
+        if (type.IsGenericType)
+        {
+            StringBuilder buffer = new StringBuilder();
+
+            buffer.Append(type.Name.SubstringTo("`"));
+
+            buffer.Append("<");
+            
+            Type[] arguments = type.GetGenericArguments();
+
+            for (int i = 0; i < arguments.Length; i++)
+            {
+                if (i != 0)
+                    buffer.Append(",");
+
+                var argument = arguments[i];
+                buffer.Append(argument.Name);
+            }
+
+            buffer.Append(">");
+
+            return buffer.ToString();
+        }
+
+        return type.Name;
+    }
+
+    public static string SubstringTo(this string source, string to)
+    {
+        if (source == null || to == null)
+            return source;
+
+        int indexOf = source.IndexOf(to);
+
+        if (indexOf < 1)
+            return source;
+
+        return source.Substring(0, indexOf);
+    }
+
     public static ReflectedClassDescriptor GetReflected(this Type type)
     {
         if (type.IsEnum)
