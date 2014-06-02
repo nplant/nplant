@@ -19,7 +19,7 @@ artifacts for existing software systems build in .NET, or you are ready to fully
 process with your CI build tools and processes, NPlant can help you tremendously.
 
 ## How does it work?
-Much like NHibernate or other models where you do declare meta models in code, you create C# classes that represent your 
+Much like NHibernate or AutoMapper where you do declare meta models in code, NPlant offers C# classes that represent your 
 atifacts like so:
 
 ```csharp
