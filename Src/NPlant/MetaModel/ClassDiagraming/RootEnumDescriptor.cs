@@ -1,5 +1,6 @@
 ﻿using System;
 using NPlant.Core;
+using NPlant.Generation.ClassDiagraming;
 
 namespace NPlant.MetaModel.ClassDiagraming
 {
@@ -13,7 +14,7 @@ namespace NPlant.MetaModel.ClassDiagraming
             this.RenderInheritance = false;
         }
 
-        protected override void LoadMembers(Generation.ClassDiagraming.ClassDiagramVisitorContext context)
+        protected override void LoadMembers(ClassDiagramVisitorContext context)
         {
             // don't load any member for enums
         }

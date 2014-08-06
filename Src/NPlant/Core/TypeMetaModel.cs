@@ -10,6 +10,7 @@ namespace NPlant.Core
 
         private readonly Type _type;
         private bool _isPrimitive;
+        private readonly TypeNote _note = new TypeNote();
 
         public TypeMetaModel(Type type)
         {
@@ -26,7 +27,6 @@ namespace NPlant.Core
             }
 
             this.Name = GetFriendlyDataType(type);
-            this.Note = TypeNote.Null;
             this.HideAsBaseClass = _type == typeof (object);
         }
 
@@ -50,7 +50,7 @@ namespace NPlant.Core
 
         public string Name { get; internal set; }
 
-        public TypeNote Note { get; internal set; }
+        public TypeNote Note { get { return _note; } }
 
         public bool Hidden { get; internal set; }
         
@@ -116,8 +116,6 @@ namespace NPlant.Core
     {
         private NoteDirection _direction;
         private readonly List<string> _lines = new List<string>();
-
-        public static TypeNote Null = new TypeNote();
 
         public TypeNote AddLine(string line)
         {

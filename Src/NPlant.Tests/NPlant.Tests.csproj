@@ -42,6 +42,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -50,6 +51,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\KeyedListFixture.cs" />
+    <Compile Include="Core\TypeMetaModelFixture.cs" />
+    <Compile Include="Diagraming\ClassDescriptor_MemberScan_Fixture.cs" />
+    <Compile Include="Diagraming\StubClassDiagramVisitorContext.cs" />
     <Compile Include="Diagrams\ClassDiagrams\AggregationScenarios.cs" />
     <Compile Include="Diagrams\ClassDiagrams\EdgetScenarios.cs" />
     <Compile Include="Diagrams\ClassDiagrams\HasManyScenarios.cs" />

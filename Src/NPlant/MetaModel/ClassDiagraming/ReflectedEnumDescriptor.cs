@@ -1,4 +1,5 @@
 using System;
+using NPlant.Generation.ClassDiagraming;
 
 namespace NPlant.MetaModel.ClassDiagraming
 {
@@ -14,7 +15,7 @@ namespace NPlant.MetaModel.ClassDiagraming
             return new EnumWriter(this.ReflectedType);
         }
 
-        protected override void LoadMembers(Generation.ClassDiagraming.ClassDiagramVisitorContext context)
+        protected override void LoadMembers(ClassDiagramVisitorContext context)
         {
             // don't load members if it's an enum
         }

@@ -42,7 +42,6 @@ namespace NPlant.MetaModel.ClassDiagraming
 
         public TypeNote Note()
         {
-            _typeMetaModel.Note = new TypeNote();
             return _typeMetaModel.Note;
         }
 

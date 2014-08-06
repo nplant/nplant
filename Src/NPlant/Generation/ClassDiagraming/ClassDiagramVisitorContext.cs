@@ -11,19 +11,22 @@ namespace NPlant.Generation.ClassDiagraming
         private readonly List<ClassDiagramRelationship> _relationships = new List<ClassDiagramRelationship>();
         private readonly List<ClassDescriptor> _visitedRelatedClasses = new List<ClassDescriptor>();
 
-        internal static ClassDiagramVisitorContext Current { get; set; }
+        public static ClassDiagramVisitorContext Current { get; set; }
 
-        internal ClassDiagramVisitorContext(ClassDiagram diagram)
+        protected ClassDiagramVisitorContext() { }
+
+        protected internal ClassDiagramVisitorContext(ClassDiagram diagram)
         {
             this.TypeMetaModelSet = diagram.Types;
             this.Diagram = diagram;
+            this.ScanMode = this.Diagram.ScanMode;
         }
 
-        protected TypeMetaModelSet TypeMetaModelSet { get; private set; }
+        protected TypeMetaModelSet TypeMetaModelSet { get; set; }
 
         protected ClassDiagram Diagram { get; set; }
 
-        public ClassDiagramScanModes ScanMode { get { return this.Diagram.ScanMode; } }
+        public ClassDiagramScanModes ScanMode { get; protected set; }
 
         public void AddRelated(ClassDescriptor parent, ClassDescriptor child, ClassDiagramRelationshipTypes relationshipType, int level, string name = null)
         {
@@ -65,7 +68,7 @@ namespace NPlant.Generation.ClassDiagraming
             {
                 var descriptor = _unvisitedRelatedClasses.Dequeue();
 
-                descriptor.Visit(this);
+                descriptor.Visit();
 
                 _visitedRelatedClasses.Add(descriptor);
             }

@@ -8,7 +8,7 @@ using NPlant.Generation.ClassDiagraming;
 
 namespace NPlant.MetaModel.ClassDiagraming
 {
-    public abstract class ClassDescriptor  : IKeyedItem
+    public abstract class ClassDescriptor : IKeyedItem
     {
         protected internal readonly IDictionary<string, bool> MemberVisibility = new Dictionary<string, bool>();
         private readonly KeyedList<ClassMemberDescriptor> _members = new KeyedList<ClassMemberDescriptor>();
@@ -20,20 +20,14 @@ namespace NPlant.MetaModel.ClassDiagraming
             this.Name = this.ReflectedType.GetFriendlyGenericName();
         }
 
-        public void Visit(ClassDiagramVisitorContext context)
+        public void Visit()
         {
+            var context = ClassDiagramVisitorContext.Current;
             this.MetaModel = context.GetTypeMetaModel(this.ReflectedType);
 
             LoadMembers(context);
 
-            bool showInheritance = this.RenderInheritance && this.ReflectedType.BaseType != null;
-
-            if (showInheritance)
-            {
-                var baseTypeMetaModel = context.GetTypeMetaModel(this.ReflectedType.BaseType);
-
-                showInheritance = !baseTypeMetaModel.HideAsBaseClass && !baseTypeMetaModel.Hidden;
-            }
+            var showInheritance = ShouldShowInheritance(context);
 
             if (!this.MetaModel.Hidden)
             {
@@ -78,6 +72,20 @@ namespace NPlant.MetaModel.ClassDiagraming
             {
                 context.AddRelated(this, this.ReflectedType.BaseType.GetReflected(), ClassDiagramRelationshipTypes.Base, this.Level - 1);
             }
+        }
+
+        private bool ShouldShowInheritance(ClassDiagramVisitorContext context)
+        {
+            bool showInheritance = this.RenderInheritance && this.ReflectedType.BaseType != null;
+
+            if (showInheritance)
+            {
+                var baseTypeMetaModel = context.GetTypeMetaModel(this.ReflectedType.BaseType);
+
+                showInheritance = !baseTypeMetaModel.HideAsBaseClass && !baseTypeMetaModel.Hidden;
+            }
+
+            return showInheritance;
         }
 
         protected virtual void LoadMembers(ClassDiagramVisitorContext context)
