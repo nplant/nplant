@@ -47,6 +47,7 @@
     <Compile Include="Core\EnumJoiner.cs" />
     <Compile Include="Generation\ClassDiagramFile.cs" />
     <Compile Include="Generation\ClassDiagraming\ClassDiagramFormatter.cs" />
+    <Compile Include="Generation\ClassDiagraming\ClassDiagramGeneration.cs" />
     <Compile Include="Generation\ClassDiagraming\ClassDiagramOptions.cs" />
     <Compile Include="Core\ReflectOn.cs" />
     <Compile Include="ClassDiagramFactory.cs" />

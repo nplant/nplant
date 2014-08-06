@@ -11,9 +11,11 @@ namespace NPlant.Generation.ClassDiagraming
         private readonly List<ClassDiagramRelationship> _relationships = new List<ClassDiagramRelationship>();
         private readonly List<ClassDescriptor> _visitedRelatedClasses = new List<ClassDescriptor>();
 
-        public ClassDiagramVisitorContext(ClassDiagram diagram, TypeMetaModelSet metaModelSet)
+        internal static ClassDiagramVisitorContext Current { get; set; }
+
+        internal ClassDiagramVisitorContext(ClassDiagram diagram)
         {
-            this.TypeMetaModelSet = metaModelSet;
+            this.TypeMetaModelSet = diagram.Types;
             this.Diagram = diagram;
         }
 
@@ -50,7 +52,7 @@ namespace NPlant.Generation.ClassDiagraming
 
         public IEnumerable<ClassDescriptor> VisitedRelatedClasses { get { return _visitedRelatedClasses; } }
 
-        public IEnumerable<ClassDiagramRelationship> Relationships { get { return _relationships; } } 
+        public IEnumerable<ClassDiagramRelationship> Relationships { get { return _relationships; } }
 
         public TypeMetaModel GetTypeMetaModel(Type type)
         {

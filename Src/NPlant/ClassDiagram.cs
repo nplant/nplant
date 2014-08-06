@@ -159,11 +159,6 @@ namespace NPlant
             return note;
         }
 
-        public ClassDiagramVisitorContext CreateGenerationContext()
-        {
-            return new ClassDiagramVisitorContext(this, _types);
-        }
-
         internal string GetClassColor(ClassDescriptor @class)
         {
             return null;

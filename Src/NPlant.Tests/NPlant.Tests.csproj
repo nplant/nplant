@@ -54,7 +54,7 @@
     <Compile Include="Diagrams\ClassDiagrams\EdgetScenarios.cs" />
     <Compile Include="Diagrams\ClassDiagrams\HasManyScenarios.cs" />
     <Compile Include="Diagrams\ClassDiagrams\InheritanceFixture.cs" />
-    <Compile Include="Diagrams\ClassDiagrams\SimpleScenarios.cs" />
+    <Compile Include="Diagrams\ClassDiagrams\Given_A_Simple_Single_Entity.cs" />
     <Compile Include="Diagrams\ClassDiagrams\SuppressionFixture.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

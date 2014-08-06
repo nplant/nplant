@@ -1,35 +1,47 @@
 ﻿using System;
 using System.Reflection;
 using NPlant.Core;
+using NPlant.Generation.ClassDiagraming;
 
 namespace NPlant.MetaModel.ClassDiagraming
 {
     public class ClassMemberDescriptor : IKeyedItem
     {
         private readonly TypeMetaModel _metaModel;
+        private ClassDescriptor _descriptor;
 
-        public ClassMemberDescriptor(Type containingType, PropertyInfo member, TypeMetaModel metaModel)
+        public ClassMemberDescriptor(ClassDescriptor descriptor, MemberInfo member)
         {
-            this.Name = member.Name;
-            this.MemberType = member.PropertyType;
-            this.Key = this.Name;
-            _metaModel = metaModel;
-            this.IsInherited = member.DeclaringType != containingType;
-        }
+            var property = member as PropertyInfo;
 
-        public ClassMemberDescriptor(Type containingType, FieldInfo member, TypeMetaModel metaModel)
-        {
+            if (property != null)
+                this.MemberType = property.PropertyType;
+
+            var field = member as FieldInfo;
+
+            if (field != null)
+                this.MemberType = field.FieldType;
+
+            if (this.MemberType == null)
+                throw new NPlantException("Member's could not be interpretted as either a property or a field");
+
+            _descriptor = descriptor;
+
             this.Name = member.Name;
-            this.MemberType = member.FieldType;
             this.Key = this.Name;
-            _metaModel = metaModel;
-            this.IsInherited = member.DeclaringType != containingType;
+            _metaModel = ClassDiagramVisitorContext.Current.GetTypeMetaModel(this.MemberType);
+            this.IsInherited = member.DeclaringType != descriptor.ReflectedType;
         }
 
         public bool IsInherited { get; private set; }
+        
         public string Name { get; private set; }
+        
         public Type MemberType { get; private set; }
+        
         public string Key { get; private set; }
+
+        public bool IsHidden { get { return !_descriptor.GetMemberVisibility(this.Name); } }
 
         public TypeMetaModel MetaModel { get { return _metaModel; } }
 

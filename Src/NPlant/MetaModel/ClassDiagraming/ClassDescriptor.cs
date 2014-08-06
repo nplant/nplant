@@ -87,19 +87,19 @@ namespace NPlant.MetaModel.ClassDiagraming
                 case ClassDiagramScanModes.SystemServiceModelMember:
                     _members.AddRange(this.ReflectedType.GetFields()
                                                         .Where(x => x.HasAttribute<DataMemberAttribute>() || x.HasAttribute<MessageBodyMemberAttribute>())
-                                                        .Select(field => new ClassMemberDescriptor(this.ReflectedType, field, context.GetTypeMetaModel(field.FieldType)))
+                                                        .Select(field => new ClassMemberDescriptor(this, field))
                                      );
                     _members.AddRange(this.ReflectedType.GetProperties()
                                                         .Where(x => x.HasAttribute<DataMemberAttribute>() || x.HasAttribute<MessageBodyMemberAttribute>())
-                                                        .Select(property => new ClassMemberDescriptor(this.ReflectedType, property, context.GetTypeMetaModel(property.PropertyType)))
+                                                        .Select(property => new ClassMemberDescriptor(this, property))
                                      );
                     break;
                 default:
                     _members.AddRange(this.ReflectedType.GetFields()
-                                                        .Select(field => new ClassMemberDescriptor(this.ReflectedType, field, context.GetTypeMetaModel(field.FieldType)))
+                                                        .Select(field => new ClassMemberDescriptor(this, field))
                                      );
                     _members.AddRange(this.ReflectedType.GetProperties()
-                                                        .Select(property => new ClassMemberDescriptor(this.ReflectedType, property, context.GetTypeMetaModel(property.PropertyType)))
+                                                        .Select(property => new ClassMemberDescriptor(this, property))
                                      );
                     break;
             }

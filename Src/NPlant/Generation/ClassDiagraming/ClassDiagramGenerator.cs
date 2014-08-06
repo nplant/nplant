@@ -13,20 +13,21 @@ namespace NPlant.Generation.ClassDiagraming
 
         public string Generate()
         {
-            ClassDiagramVisitorContext context = _definition.CreateGenerationContext();
-
-            // initialize all of the classes there were explicitly added via that diagram API
-            foreach (var rootClass in _definition.RootClasses.InnerList)
+            using (new ClassDiagramGeneration(_definition))
             {
-                rootClass.Visit(context);
+                // initialize all of the classes there were explicitly added via that diagram API
+                foreach (var rootClass in _definition.RootClasses.InnerList)
+                {
+                    rootClass.Visit(ClassDiagramVisitorContext.Current);
+                }
+
+                // the above initialization might have added more classes, so now visit all of those
+                ClassDiagramVisitorContext.Current.VisitAllRelatedClasses();
+
+                // invoke the formatter and format the diagram
+                var formatter = _definition.CreateFormatter(ClassDiagramVisitorContext.Current);
+                return formatter.Format();
             }
-
-            // the above initialization might have added more classes, so now visit all of those
-            context.VisitAllRelatedClasses();
-
-            // invoke the formatter and format the diagram
-            var formatter = _definition.CreateFormatter(context);
-            return formatter.Format();
         }
     }
 }
