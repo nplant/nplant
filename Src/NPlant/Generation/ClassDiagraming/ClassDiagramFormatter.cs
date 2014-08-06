@@ -27,32 +27,14 @@ namespace NPlant.Generation.ClassDiagraming
             List<string> unpackaged = new List<string>();
             Dictionary<string, List<string>> packageMap = new Dictionary<string, List<string>>();
 
-            foreach (var rootClass in _diagram.RootClasses.InnerList)
-            {
-                string classDefinition = WriteClassDefinition(rootClass);
+            WriteRootClasses(packageMap, unpackaged);
 
-                AssignToPackage(rootClass, packageMap, classDefinition, unpackaged);
-            }
-
-            foreach (var relatedClass in _context.VisitedRelatedClasses)
-            {
-                string classDefinition = WriteClassDefinition(relatedClass);
-
-                AssignToPackage(relatedClass, packageMap, classDefinition, unpackaged);
-            }
+            WriteRelatedClasses(packageMap, unpackaged);
 
             WritePackages(packageMap, unpackaged);
 
-            _buffer.AppendLine();
-            _buffer.AppendLine();
+            WriteRelationships();
 
-            // write all relationships
-            foreach (var relationship in _context.Relationships)
-            {
-                WriteClassRelationship(relationship);
-            }
-
-            // note:  this legend stuff isn't working at the PlantUML level for me... might need to back this out
             WriteLegend(_diagram.Legend);
 
             WriteNotes(_diagram.Notes);
@@ -60,6 +42,37 @@ namespace NPlant.Generation.ClassDiagraming
             _buffer.AppendLine("@enduml");
 
             return _buffer.ToString();
+        }
+
+        private void WriteRelationships()
+        {
+            _buffer.AppendLine();
+            _buffer.AppendLine();
+
+            foreach (var relationship in _context.Relationships)
+            {
+                WriteClassRelationship(relationship);
+            }
+        }
+
+        private void WriteRelatedClasses(Dictionary<string, List<string>> packageMap, List<string> unpackaged)
+        {
+            foreach (var relatedClass in _context.VisitedRelatedClasses)
+            {
+                string classDefinition = WriteClassDefinition(relatedClass);
+
+                AssignToPackage(relatedClass, packageMap, classDefinition, unpackaged);
+            }
+        }
+
+        private void WriteRootClasses(Dictionary<string, List<string>> packageMap, List<string> unpackaged)
+        {
+            foreach (var rootClass in _diagram.RootClasses.InnerList)
+            {
+                string classDefinition = WriteClassDefinition(rootClass);
+
+                AssignToPackage(rootClass, packageMap, classDefinition, unpackaged);
+            }
         }
 
         private void AssignToPackage(ClassDescriptor rootClass, Dictionary<string, List<string>> packageMap,

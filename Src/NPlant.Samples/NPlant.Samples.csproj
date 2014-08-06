@@ -47,6 +47,7 @@
     <Compile Include="Factories\SimpleDiagramFactory.cs" />
     <Compile Include="Inheritance\SimpleInheritanceDiagram.cs" />
     <Compile Include="CircularReferences\SimpleRecursiveDiagram.cs" />
+    <Compile Include="Legends\SimpleLegendDiagram.cs" />
     <Compile Include="Notes\SimpleNotesDiagram.cs" />
     <Compile Include="Packages\SimplePackageDiagram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
