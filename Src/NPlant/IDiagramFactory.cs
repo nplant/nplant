@@ -4,6 +4,6 @@ namespace NPlant
 {
     public interface IDiagramFactory
     {
-        IEnumerable<IDiagram> GetDiagrams();
+        IEnumerable<ClassDiagram> GetDiagrams();
     }
 }

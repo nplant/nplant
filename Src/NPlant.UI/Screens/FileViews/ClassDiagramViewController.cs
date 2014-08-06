@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Windows.Forms;
 using NPlant.Core;
 using NPlant.Generation;
+using NPlant.Generation.ClassDiagraming;
 
 namespace NPlant.UI.Screens.FileViews
 {
@@ -93,7 +94,7 @@ namespace NPlant.UI.Screens.FileViews
 
         public void LoadDiagram(LoadedDiagram diagram)
         {
-            _view.DiagramText = diagram.Diagram.CreateGenerator().Generate();
+            _view.DiagramText = BufferedClassDiagramGenerator.GetDiagramText(diagram.Diagram);
         }
     }
 }

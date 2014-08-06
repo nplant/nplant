@@ -9,8 +9,8 @@ namespace NPlant.Tests.Diagrams.ClassDiagrams
         [Test]
         public void WHEN_Rendered_With_Defaults_THEN_Diagram_Has_One_Class_With_Members()
         {
-            var simulation = new ClassDiagramSimulation(new ClassDiagram(typeof(SimpleEntity)));
-            simulation.Simulate();
+            var simulation = new SimulatedClassDiagramGenerator(new ClassDiagram(typeof(SimpleEntity)));
+            simulation.Generate();
 
             Assert.That(simulation.Classes.Count, Is.EqualTo(1));
             Assert.That(simulation.Classes[0].Name, Is.EqualTo("SimpleEntity"));
@@ -23,8 +23,8 @@ namespace NPlant.Tests.Diagrams.ClassDiagrams
         [Test]
         public void WHEN_Rendered_With_Hidden_Fields_THEN_Diagram_Has_One_Class_With_Members_Selectively_Hidden()
         {
-            var simulation = new ClassDiagramSimulation(new HiddenFieldBarDiagram());
-            simulation.Simulate();
+            var simulation = new SimulatedClassDiagramGenerator(new HiddenFieldBarDiagram());
+            simulation.Generate();
 
             Assert.That(simulation.Classes.Count, Is.EqualTo(1));
             Assert.That(simulation.Classes[0].Name, Is.EqualTo("SimpleEntity"));

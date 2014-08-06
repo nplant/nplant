@@ -7,7 +7,7 @@ using NPlant.MetaModel.ClassDiagraming;
 
 namespace NPlant
 {
-    public class ClassDiagram : IDiagram
+    public class ClassDiagram
     {
         private readonly TypeMetaModelSet _types = new TypeMetaModelSet();
         private string _name;
@@ -101,11 +101,6 @@ namespace NPlant
         }
 
         public KeyedList<ClassDescriptor> RootClasses { get { return _classDescriptors; } }
-
-        IDiagramGenerator IDiagram.CreateGenerator()
-        {
-            return new ClassDiagramGenerator(this);
-        }
 
         internal IDiagramFormatter CreateFormatter(ClassDiagramVisitorContext context)
         {

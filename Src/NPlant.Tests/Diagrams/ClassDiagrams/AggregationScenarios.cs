@@ -12,8 +12,8 @@ namespace NPlant.Tests.ClassDiagrams
         [Test]
         public void GIVEN_A_Simple_Single_Entity_Diagram_WHEN_Rendered_With_Defaults_THEN_Diagram_Has_One_Class_With_Members()
         {
-            var simulation = new ClassDiagramSimulation(new ClassDiagram(typeof(AggregationEntity)));
-            simulation.Simulate();
+            var simulation = new SimulatedClassDiagramGenerator(new ClassDiagram(typeof(AggregationEntity)));
+            simulation.Generate();
             
             Assert.That(simulation.Classes.Count, Is.EqualTo(5));
             Assert.That(simulation.Classes[0].Name, Is.EqualTo("AggregationEntity"));

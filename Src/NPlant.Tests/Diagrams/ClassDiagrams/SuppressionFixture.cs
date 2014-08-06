@@ -13,8 +13,8 @@ namespace NPlant.Tests.Diagrams.ClassDiagrams
             var diagram = new Diagram();
             diagram.GenerationOptions.ForType<Child3>().Hide();
 
-            var simulation = new ClassDiagramSimulation(diagram);
-            simulation.Simulate();
+            var simulation = new SimulatedClassDiagramGenerator(diagram);
+            simulation.Generate();
 
             Assert.That(simulation.Classes.Count, Is.EqualTo(3));
 
@@ -34,8 +34,8 @@ namespace NPlant.Tests.Diagrams.ClassDiagrams
             var diagram = new Diagram();
             diagram.GenerationOptions.ForType<Child3>().TreatAsPrimitive();
 
-            var simulation = new ClassDiagramSimulation(diagram);
-            simulation.Simulate();
+            var simulation = new SimulatedClassDiagramGenerator(diagram);
+            simulation.Generate();
 
             Assert.That(simulation.Classes.Count, Is.EqualTo(3));
 

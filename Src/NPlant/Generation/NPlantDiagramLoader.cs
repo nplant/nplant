@@ -8,7 +8,7 @@ namespace NPlant.Generation
 {
     public class NPlantDiagramLoader
     {
-        static readonly Type DiagramInterface = typeof(IDiagram);
+        static readonly Type DiagramInterface = typeof(ClassDiagram);
         static readonly Type DiagramFactoryInterface = typeof(IDiagramFactory);
 
         private readonly IRunnerRecorder _recorder = NullRecorder.Instance;
@@ -70,7 +70,10 @@ namespace NPlant.Generation
 
                         var factory = InstantiateDiagramFactory(exportedType);
 
-                        diagrams.AddRange(factory.GetDiagrams().Select(diagram => new DiscoveredDiagram(exportedType.Namespace, diagram)));
+                        var classDiagrams = factory.GetDiagrams();
+
+                        if(classDiagrams != null)
+                            diagrams.AddRange(classDiagrams.Select(d => new DiscoveredDiagram(exportedType.Namespace, d)));
                     }
                 }
             }
@@ -95,7 +98,7 @@ namespace NPlant.Generation
             if (!exportedType.TryGetPublicParameterlessConstructor(out ctor))
                 throw new NPlantException("Diagrams are expected to have a public parameterless constructor.  '{0}' does not meet this expectation.".FormatWith(exportedType.FullName));
 
-            return new DiscoveredDiagram(exportedType.Namespace, (IDiagram)ctor.Invoke(new object[0]));
+            return new DiscoveredDiagram(exportedType.Namespace, (ClassDiagram)ctor.Invoke(new object[0]));
         }
 
     }

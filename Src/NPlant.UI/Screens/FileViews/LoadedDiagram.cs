@@ -4,16 +4,16 @@ namespace NPlant.UI
 {
     public class LoadedDiagram
     {
-        private readonly IDiagram _diagram;
+        private readonly ClassDiagram _diagram;
         private readonly string _name;
 
-        public LoadedDiagram(IDiagram diagram)
+        public LoadedDiagram(ClassDiagram diagram)
         {
             _diagram = diagram;
             _name = _diagram.Name;
         }
 
-        public IDiagram Diagram
+        public ClassDiagram Diagram
         {
             get { return _diagram; }
         }

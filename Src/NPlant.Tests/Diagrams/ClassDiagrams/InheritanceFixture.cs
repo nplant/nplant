@@ -10,9 +10,9 @@ namespace NPlant.Tests.Diagrams.ClassDiagrams
         [Test]
         public void Base_Classs_Will_Be_Rendered_By_Default()
         {
-            var simulation = new ClassDiagramSimulation(new SimpleDiagram());
+            var simulation = new SimulatedClassDiagramGenerator(new SimpleDiagram());
 
-            simulation.Simulate();
+            simulation.Generate();
 
             Assert.That(simulation.Classes.Count, Is.EqualTo(4));
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using NPlant.Generation.ClassDiagraming;
 
 namespace NPlant.Generation
 {
@@ -64,7 +65,7 @@ namespace NPlant.Generation
 
             foreach (var diagram in diagrams)
             {
-                var text = diagram.Diagram.CreateGenerator().Generate();
+                var text = BufferedClassDiagramGenerator.GetDiagramText(diagram.Diagram);
                 var javaPath = _options.JavaPath ?? "java.exe";
                 var plantUml = _options.PlantUml ?? Assembly.GetExecutingAssembly().Location;
 

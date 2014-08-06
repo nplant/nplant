@@ -2,32 +2,37 @@ using NPlant.MetaModel.ClassDiagraming;
 
 namespace NPlant.Generation.ClassDiagraming
 {
-    public class ClassDiagramGenerator : IDiagramGenerator
+    public abstract class ClassDiagramGenerator : IDiagramGenerator
     {
-        private readonly ClassDiagram _definition;
+        protected readonly ClassDiagram Definition;
 
-        public ClassDiagramGenerator(ClassDiagram definition)
+        protected ClassDiagramGenerator(ClassDiagram definition)
         {
-            _definition = definition.CheckForNullArg("definition");
+            Definition = definition.CheckForNullArg("definition");
         }
 
-        public string Generate()
+        public void Generate()
         {
-            using (new ClassDiagramGeneration(_definition))
+            using (new ClassDiagramGeneration(Definition))
             {
                 // initialize all of the classes there were explicitly added via that diagram API
-                foreach (var rootClass in _definition.RootClasses.InnerList)
+                foreach (var rootClass in Definition.RootClasses.InnerList)
                 {
                     rootClass.Visit(ClassDiagramVisitorContext.Current);
+                    OnRootClassVisited(rootClass);
                 }
 
                 // the above initialization might have added more classes, so now visit all of those
                 ClassDiagramVisitorContext.Current.VisitAllRelatedClasses();
 
-                // invoke the formatter and format the diagram
-                var formatter = _definition.CreateFormatter(ClassDiagramVisitorContext.Current);
-                return formatter.Format();
+                Finalize(ClassDiagramVisitorContext.Current);
             }
         }
+
+        protected virtual void OnRootClassVisited(ClassDescriptor rootClass)
+        {
+        }
+
+        protected abstract void Finalize(ClassDiagramVisitorContext current);
     }
 }

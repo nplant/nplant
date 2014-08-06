@@ -10,8 +10,8 @@ namespace NPlant.Tests.ClassDiagrams
         [Test]
         public void TestPersonHasHands()
         {
-            var simulation = new ClassDiagramSimulation(new SimpleHasManyDiagram());
-            simulation.Simulate();
+            var simulation = new SimulatedClassDiagramGenerator(new SimpleHasManyDiagram());
+            simulation.Generate();
 
             Assert.That(simulation.Classes.Count, Is.EqualTo(2));
             Assert.That(simulation.Classes[0].Name, Is.EqualTo("Person"));

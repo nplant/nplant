@@ -2,6 +2,6 @@
 {
     public interface IDiagramGenerator
     {
-        string Generate();
+        void Generate();
     }
 }

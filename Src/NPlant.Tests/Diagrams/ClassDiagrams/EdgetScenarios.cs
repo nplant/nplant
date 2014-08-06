@@ -11,8 +11,8 @@ namespace NPlant.Tests.Diagrams.ClassDiagrams
         [Test]
         public void Circular_References_Dont_Create_Multiple_Classes()
         {
-            var simulation = new ClassDiagramSimulation(new ClassDiagram(typeof(Foo)));
-            simulation.Simulate();
+            var simulation = new SimulatedClassDiagramGenerator(new ClassDiagram(typeof(Foo)));
+            simulation.Generate();
 
             Assert.That(simulation.Classes.Count, Is.EqualTo(3));
             Assert.That(simulation.Classes["Foo"].Members["SomeString"].MemberType, Is.EqualTo(typeof(string)));

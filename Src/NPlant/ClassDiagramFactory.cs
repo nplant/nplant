@@ -2,8 +2,8 @@
 
 namespace NPlant
 {
-    internal abstract class DiagramFactory<T> : IDiagramFactory where T : IDiagram
+    internal abstract class DiagramFactory<T> : IDiagramFactory where T : ClassDiagram
     {
-        public abstract IEnumerable<IDiagram> GetDiagrams();
+        public abstract IEnumerable<ClassDiagram> GetDiagrams();
     }
 }

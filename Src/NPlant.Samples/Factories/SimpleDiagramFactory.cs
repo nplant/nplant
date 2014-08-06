@@ -4,7 +4,7 @@ namespace NPlant.Samples.Factories
 {
     public class SimpleDiagramFactory : IDiagramFactory
     {
-        public IEnumerable<IDiagram> GetDiagrams()
+        public IEnumerable<ClassDiagram> GetDiagrams()
         {
             return new[]
                 {
