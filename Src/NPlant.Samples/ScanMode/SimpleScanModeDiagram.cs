@@ -17,9 +17,10 @@ namespace NPlant.Samples.ScanMode
     {
         public Bar TheBar;
         public Baz TheBaz;
-        private int ThePrivateCount;
-        internal bool IsValid;
-        protected string Name;
+        private int IAmPrivate;
+        internal bool IAmInternal;
+        protected string IAmProtected;
+        public short IAmPublic;
     }
 
     public class Bar : Foo

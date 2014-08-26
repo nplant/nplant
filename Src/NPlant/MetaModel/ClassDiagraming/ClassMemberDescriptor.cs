@@ -13,20 +13,26 @@ namespace NPlant.MetaModel.ClassDiagraming
         public ClassMemberDescriptor(ClassDescriptor descriptor, MemberInfo member)
         {
             var property = member as PropertyInfo;
+            this.AccessModifier = AccessModifier.Public;
 
             if (property != null)
+            {
                 this.MemberType = property.PropertyType;
+            }
 
             var field = member as FieldInfo;
 
             if (field != null)
+            {
                 this.MemberType = field.FieldType;
+                this.AccessModifier = GetAccessModifier(field);
+            }
 
             if (this.MemberType == null)
                 throw new NPlantException("Member's could not be interpretted as either a property or a field");
-
+            
             _descriptor = descriptor;
-
+            
             this.Name = member.Name;
             this.Key = this.Name;
             _metaModel = ClassDiagramVisitorContext.Current.GetTypeMetaModel(this.MemberType);
@@ -38,6 +44,8 @@ namespace NPlant.MetaModel.ClassDiagraming
         public string Name { get; private set; }
         
         public Type MemberType { get; private set; }
+
+        public AccessModifier AccessModifier { get; private set; }
         
         public string Key { get; private set; }
 
@@ -46,5 +54,25 @@ namespace NPlant.MetaModel.ClassDiagraming
         public TypeMetaModel MetaModel { get { return _metaModel; } }
 
         internal bool TreatAsPrimitive { get; set; }
+
+        private AccessModifier GetAccessModifier(FieldInfo fieldInfo)
+        {
+            if (fieldInfo.IsPrivate)
+                return AccessModifier.Private;
+            else if (fieldInfo.IsPublic)
+                return AccessModifier.Public;
+            else if (fieldInfo.IsAssembly)
+                return AccessModifier.Internal;
+
+            return AccessModifier.Protected;
+        }
+    }
+
+    public enum AccessModifier
+    {
+        Public,
+        Private,
+        Protected,
+        Internal
     }
 }
