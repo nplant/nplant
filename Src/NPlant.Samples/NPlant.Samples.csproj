@@ -51,6 +51,7 @@
     <Compile Include="Notes\SimpleNotesDiagram.cs" />
     <Compile Include="Packages\SimplePackageDiagram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Relationships\BidirectionalAssociationDiagram.cs" />
     <Compile Include="ScanMode\SimpleScanModeDiagram.cs" />
     <Compile Include="FullMonty\FullMontyClassDiagram.cs" />
     <Compile Include="Titles\SimpleTitledClassDiagram.cs" />
