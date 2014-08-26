@@ -10,7 +10,8 @@ namespace NPlant.Tests.Diagraming
     [TestFixture]
     public class ClassDescriptor_MemberScan_Fixture
     {
-        [TestCase(typeof(EmptySubject), ClassDiagramScanModes.PublicMembersOnly, new string[] { })]
+        [TestCase(typeof(PublicMembersOnly), ClassDiagramScanModes.PublicMembersOnly, new string[] { "Foo" })]
+        [TestCase(typeof(AllMembers), ClassDiagramScanModes.AllMembers, new[] { "Foo", "Moo", "Bar", "Baz" })]
         [TestCase(typeof(DataContractSubject), ClassDiagramScanModes.SystemServiceModelMember, new[] { "Foo", "Baz" })]
         [TestCase(typeof(MessageContractSubject), ClassDiagramScanModes.SystemServiceModelMember, new[] { "Foo", "Baz" })]
         [TestCase(typeof(FieldDataContractSubject), ClassDiagramScanModes.SystemServiceModelMember, new[] { "Foo", "Baz" })]
@@ -32,7 +33,43 @@ namespace NPlant.Tests.Diagraming
             }
         }
 
-        public class EmptySubject { }
+        public class PublicMembersOnly
+        {
+            public string Foo;
+
+            // should not be scanned in
+            protected string Moo;
+
+            // should not be scanned in
+            private string Bar = "";
+
+            // should not be scanned in
+            internal string Baz = "";
+
+            public override string ToString()
+            {
+                // use Bar to get rid of "Warning as Error ... is never used" error. 
+                return Bar;
+            }
+        }
+
+
+        public class AllMembers
+        {
+            public string Foo;
+
+            protected string Moo;
+
+            private string Bar = "";
+
+            internal string Baz = "";
+
+            public override string ToString()
+            {
+                // use Bar to get rid of "Warning as Error ... is never used" errors. 
+                return Bar;
+            }
+        }
 
         [DataContract]
         public class DataContractSubject

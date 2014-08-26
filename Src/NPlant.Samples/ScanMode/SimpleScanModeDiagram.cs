@@ -8,7 +8,7 @@ namespace NPlant.Samples.ScanMode
     {
         public SimpleScanModeDiagram()
         {
-            base.GenerationOptions.ScanModeOf(ClassDiagramScanModes.SystemServiceModelMember);
+            base.GenerationOptions.ScanModeOf(ClassDiagramScanModes.AllMembers);
             AddClass<Foo>();
         }
     }
@@ -17,6 +17,10 @@ namespace NPlant.Samples.ScanMode
     {
         public Bar TheBar;
         public Baz TheBaz;
+        private int IAmPrivate;
+        internal bool IAmInternal;
+        protected string IAmProtected;
+        public short IAmPublic;
     }
 
     public class Bar : Foo

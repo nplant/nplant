@@ -33,6 +33,7 @@ namespace NPlant.Generation.ClassDiagraming
 
     public enum ClassDiagramScanModes
     {
+        AllMembers,
         PublicMembersOnly,
         SystemServiceModelMember
     }

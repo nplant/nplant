@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
+using System.Reflection;
 using NPlant.Core;
 using NPlant.Generation.ClassDiagraming;
 
@@ -99,6 +100,18 @@ namespace NPlant.MetaModel.ClassDiagraming
                                      );
                     _members.AddRange(this.ReflectedType.GetProperties()
                                                         .Where(x => x.HasAttribute<DataMemberAttribute>() || x.HasAttribute<MessageBodyMemberAttribute>())
+                                                        .Select(property => new ClassMemberDescriptor(this, property))
+                                     );
+                    break;
+                case ClassDiagramScanModes.AllMembers:
+                    _members.AddRange(this.ReflectedType.GetFields(BindingFlags.Instance |
+                                                                   BindingFlags.Public | 
+                                                                   BindingFlags.NonPublic)
+                                                        .Select(field => new ClassMemberDescriptor(this, field))
+                                     );
+                    _members.AddRange(this.ReflectedType.GetProperties(BindingFlags.Instance |
+                                                                       BindingFlags.Public |
+                                                                       BindingFlags.NonPublic)
                                                         .Select(property => new ClassMemberDescriptor(this, property))
                                      );
                     break;

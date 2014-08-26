@@ -62,12 +62,29 @@ namespace NPlant.MetaModel.ClassDiagraming
             return false;
         }
 
-        private static void WriteClassMembers(IEnumerable<ClassMemberDescriptor> members, StringBuilder buffer)
+        private void WriteClassMembers(IEnumerable<ClassMemberDescriptor> members, StringBuilder buffer)
         {
             foreach (var member in members)
             {
                 if (!member.MetaModel.Hidden && (member.MetaModel.IsPrimitive || member.TreatAsPrimitive))
-                    buffer.AppendLine("    {0} {1}".FormatWith(member.MetaModel.Name, member.Name));
+                    buffer.AppendLine("    {0}{1} {2}".FormatWith(GetClassMemberAccessModifierCode(member.AccessModifier), member.MetaModel.Name, member.Name));
+            }
+        }
+
+        private string GetClassMemberAccessModifierCode(AccessModifier am)
+        {
+            switch(am)
+            {
+                case AccessModifier.Public:
+                    return "+";
+                case AccessModifier.Private:
+                    return "-";
+                case AccessModifier.Protected:
+                    return "#";
+                case AccessModifier.Internal:
+                    return "~";
+                default:
+                    return "";
             }
         }
     }
