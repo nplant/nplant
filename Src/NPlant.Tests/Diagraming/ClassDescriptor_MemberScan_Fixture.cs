@@ -48,7 +48,7 @@ namespace NPlant.Tests.Diagraming
 
             public override string ToString()
             {
-                // use Bar and Baz to get rid of "Warning as Error ... is never used" errors. 
+                // use Bar to get rid of "Warning as Error ... is never used" error. 
                 return Bar;
             }
         }
@@ -66,8 +66,8 @@ namespace NPlant.Tests.Diagraming
 
             public override string ToString()
             {
-                // use Bar and Baz to get rid of "Warning as Error ... is never used" errors. 
-                return Bar + Baz;
+                // use Bar to get rid of "Warning as Error ... is never used" errors. 
+                return Bar;
             }
         }
 
