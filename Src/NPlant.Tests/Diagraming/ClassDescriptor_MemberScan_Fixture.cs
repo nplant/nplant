@@ -10,13 +10,14 @@ namespace NPlant.Tests.Diagraming
     [TestFixture]
     public class ClassDescriptor_MemberScan_Fixture
     {
-        [TestCase(typeof(EmptySubject), ClassDiagramScanModes.PublicMembersOnly, new string[] { })]
+        [TestCase(typeof(PublicMembersOnly), ClassDiagramScanModes.PublicMembersOnly, new string[] { "Foo" })]
         [TestCase(typeof(DataContractSubject), ClassDiagramScanModes.SystemServiceModelMember, new[] { "Foo", "Baz" })]
         [TestCase(typeof(MessageContractSubject), ClassDiagramScanModes.SystemServiceModelMember, new[] { "Foo", "Baz" })]
         [TestCase(typeof(FieldDataContractSubject), ClassDiagramScanModes.SystemServiceModelMember, new[] { "Foo", "Baz" })]
         [TestCase(typeof(FieldMessageContractSubject), ClassDiagramScanModes.SystemServiceModelMember, new[] { "Foo", "Baz" })]
         [TestCase(typeof(FieldPropertyHybridDataContractSubject), ClassDiagramScanModes.SystemServiceModelMember, new[] { "Foo", "Baz" })]
         [TestCase(typeof(FieldPropertyHybridMessageContractSubject), ClassDiagramScanModes.SystemServiceModelMember, new[] { "Foo", "Baz" })]
+        [TestCase(typeof(AllMembers), ClassDiagramScanModes.AllMembers, new[] { "Foo", "Bar", "Baz" })]
         public void Scan_Suite(Type subjectType, ClassDiagramScanModes scanMode, string[] expectations)
         {
             using (new ClassDiagramGeneration(new StubClassDiagramVisitorContext(scanMode)))
@@ -32,7 +33,36 @@ namespace NPlant.Tests.Diagraming
             }
         }
 
-        public class EmptySubject { }
+        public class PublicMembersOnly
+        {
+            public string Foo;
+
+            private string Bar = "";
+
+            internal string Baz = "";
+
+            public override string ToString()
+            {
+                // use Bar and Baz to get rid of "Warning as Error ... is never used" errors. 
+                return Bar + Baz;
+            }
+        }
+
+
+        public class AllMembers
+        {
+            public string Foo;
+
+            private string Bar = "";
+
+            internal string Baz = "";
+
+            public override string ToString()
+            {
+                // use Bar and Baz to get rid of "Warning as Error ... is never used" errors. 
+                return Bar + Baz;
+            }
+        }
 
         [DataContract]
         public class DataContractSubject
