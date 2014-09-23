@@ -1,4 +1,5 @@
-﻿using NPlant.MetaModel.ClassDiagraming;
+﻿using System.Reflection;
+using NPlant.MetaModel.ClassDiagraming;
 
 namespace NPlant.Generation.ClassDiagraming
 {
@@ -20,6 +21,22 @@ namespace NPlant.Generation.ClassDiagraming
         {
             _diagram.ScanMode = scanMode;
             
+            return this;
+        }
+
+        public ClassDiagramOptions ShowMethods()
+        {
+            _diagram.ShowMethods = true;
+            _diagram.ShowMethodsBindingFlags = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public;
+
+            return this;
+        }
+
+        public ClassDiagramOptions ShowMethods(BindingFlags flags)
+        {
+            _diagram.ShowMethods = true;
+            _diagram.ShowMethodsBindingFlags = flags;
+
             return this;
         }
 

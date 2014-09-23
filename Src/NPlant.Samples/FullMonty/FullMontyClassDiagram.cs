@@ -6,6 +6,7 @@ namespace NPlant.Samples.FullMonty
     {
         public FullMontyClassDiagram()
         {
+            this.GenerationOptions.ShowMethods();
             AddClass<Foo>();
         }
     }
@@ -16,12 +17,19 @@ namespace NPlant.Samples.FullMonty
         public Bar TheBar;
         public Baz<Arg1, Arg2> TheBaz;
         public Baz2<Arg1, Arg2> TheBaz2;
+
+        public void DoSomethingOnFoo() { }
+        public void DoSomethingOnFoo(string parm1) { }
+        public void DoSomethingOnFoo(string parm1, DateTime? parm2, Bar parm3) { }
     }
 
     public class Bar
     {
         public DateTime? SomeDate;
 
+        public void DoSomethingOnBar() { }
+        public void DoSomethingOnBar(string parm1) { }
+        public void DoSomethingOnBar(string parm1, DateTime? parm2, Baz<Arg1, Arg2> parm3) { }
     }
 
     public class Baz<T1, T2>

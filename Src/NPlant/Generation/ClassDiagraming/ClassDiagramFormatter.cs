@@ -198,7 +198,7 @@ namespace NPlant.Generation.ClassDiagraming
 
         private string WriteClassDefinition(ClassDescriptor @class)
         {
-            var writer = @class.GetWriter(_diagram);
+            IDescriptorWriter writer = @class.GetWriter(_diagram);
             return writer.Write(_context);
         }
     }

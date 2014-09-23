@@ -166,6 +166,10 @@ namespace NPlant
 
         internal ClassDiagramScanModes ScanMode { get; set; }
 
+        internal bool ShowMethods { get; set; }
+        
+        internal BindingFlags ShowMethodsBindingFlags { get; set; }
+
         protected ClassDiagramPackage AddPackage(string packageName)
         {
             packageName.CheckForNullOrEmptyArg("packageName");

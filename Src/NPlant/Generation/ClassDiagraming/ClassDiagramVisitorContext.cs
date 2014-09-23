@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using NPlant.Core;
 using NPlant.MetaModel.ClassDiagraming;
 
@@ -20,6 +21,8 @@ namespace NPlant.Generation.ClassDiagraming
             this.TypeMetaModelSet = diagram.Types;
             this.Diagram = diagram;
             this.ScanMode = this.Diagram.ScanMode;
+            this.ShowMethods = this.Diagram.ShowMethods;
+            this.ShowMethodsBindingFlags = this.Diagram.ShowMethodsBindingFlags;
         }
 
         protected TypeMetaModelSet TypeMetaModelSet { get; set; }
@@ -27,6 +30,10 @@ namespace NPlant.Generation.ClassDiagraming
         protected ClassDiagram Diagram { get; set; }
 
         public ClassDiagramScanModes ScanMode { get; protected set; }
+
+        public bool ShowMethods { get; protected set; }
+
+        public BindingFlags ShowMethodsBindingFlags { get; protected set; }
 
         public void AddRelated(ClassDescriptor parent, ClassDescriptor child, ClassDiagramRelationshipTypes relationshipType, int level, string name = null)
         {

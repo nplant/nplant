@@ -8,7 +8,7 @@ namespace NPlant.MetaModel.ClassDiagraming
     public class ClassMemberDescriptor : IKeyedItem
     {
         private readonly TypeMetaModel _metaModel;
-        private ClassDescriptor _descriptor;
+        private readonly ClassDescriptor _descriptor;
 
         public ClassMemberDescriptor(ClassDescriptor descriptor, MemberInfo member)
         {
@@ -25,8 +25,10 @@ namespace NPlant.MetaModel.ClassDiagraming
             if (field != null)
             {
                 this.MemberType = field.FieldType;
-                this.AccessModifier = GetAccessModifier(field);
             }
+
+            this.AccessModifier = AccessModifier.GetAccessModifier(member);
+
 
             if (this.MemberType == null)
                 throw new NPlantException("Member's could not be interpretted as either a property or a field");
@@ -54,25 +56,5 @@ namespace NPlant.MetaModel.ClassDiagraming
         public TypeMetaModel MetaModel { get { return _metaModel; } }
 
         internal bool TreatAsPrimitive { get; set; }
-
-        private AccessModifier GetAccessModifier(FieldInfo fieldInfo)
-        {
-            if (fieldInfo.IsPrivate)
-                return AccessModifier.Private;
-            else if (fieldInfo.IsPublic)
-                return AccessModifier.Public;
-            else if (fieldInfo.IsAssembly)
-                return AccessModifier.Internal;
-
-            return AccessModifier.Protected;
-        }
-    }
-
-    public enum AccessModifier
-    {
-        Public,
-        Private,
-        Protected,
-        Internal
     }
 }

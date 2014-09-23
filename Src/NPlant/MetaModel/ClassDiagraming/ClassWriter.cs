@@ -7,7 +7,7 @@ namespace NPlant.MetaModel.ClassDiagraming
 {
     public class ClassWriter : IDescriptorWriter
     {
-        private ClassDiagram _diagram;
+        private readonly ClassDiagram _diagram;
         private readonly ClassDescriptor _class;
 
         public ClassWriter(ClassDiagram diagram, ClassDescriptor @class)
@@ -28,16 +28,17 @@ namespace NPlant.MetaModel.ClassDiagraming
 
             if (!IsBaseClassVisible(_class, context))
             {
-                var inheritedMembers = _class.Members.InnerList.Where(x => x.IsInherited).OrderBy(x => x.Name);
+                var inheritedMembers = _class.Members.InnerList.Where(x => x.IsInherited).OrderBy(x => x.Name).ToArray();
                 WriteClassMembers(inheritedMembers, buffer);
 
-                if (definedMembers.Length > 0)
+                if (definedMembers.Length > 0 && inheritedMembers.Length > 0)
                 {
                     buffer.AppendLine("    --");
                 }
             }
 
             WriteClassMembers(definedMembers, buffer);
+            WriteClassMethods(_class.Methods.InnerList, buffer);
 
             buffer.AppendLine("    }");
 
@@ -67,24 +68,27 @@ namespace NPlant.MetaModel.ClassDiagraming
             foreach (var member in members)
             {
                 if (!member.MetaModel.Hidden && (member.MetaModel.IsPrimitive || member.TreatAsPrimitive))
-                    buffer.AppendLine("    {0}{1} {2}".FormatWith(GetClassMemberAccessModifierCode(member.AccessModifier), member.MetaModel.Name, member.Name));
+                {
+                    string accessModifier = member.AccessModifier.Notation;
+                    string typeName = member.MetaModel.Name;
+                    string memberName = member.Name;
+
+                    buffer.AppendLine("    {0}{1} {2}".FormatWith(accessModifier, typeName, memberName));
+                }
             }
         }
 
-        private string GetClassMemberAccessModifierCode(AccessModifier am)
+        private void WriteClassMethods(IEnumerable<ClassMethodDescriptor> methods, StringBuilder buffer)
         {
-            switch(am)
+            if (methods != null)
             {
-                case AccessModifier.Public:
-                    return "+";
-                case AccessModifier.Private:
-                    return "-";
-                case AccessModifier.Protected:
-                    return "#";
-                case AccessModifier.Internal:
-                    return "~";
-                default:
-                    return "";
+                foreach (var method in methods)
+                {
+                    string accessModifier = method.AccessModifier.Notation;
+                    string methodName = method.Name;
+
+                    buffer.AppendLine("    {0}{1}()".FormatWith(accessModifier, methodName));
+                }
             }
         }
     }

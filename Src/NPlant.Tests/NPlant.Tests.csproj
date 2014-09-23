@@ -53,6 +53,7 @@
     <Compile Include="Core\KeyedListFixture.cs" />
     <Compile Include="Core\TypeMetaModelFixture.cs" />
     <Compile Include="Diagraming\ClassDescriptor_MemberScan_Fixture.cs" />
+    <Compile Include="Diagraming\ClassMethodDescriptorFixture.cs" />
     <Compile Include="Diagraming\StubClassDiagramVisitorContext.cs" />
     <Compile Include="Diagrams\ClassDiagrams\AggregationScenarios.cs" />
     <Compile Include="Diagrams\ClassDiagrams\EdgetScenarios.cs" />

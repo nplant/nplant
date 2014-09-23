@@ -68,9 +68,11 @@
     <Compile Include="IDiagramFactory.cs" />
     <Compile Include="IDiagramFormatter.cs" />
     <Compile Include="IDiagramGenerator.cs" />
+    <Compile Include="MetaModel\ClassDiagraming\AccessModifier.cs" />
     <Compile Include="MetaModel\ClassDiagraming\ClassDescriptor.cs" />
     <Compile Include="MetaModel\ClassDiagraming\AssemblyDescriptor.cs" />
     <Compile Include="MetaModel\ClassDiagraming\ClassDiagramRelationship.cs" />
+    <Compile Include="MetaModel\ClassDiagraming\ClassMethodDescriptor.cs" />
     <Compile Include="MetaModel\ClassDiagraming\ClassWriter.cs" />
     <Compile Include="MetaModel\ClassDiagraming\EnumWriter.cs" />
     <Compile Include="MetaModel\ClassDiagraming\IDescriptorWriter.cs" />

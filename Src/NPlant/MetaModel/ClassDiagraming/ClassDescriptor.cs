@@ -13,6 +13,7 @@ namespace NPlant.MetaModel.ClassDiagraming
     {
         protected internal readonly IDictionary<string, bool> MemberVisibility = new Dictionary<string, bool>();
         private readonly KeyedList<ClassMemberDescriptor> _members = new KeyedList<ClassMemberDescriptor>();
+        private readonly KeyedList<ClassMethodDescriptor> _methods = new KeyedList<ClassMethodDescriptor>();
 
         protected ClassDescriptor(Type reflectedType)
         {
@@ -27,6 +28,9 @@ namespace NPlant.MetaModel.ClassDiagraming
             this.MetaModel = context.GetTypeMetaModel(this.ReflectedType);
 
             LoadMembers(context);
+            
+            if(context.ShowMethods)
+                LoadMethods(context);
 
             var showInheritance = ShouldShowInheritance(context);
 
@@ -72,6 +76,16 @@ namespace NPlant.MetaModel.ClassDiagraming
             if (showInheritance)
             {
                 context.AddRelated(this, this.ReflectedType.BaseType.GetReflected(), ClassDiagramRelationshipTypes.Base, this.Level - 1);
+            }
+        }
+
+        private void LoadMethods(ClassDiagramVisitorContext context)
+        {
+            var methods = this.ReflectedType.GetMethods(context.ShowMethodsBindingFlags);
+
+            foreach (var method in methods)
+            {
+                _methods.Add(new ClassMethodDescriptor(method));
             }
         }
 
@@ -135,8 +149,10 @@ namespace NPlant.MetaModel.ClassDiagraming
         public Type ReflectedType { get; private set; }
 
         public int Level { get; protected set; }
-        
-        public KeyedList<ClassMemberDescriptor> Members { get { return _members; }}
+
+        public KeyedList<ClassMemberDescriptor> Members { get { return _members; } }
+
+        public KeyedList<ClassMethodDescriptor> Methods { get { return _methods; } }
 
         public virtual bool GetMemberVisibility(string name)
         {

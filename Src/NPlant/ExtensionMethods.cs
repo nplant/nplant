@@ -9,6 +9,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading;
+using NPlant.Core;
 using NPlant.MetaModel.ClassDiagraming;
 
 public static class ExtensionMethods
@@ -296,6 +297,48 @@ public static class ExtensionMethods
         bool result;
 
         return bool.TryParse(value, out result) ? result : @default;
+    }
+
+    public static bool IsPublic(this MemberInfo info)
+    {
+        return AccessorEqualuation(info, field => field.IsPublic, method => method.IsPublic);
+    }
+
+    public static bool IsPrivate(this MemberInfo info)
+    {
+        return AccessorEqualuation(info, field => field.IsPrivate, method => method.IsPrivate);
+    }
+
+    public static bool IsInternal(this MemberInfo info)
+    {
+        return AccessorEqualuation(info, field => field.IsAssembly, method => method.IsAssembly);
+    }
+
+    private static bool AccessorEqualuation(MemberInfo info, Func<FieldInfo, bool> fieldProcessor, Func<MethodInfo, bool> propertyProcessor)
+    {
+        FieldInfo field = info as FieldInfo;
+
+        if (field != null)
+            return fieldProcessor(field);
+
+        PropertyInfo property = info as PropertyInfo;
+
+        if (property != null)
+        {
+            var getMethod = property.GetGetMethod();
+
+            if (propertyProcessor(getMethod))
+                return true;
+
+            var setMethod = property.GetSetMethod();
+
+            if (propertyProcessor(setMethod))
+                return true;
+
+            return false;
+        }
+
+        throw new NPlantException("Couldn't interpret MemberInfo instance - expected it to be a property or a field, but it was neither.  Declaring Type: {0}, Member: {1}".FormatWith(info.DeclaringType.FullName, info.Name));
     }
 }
 

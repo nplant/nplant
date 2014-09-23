@@ -8,7 +8,7 @@ namespace NPlant.Core
     {
         public static MemberInfo ForMember<TMember>(Expression<Func<T, TMember>> expression)
         {
-            var memberExpression = Find<MemberExpression>(expression);
+            var memberExpression = FindMember<MemberExpression>(expression);
 
             MemberInfo member = memberExpression.Member;
 
@@ -18,7 +18,36 @@ namespace NPlant.Core
             return member;
         }
 
-        private static TMember Find<TMember>(LambdaExpression expression) where TMember : Expression
+        public static MethodInfo ForMethod(Expression<Func<T, object>> expression)
+        {
+            return FindMethod(expression);
+        }
+
+        public static MethodInfo ForMethod(Expression<Action<T>> expression)
+        {
+            return FindMethod(expression);
+        }
+
+        public static MethodInfo ForMethod(Expression<Func<object>> expression)
+        {
+            return FindMethod(expression);
+        }
+
+        public static MethodInfo ForMethod(Expression<Action> expression)
+        {
+            return FindMethod(expression);
+        }
+
+        private static MethodInfo FindMethod(LambdaExpression expression)
+        {
+            var callExpression = FindMember<MethodCallExpression>(expression);
+            if (callExpression == null)
+                throw new ArgumentException("Invalid method call expression", "expression");
+
+            return callExpression.Method;
+        }
+
+        private static TMember FindMember<TMember>(LambdaExpression expression) where TMember : Expression
         {
             Expression body = expression.Body;
             var unaryExpression = body as UnaryExpression;
