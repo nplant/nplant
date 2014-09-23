@@ -7,6 +7,7 @@ namespace NPlant.Samples.FullMonty
         public FullMontyClassDiagram()
         {
             this.GenerationOptions.ShowMethods();
+
             AddClass<Foo>();
         }
     }

@@ -38,7 +38,7 @@ namespace NPlant
             _name = this.GetType().Name;
         }
 
-        public TypeMetaModelSet Types { get { return _types; } }
+        internal TypeMetaModelSet Types { get { return _types; } }
 
         protected RootClassDescriptor<T> AddClass<T>()
         {
