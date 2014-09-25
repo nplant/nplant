@@ -24,7 +24,7 @@ namespace NPlant.Tests.Diagraming
             MethodInfo doSomething = ReflectOn<Subject>.ForMethod(x => x.DoSomething(null, null, null));
             ClassMethodDescriptor descriptor = new ClassMethodDescriptor(doSomething);
 
-            Assert.That(descriptor.Key, Is.EqualTo("DoSomething(String,Nullable<DateTime>,Subject)"));
+            Assert.That(descriptor.Key, Is.EqualTo("DoSomething(String, Nullable<DateTime>, Subject)"));
         }
 
         [Test]
