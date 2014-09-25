@@ -5,7 +5,7 @@
 	<property name="sln.to.compile" value="NPlant.sln" readonly="false" />
 	<property name="config" value="Debug" readonly="false" />
 	<property name="git.dir" value="" readonly="false" />
-	<property name="nuget.dir" value="." readonly="false" />
+	<property name="nuget.dir" value=".nuget" readonly="false" />
 	<property name="do.delpackages" value="false" readonly="false" />
 
 	<target name="main">
