@@ -21,6 +21,8 @@ namespace NPlant.Generation.ClassDiagraming
             this.TypeMetaModelSet = diagram.Types;
             this.Diagram = diagram;
             this.ScanMode = this.Diagram.ScanMode;
+            this.ShowMembers = this.Diagram.ShowMembers;
+            this.ShowMembersBindingFlags = this.Diagram.ShowMembersBindingFlags;
             this.ShowMethods = this.Diagram.ShowMethods;
             this.ShowMethodsBindingFlags = this.Diagram.ShowMethodsBindingFlags;
         }
@@ -30,6 +32,10 @@ namespace NPlant.Generation.ClassDiagraming
         protected ClassDiagram Diagram { get; set; }
 
         public ClassDiagramScanModes ScanMode { get; protected set; }
+
+        public bool ShowMembers { get; protected set; }
+
+        public BindingFlags ShowMembersBindingFlags { get; protected set; }
 
         public bool ShowMethods { get; protected set; }
 

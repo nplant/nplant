@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Reflection;
@@ -27,7 +28,8 @@ namespace NPlant.MetaModel.ClassDiagraming
             var context = ClassDiagramVisitorContext.Current;
             this.MetaModel = context.GetTypeMetaModel(this.ReflectedType);
 
-            LoadMembers(context);
+            if(context.ShowMembers)
+                LoadMembers(context);
             
             if(context.ShowMethods)
                 LoadMethods(context);
@@ -85,7 +87,8 @@ namespace NPlant.MetaModel.ClassDiagraming
 
             foreach (var method in methods)
             {
-                _methods.Add(new ClassMethodDescriptor(method));
+                if(!method.IsProperty()) // weed up the compiler generated methods for properties
+                    _methods.Add(new ClassMethodDescriptor(method));
             }
         }
 
@@ -110,30 +113,32 @@ namespace NPlant.MetaModel.ClassDiagraming
                 case ClassDiagramScanModes.SystemServiceModelMember:
                     _members.AddRange(this.ReflectedType.GetFields()
                                                         .Where(x => x.HasAttribute<DataMemberAttribute>() || x.HasAttribute<MessageBodyMemberAttribute>())
+                                                        .Where(x => !x.IsDefined(typeof(CompilerGeneratedAttribute), false))
                                                         .Select(field => new ClassMemberDescriptor(this, field))
                                      );
                     _members.AddRange(this.ReflectedType.GetProperties()
                                                         .Where(x => x.HasAttribute<DataMemberAttribute>() || x.HasAttribute<MessageBodyMemberAttribute>())
+                                                        .Where(x => !x.IsDefined(typeof(CompilerGeneratedAttribute), false))
                                                         .Select(property => new ClassMemberDescriptor(this, property))
                                      );
                     break;
                 case ClassDiagramScanModes.AllMembers:
-                    _members.AddRange(this.ReflectedType.GetFields(BindingFlags.Instance |
-                                                                   BindingFlags.Public | 
-                                                                   BindingFlags.NonPublic)
+                    _members.AddRange(this.ReflectedType.GetFields(context.ShowMembersBindingFlags)
+                                                        .Where(x => !x.IsDefined(typeof(CompilerGeneratedAttribute), false))
                                                         .Select(field => new ClassMemberDescriptor(this, field))
                                      );
-                    _members.AddRange(this.ReflectedType.GetProperties(BindingFlags.Instance |
-                                                                       BindingFlags.Public |
-                                                                       BindingFlags.NonPublic)
+                    _members.AddRange(this.ReflectedType.GetProperties(context.ShowMembersBindingFlags)
+                                                        .Where(x => !x.IsDefined(typeof(CompilerGeneratedAttribute), false))
                                                         .Select(property => new ClassMemberDescriptor(this, property))
                                      );
                     break;
                 default:
                     _members.AddRange(this.ReflectedType.GetFields()
+                                                        .Where(x => !x.IsDefined(typeof(CompilerGeneratedAttribute), false))
                                                         .Select(field => new ClassMemberDescriptor(this, field))
                                      );
                     _members.AddRange(this.ReflectedType.GetProperties()
+                                                        .Where(x => !x.IsDefined(typeof(CompilerGeneratedAttribute), false))
                                                         .Select(property => new ClassMemberDescriptor(this, property))
                                      );
                     break;

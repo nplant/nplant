@@ -2,6 +2,7 @@
 
 namespace NPlant.Samples.Enums
 {
+    [Sample]
     public class SimpleEnumDiagram : ClassDiagram
     {
         public SimpleEnumDiagram()

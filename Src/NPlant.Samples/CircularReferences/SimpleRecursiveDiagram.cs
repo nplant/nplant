@@ -2,6 +2,7 @@
 
 namespace NPlant.Samples.CircularReferences
 {
+    [Sample]
     public class SimpleRecursiveDiagram : ClassDiagram
     {
         public SimpleRecursiveDiagram()

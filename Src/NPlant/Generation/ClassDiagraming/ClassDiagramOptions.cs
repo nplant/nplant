@@ -5,11 +5,15 @@ namespace NPlant.Generation.ClassDiagraming
 {
     public class ClassDiagramOptions
     {
+        public static BindingFlags ShowMembersBindingFlagsDefault = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+        public static BindingFlags ShowMethodsBindingFlagsDefault = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.DeclaredOnly;
+
         private readonly ClassDiagram _diagram;
 
         public ClassDiagramOptions(ClassDiagram diagram)
         {
             _diagram = diagram;
+            this.ShowMembers();
         }
 
         public ForTypeDescriptor<T> ForType<T>()
@@ -27,7 +31,7 @@ namespace NPlant.Generation.ClassDiagraming
         public ClassDiagramOptions ShowMethods()
         {
             _diagram.ShowMethods = true;
-            _diagram.ShowMethodsBindingFlags = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public;
+            _diagram.ShowMethodsBindingFlags = ShowMethodsBindingFlagsDefault;
 
             return this;
         }
@@ -37,6 +41,33 @@ namespace NPlant.Generation.ClassDiagraming
             _diagram.ShowMethods = true;
             _diagram.ShowMethodsBindingFlags = flags;
 
+            return this;
+        }
+
+        public ClassDiagramOptions HideMethods()
+        {
+            _diagram.ShowMethods = false;
+            return this;
+        }
+        public ClassDiagramOptions ShowMembers()
+        {
+            _diagram.ShowMembers = true;
+            _diagram.ShowMembersBindingFlags = ShowMembersBindingFlagsDefault;
+
+            return this;
+        }
+
+        public ClassDiagramOptions ShowMembers(BindingFlags flags)
+        {
+            _diagram.ShowMembers = true;
+            _diagram.ShowMembersBindingFlags = flags;
+
+            return this;
+        }
+
+        public ClassDiagramOptions HideMembers()
+        {
+            _diagram.ShowMembers = false;
             return this;
         }
 

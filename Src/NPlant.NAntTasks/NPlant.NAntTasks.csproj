@@ -51,6 +51,7 @@
     <Compile Include="DiagramElement.cs" />
     <Compile Include="DiagramElementCollection.cs" />
     <Compile Include="DiagramsElement.cs" />
+    <Compile Include="NPlantSamplesManifestTask.cs" />
     <Compile Include="NPlantTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="NAntRunnerRecorder.cs" />

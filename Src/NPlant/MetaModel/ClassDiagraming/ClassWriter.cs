@@ -86,8 +86,9 @@ namespace NPlant.MetaModel.ClassDiagraming
                 {
                     string accessModifier = method.AccessModifier.Notation;
                     string methodName = method.Name;
+                    string args = method.Arguments;
 
-                    buffer.AppendLine("    {0}{1}()".FormatWith(accessModifier, methodName));
+                    buffer.AppendLine("    {0}{1}({2})".FormatWith(accessModifier, methodName, args));
                 }
             }
         }

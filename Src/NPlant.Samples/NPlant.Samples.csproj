@@ -52,6 +52,7 @@
     <Compile Include="Packages\SimplePackageDiagram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Relationships\BidirectionalAssociationDiagram.cs" />
+    <Compile Include="SamplesRoot.cs" />
     <Compile Include="ScanMode\SimpleScanModeDiagram.cs" />
     <Compile Include="FullMonty\FullMontyClassDiagram.cs" />
     <Compile Include="Titles\SimpleTitledClassDiagram.cs" />
@@ -62,7 +63,6 @@
       <Name>NPlant</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

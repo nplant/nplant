@@ -166,6 +166,10 @@ namespace NPlant
 
         internal ClassDiagramScanModes ScanMode { get; set; }
 
+        internal bool ShowMembers { get; set; }
+
+        internal BindingFlags ShowMembersBindingFlags { get; set; }
+
         internal bool ShowMethods { get; set; }
         
         internal BindingFlags ShowMethodsBindingFlags { get; set; }

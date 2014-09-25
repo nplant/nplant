@@ -5,6 +5,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Text;
@@ -121,6 +122,17 @@ public static class ExtensionMethods
             return new KnownTypeAttribute[0];
 
         return type.GetAttributesOf<KnownTypeAttribute>(inherit);
+    }
+
+    public static T GetAttributeOf<T>(this Type type, bool inherit = false) where T : Attribute
+    {
+        var customAttributes = type.GetCustomAttributes(typeof(T), inherit);
+        var array = customAttributes.Cast<T>().ToArray();
+
+        if (array.Length < 1)
+            return null;
+
+        return array[0];
     }
 
     public static T[] GetAttributesOf<T>(this Type type, bool inherit = false) where T : Attribute
@@ -314,6 +326,19 @@ public static class ExtensionMethods
         return AccessorEqualuation(info, field => field.IsAssembly, method => method.IsAssembly);
     }
 
+    public static bool IsProperty(this MethodInfo info)
+    {
+        if (info == null)
+            return false;
+
+        if (info.IsDefined(typeof(CompilerGeneratedAttribute), false))
+        {
+            if (info.Name.StartsWith("get_") || info.Name.StartsWith("set_"))
+                return true;
+        }
+
+        return false;
+    }
     private static bool AccessorEqualuation(MemberInfo info, Func<FieldInfo, bool> fieldProcessor, Func<MethodInfo, bool> propertyProcessor)
     {
         FieldInfo field = info as FieldInfo;

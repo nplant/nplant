@@ -2,6 +2,7 @@
 
 namespace NPlant.Samples.Factories
 {
+    [Sample]
     public class SimpleDiagramFactory : IDiagramFactory
     {
         public IEnumerable<ClassDiagram> GetDiagrams()

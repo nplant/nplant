@@ -21,9 +21,12 @@ namespace NPlant.MetaModel.ClassDiagraming
 
             buffer.AppendLine("enum \"{0}\" {1}".FormatWith(_enumType.Name, "{"));
 
-            foreach (var name in names)
+            if(context.ShowMembers)
             {
-                buffer.AppendLine("     {0}".FormatWith(name));
+                foreach (var name in names)
+                {
+                    buffer.AppendLine("     {0}".FormatWith(name));
+                }
             }
 
             buffer.AppendLine("}");
