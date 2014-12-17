@@ -365,6 +365,16 @@ public static class ExtensionMethods
 
         throw new NPlantException("Couldn't interpret MemberInfo instance - expected it to be a property or a field, but it was neither.  Declaring Type: {0}, Member: {1}".FormatWith(info.DeclaringType.FullName, info.Name));
     }
+
+    public static bool StartsWithAVowel(this string value)
+    {
+        if (string.IsNullOrEmpty(value))
+        {
+            return false;
+        }
+
+        return "aeiou".IndexOf(value[0].ToString(), StringComparison.InvariantCultureIgnoreCase) >= 0;
+    }
 }
 
 public static class ImageExtensionMethods

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -182,7 +183,7 @@ namespace NPlant.Generation.ClassDiagraming
                     break;
                 case ClassDiagramRelationshipTypes.HasA:
                     arrow = "*--";
-                    suffix = " : Has A \\n{0}".FormatWith(relationship.Name);
+                    suffix = (relationship.Name.StartsWithAVowel() ? " : Has An \\n{0}" : " : Has A \\n{0}").FormatWith(relationship.Name);
                     break;
                 case ClassDiagramRelationshipTypes.HasMany:
                     arrow = "*--";
