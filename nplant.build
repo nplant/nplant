@@ -39,7 +39,7 @@
 			<arg value="install" />
 			<arg value="${nuget.dir}\packages.config" />
 			<arg value="-OutputDirectory" />
-			<arg value="${nuget.dir}\Packages" />
+			<arg value=".\packages" />
 		</exec>
 	</target>
 
@@ -57,7 +57,7 @@
 	</target>
 
 	<target name="tests" description="Run on the NUnit tests in the solution">
-		<exec program="${nuget.dir}\Packages\NUnit.Runners.2.6.2\tools\nunit-console.exe">
+		<exec program=".\Packages\NUnit.Runners.2.6.2\tools\nunit-console.exe">
 			<arg value="Bin\${config}\NPlant.Tests.dll" />
 			<arg value="/xml:TestResults.xml" />
 			<arg value="/nologo" />
