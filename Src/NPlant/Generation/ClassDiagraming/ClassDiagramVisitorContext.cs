@@ -29,7 +29,7 @@ namespace NPlant.Generation.ClassDiagraming
 
         protected TypeMetaModelSet TypeMetaModelSet { get; set; }
 
-        protected ClassDiagram Diagram { get; set; }
+        public ClassDiagram Diagram { get; set; }
 
         public ClassDiagramScanModes ScanMode { get; protected set; }
 

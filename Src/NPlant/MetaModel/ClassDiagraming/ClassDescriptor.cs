@@ -62,12 +62,12 @@ namespace NPlant.MetaModel.ClassDiagraming
 
                                     if (enumeratorTypeMetaModel.IsComplexType)
                                     {
-                                        context.AddRelated(this, enumeratorType.GetReflected(), ClassDiagramRelationshipTypes.HasMany, nextLevel, member.Name);
+                                        context.AddRelated(this, enumeratorType.GetDescriptor(context), ClassDiagramRelationshipTypes.HasMany, nextLevel, member.Name);
                                     }
                                 }
                                 else
                                 {
-                                    context.AddRelated(this, member.MemberType.GetReflected(), ClassDiagramRelationshipTypes.HasA, nextLevel, member.Name);
+                                    context.AddRelated(this, member.MemberType.GetDescriptor(context), ClassDiagramRelationshipTypes.HasA, nextLevel, member.Name);
                                 }
                             }
                         }
@@ -77,7 +77,7 @@ namespace NPlant.MetaModel.ClassDiagraming
 
             if (showInheritance)
             {
-                context.AddRelated(this, this.ReflectedType.BaseType.GetReflected(), ClassDiagramRelationshipTypes.Base, this.Level - 1);
+                context.AddRelated(this, this.ReflectedType.BaseType.GetDescriptor(context), ClassDiagramRelationshipTypes.Base, this.Level - 1);
             }
         }
 
