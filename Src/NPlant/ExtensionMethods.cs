@@ -11,6 +11,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading;
 using NPlant.Core;
+using NPlant.Generation.ClassDiagraming;
 using NPlant.MetaModel.ClassDiagraming;
 
 public static class ExtensionMethods
@@ -58,6 +59,17 @@ public static class ExtensionMethods
             return source;
 
         return source.Substring(0, indexOf);
+    }
+
+    public static ClassDescriptor GetDescriptor(this Type type, ClassDiagramVisitorContext context)
+    {
+        ClassDescriptor firstOrDefault = context.Diagram.RootClasses.InnerList.FirstOrDefault(x => x.ReflectedType == type);
+        if (firstOrDefault != null)
+        {
+            return firstOrDefault;
+        }
+
+        return GetReflected(type);
     }
 
     public static ReflectedClassDescriptor GetReflected(this Type type)
@@ -313,17 +325,17 @@ public static class ExtensionMethods
 
     public static bool IsPublic(this MemberInfo info)
     {
-        return AccessorEqualuation(info, field => field.IsPublic, method => method.IsPublic);
+        return AccessorEqualuation(info, field => field.IsPublic, method => method != null && method.IsPublic);
     }
 
     public static bool IsPrivate(this MemberInfo info)
     {
-        return AccessorEqualuation(info, field => field.IsPrivate, method => method.IsPrivate);
+        return AccessorEqualuation(info, field => field.IsPrivate, method => method == null ||  method.IsPrivate);
     }
 
     public static bool IsInternal(this MemberInfo info)
     {
-        return AccessorEqualuation(info, field => field.IsAssembly, method => method.IsAssembly);
+        return AccessorEqualuation(info, field => field.IsAssembly, method => method == null || method.IsAssembly);
     }
 
     public static bool IsProperty(this MethodInfo info)
