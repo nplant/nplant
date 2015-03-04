@@ -41,7 +41,6 @@ public class Hand
             
 }
 ```
-
 If you run that through our our nant task like so:
 
 ```xml
