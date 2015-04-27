@@ -28,10 +28,10 @@ namespace NPlant.MetaModel.ClassDiagraming
             var context = ClassDiagramVisitorContext.Current;
             this.MetaModel = context.GetTypeMetaModel(this.ReflectedType);
 
-            if(context.ShowMembers)
+            if (context.ShowMembers)
                 LoadMembers(context);
-            
-            if(context.ShowMethods)
+
+            if (context.ShowMethods)
                 LoadMethods(context);
 
             var showInheritance = ShouldShowInheritance(context);
@@ -79,8 +79,15 @@ namespace NPlant.MetaModel.ClassDiagraming
             {
                 context.AddRelated(this, this.ReflectedType.BaseType.GetDescriptor(context), ClassDiagramRelationshipTypes.Base, this.Level - 1);
             }
-        }
 
+            foreach (Type type in this.ReflectedType.GetInterfaces())
+            {
+                if (this.ReflectedType.BaseType.GetInterfaces().ToList().Exists(p => p.Equals(type)))
+                    continue;
+                if (ShouldShowInheritanceInterface(context, type))
+                    context.AddRelated(this, type.GetDescriptor(context), ClassDiagramRelationshipTypes.Base, this.Level - 1);
+            }
+        }
         private void LoadMethods(ClassDiagramVisitorContext context)
         {
             var methods = this.ReflectedType.GetMethods(context.ShowMethodsBindingFlags);
@@ -103,6 +110,17 @@ namespace NPlant.MetaModel.ClassDiagraming
                 showInheritance = !baseTypeMetaModel.HideAsBaseClass && !baseTypeMetaModel.Hidden;
             }
 
+            return showInheritance;
+        }
+        private bool ShouldShowInheritanceInterface(ClassDiagramVisitorContext context, Type type)
+        {
+            bool showInheritance = this.RenderInheritance && this.ReflectedType.BaseType != null;
+
+            if (showInheritance)
+            {
+                var interfaceModel = context.GetTypeMetaModel(type);
+                showInheritance |= !interfaceModel.HideAsBaseClass && !interfaceModel.Hidden;
+            }
             return showInheritance;
         }
 
