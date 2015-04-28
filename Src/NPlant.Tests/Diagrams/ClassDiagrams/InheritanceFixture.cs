@@ -48,5 +48,23 @@ namespace NPlant.Tests.Diagrams.ClassDiagrams
         {
             public string Boo;
         }
+
+        [Test]
+        public void Interface_Class_Test()
+        {
+            var simulation = new SimulatedClassDiagramGenerator(new ClassDiagram(typeof(Foo)));
+            simulation.Generate();
+
+            Assert.That(simulation.Classes.Count, Is.EqualTo(3));
+            Assert.That(simulation.Classes[0].Name, Is.EqualTo("Foo"));
+            Assert.That(simulation.Classes[1].Name, Is.EqualTo("Bar"));
+            Assert.That(simulation.Classes[2].Name, Is.EqualTo("IBaz"));
+        }
+
+        public interface IBaz { }
+
+        public abstract class Bar : IBaz { }
+
+        public class Foo : Bar { }
     }
 }
