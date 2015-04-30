@@ -22,7 +22,12 @@ namespace NPlant.MetaModel.ClassDiagraming
 
             StringBuilder buffer = new StringBuilder();
 
-            buffer.AppendLine(string.Format("    class \"{0}\"{1} {2}", _class.Name, color, "{"));
+            if (_class.ReflectedType.IsInterface)
+                buffer.AppendLine(string.Format("    interface \"{0}\"{1} {2}", _class.Name, color, "{"));
+            else if (_class.ReflectedType.IsAbstract)
+                buffer.AppendLine(string.Format("    abstract class \"{0}\"{1} {2}", _class.Name, color, "{"));
+            else 
+                buffer.AppendLine(string.Format("    class \"{0}\"{1} {2}", _class.Name, color, "{"));
 
             var definedMembers = _class.Members.InnerList.Where(x => !x.IsInherited).OrderBy(x => x.Name).ToArray();
 
