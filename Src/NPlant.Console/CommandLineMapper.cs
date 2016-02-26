@@ -24,13 +24,13 @@ namespace NPlant.Console
                     argValue = string.Join(":", argParts.Where((argPart, index) => index > 0));
 
                 if (!argName.StartsWith("--"))
-                    throw new ConsoleUsageException($"Arguments are expected to be in the --foo or --foo:value or --foo:\"value\" format.  Argument '{argName}' could not be parsed.");
+                    throw new ConsoleUsageException(string.Format("Arguments are expected to be in the --foo or --foo:value or --foo:\"value\" format.  Argument '{0}' could not be parsed.", argName));
 
                 argName = argName.Substring(2);
                 var property = properties.FirstOrDefault(x => string.Equals(x.Name, argName, StringComparison.InvariantCultureIgnoreCase));
 
                 if (property == null)
-                    throw new ConsoleException($"Argument '{argName}' is not recognized.");
+                    throw new ConsoleException(string.Format("Argument '{0}' is not recognized.", argName));
 
                 if (argValue != null)
                 {
@@ -45,7 +45,7 @@ namespace NPlant.Console
                     }
                     catch
                     {
-                        throw new ConsoleUsageException($"Argument '--{argName}' has an invalid value '{argValue}'");
+                        throw new ConsoleUsageException(string.Format("Argument '--{0}' has an invalid value '{1}'", argName, argValue));
                     }
 
                     properties.Remove(property);
@@ -60,7 +60,7 @@ namespace NPlant.Console
             foreach (var property in properties)
             {
                 if (property.HasAttribute<RequiredArgumentAttribute>())
-                    throw new ConsoleUsageException($"Expected argument '--{property.Name.ToLower()}', but was not received");
+                    throw new ConsoleUsageException(string.Format("Expected argument '--{0}', but was not received", property.Name.ToLower()));
             }
         }
     }

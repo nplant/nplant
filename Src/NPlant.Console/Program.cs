@@ -44,7 +44,7 @@ namespace NPlant.Console
                 {
                     if (string.IsNullOrEmpty(arguments.Output))
                     {
-                        Con.WriteLine($"    {matchingDiagram.Diagram.Name}");                        
+                        Con.WriteLine("    {0}", matchingDiagram.Diagram.Name);                        
                     }
                     else
                     {
@@ -56,7 +56,7 @@ namespace NPlant.Console
                         if (!outputDirectory.Exists)
                             outputDirectory.Create();
 
-                        string path = Path.Combine(outputDirectory.FullName, $"{model.DiagramName}.{arguments.Format}");
+                        string path = Path.Combine(outputDirectory.FullName, string.Format("{0}.{1}" ,model.DiagramName, arguments.Format));
                         ImageFormat format = arguments.GetImageFormat();
 
                         if (format == null)
@@ -102,6 +102,8 @@ namespace NPlant.Console
             this.JavaPath = javaPath;
             this.DiagramText = diagramText;
             this.DiagramName = diagramName;
+
+            this.Invocation = new PlantUmlInvocation(SystemEnvironment.ExecutionDirectory);
         }
 
         public static ImageFileGenerationModel Create(string diagramText, string diagramName)
@@ -118,12 +120,12 @@ namespace NPlant.Console
         public string DiagramText { get; private set; }
         public string DiagramName { get; private set; }
 
-        public PlantUmlInvocation Invocation { get; } = new PlantUmlInvocation(SystemEnvironment.ExecutionDirectory);
+        public PlantUmlInvocation Invocation { get; set; }
     }
 
     public static class SystemEnvironment
     {
-        public static string ExecutionDirectory => Environment.CurrentDirectory;
+        public static string ExecutionDirectory = Environment.CurrentDirectory;
 
         public static SystemSettings GetSettings()
         {
