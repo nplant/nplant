@@ -40,6 +40,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
@@ -49,6 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Console\CommandLineArgsFixture.cs" />
+    <Compile Include="Console\CommandLineMapperFixture.cs" />
     <Compile Include="Core\KeyedListFixture.cs" />
     <Compile Include="Core\TypeMetaModelFixture.cs" />
     <Compile Include="Diagraming\ClassDescriptor_MemberScan_Fixture.cs" />
@@ -68,6 +71,10 @@
     <Compile Include="UI\MainScreenControllerFixture.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\NPlant.Console\NPlant.Console.csproj">
+      <Project>{747a4da4-e206-4010-8b50-1262c68d7a26}</Project>
+      <Name>NPlant.Console</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NPlant.Samples\NPlant.Samples.csproj">
       <Project>{185C9747-AA64-43DC-B098-7213BF51367B}</Project>
       <Name>NPlant.Samples</Name>

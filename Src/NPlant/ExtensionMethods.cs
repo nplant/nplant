@@ -16,6 +16,11 @@ using NPlant.MetaModel.ClassDiagraming;
 
 public static class ExtensionMethods
 {
+    public static bool IsNullable(this Type type)
+    {
+        return type.IsGenericType && type.GetGenericTypeDefinition() == typeof (Nullable<>);
+    }
+
     public static string GetFriendlyGenericName(this Type type)
     {
         if (type.IsGenericType)
