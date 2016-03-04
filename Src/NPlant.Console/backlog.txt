@@ -1,0 +1,7 @@
+cli usage
+x argument for passing jar
+x not jar not passed, extract to disk
+out of memory error not detected - need to overhaul on standard and error outs are processed
+detect when a type is referenced a billion times and abort.  add a --force flag and/or a .Force() method to bypass check
+this doesn't seem to work:
+            this.GenerationOptions.ForType<CCSNetInnerResponseMessage>().HideAsBase();

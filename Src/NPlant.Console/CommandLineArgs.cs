@@ -22,6 +22,8 @@ namespace NPlant.Console
 
         public string Java { get; protected set; }
 
+        public string Jar { get; protected set; }
+
         public string Output { get; protected set; }
 
         public string Format
@@ -30,6 +32,7 @@ namespace NPlant.Console
             protected set
             {
                 _format = value;
+                _imageFormat = null;
 
                 if (!string.Equals("nplant", _format))
                 {

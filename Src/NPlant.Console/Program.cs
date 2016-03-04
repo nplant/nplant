@@ -6,8 +6,8 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Security.AccessControl;
 using NPlant.Console.Exceptions;
+using NPlant.Core;
 using NPlant.Generation;
 using NPlant.Generation.ClassDiagraming;
 using Con=System.Console;
@@ -21,6 +21,11 @@ namespace NPlant.Console
             try
             {
                 var arguments = new CommandLineArgs(args);
+
+                string jarPath = arguments.Jar;
+
+                if (jarPath.IsNullOrEmpty())
+                    jarPath = PlantUmlJarExtractor.TryExtractTo(ConsoleEnvironment.ExecutionDirectory);
 
                 if (arguments.Debugger)
                 {
@@ -49,7 +54,7 @@ namespace NPlant.Console
                     else
                     {
                         string diagramText = BufferedClassDiagramGenerator.GetDiagramText(matchingDiagram.Diagram);
-                        ImageFileGenerationModel model = ImageFileGenerationModel.Create(diagramText, matchingDiagram.Diagram.Name, arguments.Java);
+                        ImageFileGenerationModel model = new ImageFileGenerationModel(diagramText, matchingDiagram.Diagram.Name, arguments.Java, jarPath);
 
                         DirectoryInfo outputDirectory = new DirectoryInfo(arguments.Output);
 
@@ -61,7 +66,7 @@ namespace NPlant.Console
 
                         if (format == null)
                         {
-                            File.AppendAllText(path, diagramText);
+                            File.WriteAllText(path, diagramText);
                         }
                         else
                         {
@@ -86,69 +91,8 @@ namespace NPlant.Console
             catch (Exception consoleException)
             {
                 Con.WriteLine("Fatal Error:");
-                Con.WriteLine(consoleException.Message);
+                Con.WriteLine(consoleException);
             }
         }
     }
-
-    public class ImageFileGenerationModel
-    {
-
-        private ImageFileGenerationModel(string diagramText, string diagramName, string javaPath)
-        {
-            if(javaPath.IsNullOrEmpty())
-                javaPath = SystemEnvironment.GetSettings().JavaPath;
-
-            this.JavaPath = javaPath;
-            this.DiagramText = diagramText;
-            this.DiagramName = diagramName;
-
-            this.Invocation = new PlantUmlInvocation(SystemEnvironment.ExecutionDirectory);
-        }
-
-        public static ImageFileGenerationModel Create(string diagramText, string diagramName)
-        {
-            return new ImageFileGenerationModel(diagramText, diagramName, null);
-        }
-
-        public static ImageFileGenerationModel Create(string diagramText, string diagramName, string javaPath)
-        {
-            return new ImageFileGenerationModel(diagramText, diagramName, javaPath);
-        }
-
-        public string JavaPath { get; private set; }
-        public string DiagramText { get; private set; }
-        public string DiagramName { get; private set; }
-
-        public PlantUmlInvocation Invocation { get; set; }
-    }
-
-    public static class SystemEnvironment
-    {
-        public static string ExecutionDirectory = Environment.CurrentDirectory;
-
-        public static SystemSettings GetSettings()
-        {
-            string javaHome = Environment.GetEnvironmentVariable("NPLANT_JAVA_HOME", EnvironmentVariableTarget.User);
-
-            if (javaHome.IsNullOrEmpty())
-                javaHome = System.Environment.GetEnvironmentVariable("JAVA_HOME", EnvironmentVariableTarget.User);
-
-            return new SystemSettings()
-            {
-                JavaPath = javaHome
-            };
-        }
-
-        public static void SetSettings(SystemSettings settings)
-        {
-            Environment.SetEnvironmentVariable("NPLANT_JAVA_HOME", settings.JavaPath, EnvironmentVariableTarget.User);
-        }
-    }
-
-    public class SystemSettings
-    {
-        public string JavaPath { get; set; }
-    }
-
 }

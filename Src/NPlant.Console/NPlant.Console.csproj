@@ -47,11 +47,14 @@
   <ItemGroup>
     <Compile Include="CommandLineArgs.cs" />
     <Compile Include="CommandLineMapper.cs" />
+    <Compile Include="ConsoleEnvironment.cs" />
     <Compile Include="Exceptions\ConsoleException.cs" />
     <Compile Include="Exceptions\ConsoleUsageException.cs" />
+    <Compile Include="ImageFileGenerationModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CommandLineArgsAttributes.cs" />
+    <Compile Include="SystemSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
