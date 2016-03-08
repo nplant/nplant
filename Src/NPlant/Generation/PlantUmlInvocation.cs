@@ -17,7 +17,7 @@ namespace NPlant.Generation
 
         public override string ToString()
         {
-            return "-jar \"{0}\" -pipe".FormatWith(_jarPath);
+            return "-splash:no -jar \"{0}\" -pipe".FormatWith(_jarPath);
         }
     }
 }

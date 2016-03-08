@@ -16,8 +16,9 @@ namespace NPlant.Console
 {
     class Program
     {
-        static void Main(string[] args)
+        static int Main(string[] args)
         {
+
             try
             {
                 var arguments = new CommandLineArgs(args);
@@ -75,10 +76,9 @@ namespace NPlant.Console
                             image.Save(path, format);
                         }
                     }
-
-
                 }
 
+                return 0;
             }
             catch (ConsoleUsageException usageException)
             {
@@ -93,6 +93,8 @@ namespace NPlant.Console
                 Con.WriteLine("Fatal Error:");
                 Con.WriteLine(consoleException);
             }
+
+            return 1;
         }
     }
 }

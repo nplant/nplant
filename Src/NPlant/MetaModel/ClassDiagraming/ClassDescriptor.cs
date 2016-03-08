@@ -90,7 +90,7 @@ namespace NPlant.MetaModel.ClassDiagraming
         }
         private void LoadMethods(ClassDiagramVisitorContext context)
         {
-            var methods = this.ReflectedType.GetMethods(context.ShowMethodsBindingFlags);
+            var methods = this.ReflectedType.GetMethods(context.ShowMethodsBindingFlags).OrderBy(method => method.Name);
 
             foreach (var method in methods)
             {
