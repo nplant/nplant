@@ -82,7 +82,7 @@ namespace NPlant.MetaModel.ClassDiagraming
 
             foreach (Type type in this.ReflectedType.GetInterfaces())
             {
-                if (this.ReflectedType.BaseType.GetInterfaces().ToList().Exists(p => p.Equals(type)))
+                if (this.ReflectedType.BaseType == null || this.ReflectedType.BaseType.GetInterfaces().ToList().Exists(p => p.Equals(type)))
                     continue;
                 if (ShouldShowInheritanceInterface(context, type))
                     context.AddRelated(this, type.GetDescriptor(context), ClassDiagramRelationshipTypes.Base, this.Level - 1);
