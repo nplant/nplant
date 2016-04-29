@@ -9,21 +9,11 @@
 	<property name="do.delpackages" value="false" readonly="false" />
 
 	<target name="main">
-
-		<if test="${do.git == 'true'}">
-			<call target="git" />
-		</if>
-
-		<if test="${do.delpackages == 'true'}">
-			<call target="delpackages" />
-		</if>
-
+		<call target="git" if="${do.git}" />
+		<call target="delpackages" if="${do.delpackages}" />
 		<call target="nuget" />
-
 		<call target="compile" />
-
 		<call target="tests" />
-
 	</target>
 
 	<target name="git" description="Call git.exe to pull down the latest source">
