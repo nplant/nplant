@@ -97,3 +97,10 @@ limitations under the License.
 I'm only interested in protecting myself and the effort I've put into this personally.  I want to have this as 
 widely available as possible.  If this license isn't acceptable for you and your usage, let me know - I would like to 
 try to accommodate you if I can....
+
+## How to contribute
+We happily take pull requests.  Please submit PR's on the "development" branch as "master" is reserved
+for nuget releases.  Please find the nant nplant.build script in the root.  That build script will handle
+nuget dependency restoration and first time compilation.  I intend to replace nuget for dependency restoration 
+with something more straightforward at some point, but for the time being please don't rely on VS+nuget
+package restoration and use nplant.build.
