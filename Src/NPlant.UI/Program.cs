@@ -2,6 +2,7 @@
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
+using NPlant.Core;
 
 namespace NPlant.UI
 {
@@ -33,33 +34,11 @@ namespace NPlant.UI
         {
             try
             {
-                string jarPath = Path.Combine(SystemEnvironment.ExecutionDirectory, "plantuml.jar");
-
-                if (! File.Exists(jarPath))
-                {
-                    Assembly assembly = Assembly.GetExecutingAssembly();
-
-                    using (Stream input = assembly.GetManifestResourceStream("NPlant.UI.plantuml.jar"))
-                    using (Stream output = File.Create(jarPath))
-                    {
-                        CopyStream(input, output);
-                    }
-                }
+                PlantUmlJarExtractor.TryExtractTo(SystemEnvironment.ExecutionDirectory);
             }
             catch (Exception exception)
             {
                 EventDispatcher.Raise(new UserNotificationEvent("Error occurred while trying to unpack the plantuml.jar file", exception));
-            }
-        }
-
-        public static void CopyStream(Stream input, Stream output)
-        {
-            byte[] buffer = new byte[8192];
-
-            int bytesRead;
-            while ((bytesRead = input.Read(buffer, 0, buffer.Length)) > 0)
-            {
-                output.Write(buffer, 0, bytesRead);
             }
         }
     }

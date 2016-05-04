@@ -6,7 +6,7 @@ namespace NPlant.UI.Screens.FileViews
     {
         private readonly PlantUmlInvocation _invocation = new PlantUmlInvocation(SystemEnvironment.ExecutionDirectory);
 
-        public ImageFileGenerationModel(string diagramText, string diagramName)
+        private ImageFileGenerationModel(string diagramText, string diagramName)
         {
             SystemSettings settings = SystemEnvironment.GetSettings();
 

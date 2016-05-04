@@ -19,17 +19,20 @@ namespace NPlant
         private readonly List<ClassDiagramNote> _notes = new List<ClassDiagramNote>();
         private readonly List<ClassDiagramPackage> _packages = new List<ClassDiagramPackage>();
 
-        public ClassDiagram(Type type, params Type[] types): this()
+        public ClassDiagram(IEnumerable<Type> types) : this()
         {
-            type.CheckForNullArg("type");
-
-            this.AddClass(type.GetReflected());
-
             if (types != null)
             {
                 foreach (var t in types)
                     this.AddClass(t.GetReflected());
             }
+        }
+
+        public ClassDiagram(Type type, params Type[] types) : this(types)
+        {
+            type.CheckForNullArg("type");
+
+            this.AddClass(type.GetReflected());
         }
 
         public ClassDiagram()
@@ -73,6 +76,8 @@ namespace NPlant
 
         protected ClassDiagram AddAllSubClassesOff<T>()
         {
+            this.AddAssemblyOf<T>();
+
             foreach (var assembly in _assemblyDescriptors.InnerList)
             {
                 var types = assembly.Assembly.GetTypesExtending<T>();

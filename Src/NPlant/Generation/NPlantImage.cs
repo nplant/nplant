@@ -58,7 +58,7 @@ namespace NPlant.Generation
                     process.StandardInput.Write(diagramText);
                     process.StandardInput.Close();
 
-                    if (process.StandardOutput == null)
+                    if (process.StandardOutput.BaseStream == null)
                         throw new NPlantException("While invoking plant uml, the standard output was empty. Error out: {0}".FormatWith(process.StandardError.ReadToEnd()));
 
                     return Image.FromStream(process.StandardOutput.BaseStream);

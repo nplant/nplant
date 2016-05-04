@@ -38,6 +38,13 @@ namespace NPlant.MetaModel.ClassDiagraming
             return this;
         }
 
+        public RootClassDescriptor<T> HideMember(string memberName)
+        {
+            MemberVisibility[memberName] = false;
+
+            return this;
+        }
+
         public ForMemberDescriptor<T> ForMember<TMember>(Expression<Func<T, TMember>> expression)
         {
             return new ForMemberDescriptor<T>(this, ReflectOn<T>.ForMember(expression));

@@ -169,7 +169,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="desktop.ico" />
-    <EmbeddedResource Include="plantuml.jar" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NPlant\NPlant.csproj">

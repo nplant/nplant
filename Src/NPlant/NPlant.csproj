@@ -44,6 +44,7 @@
     <Compile Include="ClassDiagramLegend.cs" />
     <Compile Include="ClassDiagramNote.cs" />
     <Compile Include="ClassDiagramPackage.cs" />
+    <Compile Include="Core\PlantUmlJarExtractor.cs" />
     <Compile Include="Core\EnumJoiner.cs" />
     <Compile Include="Generation\ClassDiagramFile.cs" />
     <Compile Include="Generation\ClassDiagraming\BufferedClassDiagramGenerator.cs" />
@@ -92,6 +93,9 @@
     <Compile Include="Core\TypeMetaModel.cs" />
     <Compile Include="Core\TypeMetaModelSet.cs" />
     <Compile Include="SampleAttribute.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\plantuml.jar" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
