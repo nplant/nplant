@@ -67,7 +67,7 @@ namespace NPlant.MetaModel.ClassDiagraming
         {
             foreach (var member in members)
             {
-                if (!member.MetaModel.Hidden && (member.MetaModel.IsPrimitive || member.TreatAsPrimitive))
+                if (_class.GetMemberVisibility(member.Name) && !member.MetaModel.Hidden && (member.MetaModel.IsPrimitive || member.TreatAsPrimitive))
                 {
                     string accessModifier = member.AccessModifier.Notation;
                     string typeName = member.MetaModel.Name;
