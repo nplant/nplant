@@ -43,15 +43,13 @@ namespace NPlant.MetaModel.ClassDiagraming
                     if (this.MetaModel.TreatAllMembersAsPrimitives)
                         member.TreatAsPrimitive = true;
 
-                    TypeMetaModel metaModel = member.MetaModel;
-
-                    if (!metaModel.Hidden && !member.TreatAsPrimitive)
+                    if (member.IsVisible && !member.TreatAsPrimitive)
                     {
                         // if not showing inheritance then show all members
                         // otherwise, only show member that aren't inherited
                         if (!showInheritance || !member.IsInherited)
                         {
-                            if (metaModel.IsComplexType && this.GetMemberVisibility(member.Key))
+                            if (member.MetaModel.IsComplexType && this.GetMemberVisibility(member.Key))
                             {
                                 var nextLevel = this.Level + 1;
 

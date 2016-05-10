@@ -51,7 +51,21 @@ namespace NPlant.MetaModel.ClassDiagraming
         
         public string Key { get; private set; }
 
-        public bool IsHidden { get { return !_descriptor.GetMemberVisibility(this.Name); } }
+        public bool IsHidden
+        {
+            get
+            {
+                if (this.MetaModel.Hidden)
+                    return true;
+
+                return !_descriptor.GetMemberVisibility(this.Name);
+            }
+        }
+
+        public bool IsVisible
+        {
+            get { return !this.IsHidden; }
+        }
 
         public TypeMetaModel MetaModel { get { return _metaModel; } }
 

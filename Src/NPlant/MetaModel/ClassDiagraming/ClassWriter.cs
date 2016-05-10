@@ -70,9 +70,9 @@ namespace NPlant.MetaModel.ClassDiagraming
 
         private void WriteClassMembers(IEnumerable<ClassMemberDescriptor> members, StringBuilder buffer)
         {
-            foreach (var member in members)
+            foreach (var member in members.Where(member => member.IsVisible))
             {
-                if (!member.MetaModel.Hidden && (member.MetaModel.IsPrimitive || member.TreatAsPrimitive))
+                if (member.MetaModel.IsPrimitive || member.TreatAsPrimitive)
                 {
                     string accessModifier = member.AccessModifier.Notation;
                     string typeName = member.MetaModel.Name;

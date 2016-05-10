@@ -46,6 +46,7 @@
     <Compile Include="AddAllSubClassesOf\SimpleAddAllSubClassesOfClassDiagram.cs" />
     <Compile Include="Enums\SimpleEnumDiagram.cs" />
     <Compile Include="Factories\SimpleDiagramFactory.cs" />
+    <Compile Include="Hiding\SimpleHidingClassDiagram.cs" />
     <Compile Include="Inheritance\SimpleInheritanceDiagram.cs" />
     <Compile Include="CircularReferences\SimpleRecursiveDiagram.cs" />
     <Compile Include="Legends\SimpleLegendDiagram.cs" />
