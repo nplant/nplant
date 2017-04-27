@@ -31,7 +31,7 @@ namespace NPlant.MetaModel.ClassDiagraming
 
 
             if (this.MemberType == null)
-                throw new NPlantException("Member's could not be interpretted as either a property or a field");
+                throw new NPlantException("Member's could not be interpreted as either a property or a field");
             
             _descriptor = descriptor;
             

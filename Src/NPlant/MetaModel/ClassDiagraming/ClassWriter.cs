@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -79,6 +80,17 @@ namespace NPlant.MetaModel.ClassDiagraming
                     string memberName = member.Name;
 
                     buffer.AppendLine("    {0}{1} {2}".FormatWith(accessModifier, typeName, memberName));
+                }
+                else if (member.MetaModel.IsComplexType && member.MemberType.IsEnumerable())
+                {
+                    if (member.MemberType.GetEnumeratorType().IsPrimitive || member.MemberType.GetEnumeratorType() == typeof(String))
+                    {
+                        string accessModifier = member.AccessModifier.Notation;
+                        string typeName = member.MetaModel.Name;
+                        string memberName = member.Name;
+
+                        buffer.AppendLine("    {0}{1} {2}".FormatWith(accessModifier, typeName, memberName));
+                    }
                 }
             }
         }
