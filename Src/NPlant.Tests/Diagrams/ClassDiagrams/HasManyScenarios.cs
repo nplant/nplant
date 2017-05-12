@@ -14,7 +14,7 @@ namespace NPlant.Tests.ClassDiagrams
             simulation.Generate();
 
             Assert.That(simulation.Classes.Count, Is.EqualTo(2));
-            Assert.That(simulation.Classes[0].Name, Is.EqualTo("Person"));
+            Assert.That(simulation.Classes[0].Name, Is.EqualTo("Human"));
             Assert.That(simulation.Classes[1].Name, Is.EqualTo("Hand"));
         }
 
