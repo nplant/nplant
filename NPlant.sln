@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2037
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPlant", "Src\NPlant\NPlant.csproj", "{870CE431-3A6A-4B0C-B0AC-9C4A08608B30}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPlant.NAntTasks", "Src\NPlant.NAntTasks\NPlant.NAntTasks.csproj", "{A8D56C11-CB5E-4AF5-B3AC-917ED2AC3111}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPlant.Tests", "Src\NPlant.Tests\NPlant.Tests.csproj", "{4061476B-12EE-4133-A600-6A9248D554B6}"
 EndProject
@@ -26,6 +26,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{B48FD9
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPlant.UI", "Src\NPlant.UI\NPlant.UI.csproj", "{B75BA5EE-848E-40A3-A428-F553EA3D37A8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5D51A892-5234-4C0E-A01A-3507C8DEE2B7}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,10 +42,6 @@ Global
 		{870CE431-3A6A-4B0C-B0AC-9C4A08608B30}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{870CE431-3A6A-4B0C-B0AC-9C4A08608B30}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{870CE431-3A6A-4B0C-B0AC-9C4A08608B30}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A8D56C11-CB5E-4AF5-B3AC-917ED2AC3111}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A8D56C11-CB5E-4AF5-B3AC-917ED2AC3111}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A8D56C11-CB5E-4AF5-B3AC-917ED2AC3111}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A8D56C11-CB5E-4AF5-B3AC-917ED2AC3111}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4061476B-12EE-4133-A600-6A9248D554B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4061476B-12EE-4133-A600-6A9248D554B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4061476B-12EE-4133-A600-6A9248D554B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -55,5 +57,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5FFBC733-38CD-4593-BBF5-7A65E0E10C26}
 	EndGlobalSection
 EndGlobal

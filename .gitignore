@@ -16,3 +16,5 @@ TestResults.xml
 /Samples/OrderArtifacts
 /Tools/graphviz-2.30.1/release
 /Tools/ikvm-7.2.4630.5
+/Src/**/obj/
+.vs/
