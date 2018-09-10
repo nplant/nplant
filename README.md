@@ -6,3 +6,5 @@ Additionally I'm porting nplant to .NET Core.  I want to get some hands on exper
 Lastly, I'm taking this opportunity to set nplant up with VSTS CI.  This is long overdue.  CodeBetter Team City does the job mostly, but I want more and would like to play with VSTS as well.
 
 I said at the beginning there will be no functional changes.  That's a loose statement.  The binary names will likely change, but the functional output of nplant should not.
+
+this is from FOO
