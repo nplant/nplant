@@ -1,20 +1,6 @@
-﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
-
-/.nuget/Packages
-/bin/Debug
-/Src/NPlant.NAntTasks/obj/Debug
-/Src/NPlant.Samples/obj/Debug
-/Src/NPlant.Tests/obj/Debug
-*.suo
-*.user
-/Src/NPlant/obj/Debug
-TestResults.xml
-/Src/NPlant.UI/bin/Debug
-/Src/NPlant.UI/obj/Debug
-/Samples/OrderArtifacts
-/Tools/graphviz-2.30.1/release
-/Tools/ikvm-7.2.4630.5
-/Src/**/obj/
-.vs/
+﻿.vs/
+bin/
+obj/
+**/obj/
+**/bin/
+.vscode/
